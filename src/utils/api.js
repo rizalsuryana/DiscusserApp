@@ -117,14 +117,14 @@ const api = (() => {
     return data.thread;
   };
 
-  const createComment = async ({ threadId, content }) => {
+  const createComment = async ({ threadId, comment }) => {
     const response = await _fetchWithAuth(`${BASE_URL}/${threadId}/comments`, {
       method : 'POST',
       headers: {
         'Content-Type' : 'application/json',
       },
       body: JSON.stringify({
-        content,
+        content: comment,
       })
     });
     const data = await checkStatus(response);
