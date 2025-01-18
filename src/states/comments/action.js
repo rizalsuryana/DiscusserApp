@@ -1,5 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
+import { toast } from 'react-toastify';
 
 const ActionType ={
   RECEIVE_COMMENT: 'RECEIVE_COMMENT',
@@ -71,7 +72,97 @@ const neutralizeCommentActionCreator = (threadId, commentId, userId) => {
 
 // thunk func
 
-// I'll make ice cream + avocado first .... :p
+const asyncCreateComment = ({ threadId, comment }) => {
+  return async (dispatch) => {
+    try {
+      dispatch(showLoading());
+      const responseComment = await api.createComment({
+        threadId,
+        comment,
+      });
+
+      dispatch(createCommentActionCreator(responseComment));
+      toast('Sending your comment...');
+    }
+    catch (error) {
+      toast.error(error.message);
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+};
+
+const asyncUpVoteComment = (commentId) => {
+  return async (dispatch, getState) => {
+    const { authUser, detailThread } = getState();
+    try {
+      dispatch(showLoading());
+      dispatch(upVoteCommentActionCreator({
+        commentId,
+        threadId: detailThread?.id,
+        userId: authUser?.id,
+      }));
+      await api.upVoteComment({ commentId, threadId: detailThread?.id });
+    } catch (error) {
+      dispatch(upVoteCommentActionCreator({
+        commentId,
+        threadId: detailThread?.id,
+        userId: authUser?.id,
+      }));
+      toast.error(error.message);
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+};
+
+
+const asyncDownVoteComment = (commentId) => {
+  return async (dispatch, getState) => {
+    const { authUser, detailThread }= getState();
+    try {
+      dispatch(showLoading());
+      dispatch(downVoteCommentActionCreator({
+        commentId,
+        threadId: detailThread?.id,
+        userId: authUser?.id,
+      }));
+      await api.downVoteComment({ commentId, threadId: detailThread?.id });
+    } catch (error) {
+      dispatch(downVoteCommentActionCreator({
+        commentId,
+        threadId: detailThread?.id,
+        userId: authUser?.id,
+      }));
+      toast.error(error.message);
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+};
+
+const asyncNeutralizeVoteComment = (commentId) => {
+  return async (dispatch, getState) =>{
+    const { authUser, detailThread } = getState();
+    try {
+      dispatch(showLoading());
+      dispatch(neutralizeCommentActionCreator({
+        commentId,
+        threadId: detailThread?.id,
+        userId: authUser?.id,
+      }));
+      await api.neutralizeCommentVote({ commentId, threadId: detailThread?.id });
+    } catch (error) {
+      dispatch(neutralizeCommentActionCreator({
+        commentId,
+        threadId: detailThread?.id,
+        userId: authUser?.id,
+      }));
+    } finally {
+      dispatch(hideLoading());
+    }
+  };
+};
 
 // end
 
@@ -82,6 +173,9 @@ export {
   clearCommentActionCreator,
   upVoteCommentActionCreator,
   downVoteCommentActionCreator,
-  neutralizeCommentActionCreator
-
+  neutralizeCommentActionCreator,
+  asyncCreateComment,
+  asyncUpVoteComment,
+  asyncDownVoteComment,
+  asyncNeutralizeVoteComment
 };
