@@ -1,4 +1,3 @@
-import { act } from 'react';
 import { ActionType } from './action';
 
 const threadsReducer = (threads = [], action = {}) => {
