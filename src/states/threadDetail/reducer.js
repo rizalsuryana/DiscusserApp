@@ -9,24 +9,24 @@ const threadDetailReducer = (detailThread = {}, action = {}) => {
   case ActionType.UP_VOTE_THREAD_DETAIL:
     return {
       ...detailThread,
-      upVoteBy: detailThread.upVoteBy.includes(action.payload.userId)
-        ? detailThread.upVoteBy.filter((id)=> id !== action.payload.userId)
-        : detailThread.upVoteBy.concat([action.payload.userId]),
-      downVoteBy: detailThread.downVoteBy.filter((id)=> id !== action.payload.userId),
+      upVotesBy: detailThread.upVotesBy.includes(action.payload.userId)
+        ? detailThread.upVotesBy.filter((id)=> id !== action.payload.userId)
+        : detailThread.upVotesBy.concat([action.payload.userId]),
+      downVotesBy: detailThread.downVotesBy.filter((id)=> id !== action.payload.userId),
     };
   case ActionType.DOWN_VOTE_THREAD_DETAIL:
     return {
       ...detailThread,
-      downVoteBy: detailThread.downVoteBy.includes(action.payload.userId)
-        ? detailThread.downVoteBy.filter((id)=> id !== action.payload.userId)
-        : detailThread.downVoteBy.concat([action.payload.userId]),
-      upVoteBy: detailThread.filter((id)=> id !== action.payload.userId),
+      downVotesBy: detailThread.downVotesBy.includes(action.payload.userId)
+        ? detailThread.downVotesBy.filter((id)=> id !== action.payload.userId)
+        : detailThread.downVotesBy.concat([action.payload.userId]),
+      upVotesBy: detailThread.filter((id)=> id !== action.payload.userId),
     };
   case ActionType.NEUTRALIZE_VOTE_THREAD_DETAIL:
     return {
       ...detailThread,
-      upVoteBy: detailThread.upVoteBy.filter((id)=> id !== action.payload.userId),
-      downVoteBy: detailThread.downVoteBy.filter((id)=> id !== action.payload.userId),
+      upVotesBy: detailThread.upVotesBy.filter((id)=> id !== action.payload.userId),
+      downVotesBy: detailThread.downVotesBy.filter((id)=> id !== action.payload.userId),
     };
   default:
     return detailThread;

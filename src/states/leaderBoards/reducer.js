@@ -7,7 +7,8 @@ const leaderBoardsReducer = (leaderBoards = null, action = {}) => {
   case ActionType.CLEAR_LEADERBOARDS:
     return null;
   default:
-    leaderBoards;
+    // leaderBoards;
+    return leaderBoards;
   }
 };
 

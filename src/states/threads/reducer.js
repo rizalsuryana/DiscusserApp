@@ -13,10 +13,10 @@ const threadsReducer = (threads = [], action = {}) => {
       if (thread.id === action.payload.threadId){
         return {
           ...thread,
-          upVoteBy: thread.upVoteBy.includes(action.payload.userId)
-            ? thread.upVoteBy.filter((id)=> id !== action.payload.userId)
-            : thread.upVoteBy.concat([action.payload.userId]),
-          downVoteBy: thread.downVoteBy.filter((id)=> id !== action.payload.userId),
+          upVotesBy: thread.upVotesBy.includes(action.payload.userId)
+            ? thread.upVotesBy.filter((id)=> id !== action.payload.userId)
+            : thread.upVotesBy.concat([action.payload.userId]),
+          downVotesBy: thread.downVotesBy.filter((id)=> id !== action.payload.userId),
         };
       }
       return thread;
@@ -26,10 +26,10 @@ const threadsReducer = (threads = [], action = {}) => {
       if (thread.id === action.payload.threadId){
         return {
           ...thread,
-          downVoteBy: thread.downVoteBy.includes(action.payload.userId)
-            ? thread.downVoteBy.filter((id)=> id !== action.payload.userId)
-            : thread.downVoteBy.concat([action.payload.userId]),
-          upVoteBy: thread.upVoteBy.filter((id)=> id !== action.payload.userId)
+          downVotesBy: thread.downVotesBy.includes(action.payload.userId)
+            ? thread.downVotesBy.filter((id)=> id !== action.payload.userId)
+            : thread.downVotesBy.concat([action.payload.userId]),
+          upVotesBy: thread.upVotesBy.filter((id)=> id !== action.payload.userId)
         };
       }
       return thread;
@@ -39,8 +39,8 @@ const threadsReducer = (threads = [], action = {}) => {
       if (thread.id === action.payload.threadId){
         return {
           ...thread,
-          upVoteBy: thread.upVoteBy.filter((id)=> id !== action.payload.userId),
-          downVoteBy: thread.downVoteBy.filter((id)=> id !== action.payload.userId),
+          upVotesBy: thread.upVotesBy.filter((id)=> id !== action.payload.userId),
+          downVotesBy: thread.downVotesBy.filter((id)=> id !== action.payload.userId),
         };
       }
       return thread;

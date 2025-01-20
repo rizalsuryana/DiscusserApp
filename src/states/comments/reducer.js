@@ -13,10 +13,10 @@ const commentReducer = (comment = [], action = {}) => {
       if (commen.id === action.payload.commentId){
         return {
           ...commen,
-          upVoteBy: commen.upVoteBy.includes(action.payload.userId)
-            ? commen.upVoteBy.filter((id)=> id !== action.payload.userId)
-            : commen.upVoteBy.concat([action.payload.userId]),
-          downVoteBy: commen.downVoteBy.filter((id)=> id !== action.payload.userId),
+          upVotesBy: commen.upVotesBy.includes(action.payload.userId)
+            ? commen.upVotesBy.filter((id)=> id !== action.payload.userId)
+            : commen.upVotesBy.concat([action.payload.userId]),
+          downVotesBy: commen.downVotesBy.filter((id)=> id !== action.payload.userId),
         };
       }
       return commen;
@@ -26,10 +26,10 @@ const commentReducer = (comment = [], action = {}) => {
       if (commen.id === action.payload.commentId){
         return {
           ...commen,
-          downVoteBy: commen.downVoteBy.includes(action.payload.userId)
-            ? commen.downVoteBy.filter((id)=> id !== action.payload.userId)
-            : commen.downVoteBy.concat([action.payload.userId]),
-          upVoteBy: commen.upVoteBy.filter((id)=> id !== action.payload.userId),
+          downVotesBy: commen.downVotesBy.includes(action.payload.userId)
+            ? commen.downVotesBy.filter((id)=> id !== action.payload.userId)
+            : commen.downVotesBy.concat([action.payload.userId]),
+          upVotesBy: commen.upVotesBy.filter((id)=> id !== action.payload.userId),
         };
       }
       return commen;
@@ -39,8 +39,8 @@ const commentReducer = (comment = [], action = {}) => {
       if (commen.id === action.payload.commentId){
         return {
           ...commen,
-          upVoteBy: commen.upVoteBy.filter((id)=> id !== action.payload.userId),
-          downVoteBy: commen.downVoteBy.filter((id)=> id !== action.payload.userId),
+          upVotesBy: commen.upVotesBy.filter((id)=> id !== action.payload.userId),
+          downVotesBy: commen.downVotesBy.filter((id)=> id !== action.payload.userId),
         };
       }
       return commen;
