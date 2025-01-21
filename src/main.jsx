@@ -5,13 +5,14 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import HomePage from './pages/HomePage.jsx';
-// import LoginPage from './pages/LoginPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
 import store from './states/index.js';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
       <StrictMode>
+        <LoginPage/>
         <HomePage/>
       </StrictMode>
     </BrowserRouter>

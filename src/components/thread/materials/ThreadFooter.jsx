@@ -69,7 +69,7 @@ const ThreadFooter = (attributes) => {
         <span className="span-count">
           {
             isDetail ? (
-              comments?.length || 'p'
+              comments?.length || '0'
             ) : (
               totalComments || '0'
             )
