@@ -28,7 +28,7 @@ const ThreadItems = (attributes) => {
       dispatch(asyncDownVoteThreadDetail(id));
       return;
     }
-    dispatch(asyncDownVoteThread);
+    dispatch(asyncDownVoteThread(id));
   };
 
   const onHandleNeutralizeVoteThread = (id) => {

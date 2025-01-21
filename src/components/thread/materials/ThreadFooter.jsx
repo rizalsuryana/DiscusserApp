@@ -34,9 +34,9 @@ const ThreadFooter = (attributes) => {
           type='button'
         >
           {
-            upVotesBy?.includes(authUser.id)
-              ? (<BiLike className='like-thread'/>)
-              : (<BiSolidLike className='unlike-thread'/>)
+            upVotesBy?.includes(authUser?.id)
+              ? (<BiSolidLike className='unlike-thread'/>)
+              : (<BiLike className='like-thread'/>)
           }
         </button>
         <span className="span-count">
@@ -56,12 +56,12 @@ const ThreadFooter = (attributes) => {
         >
           {
             downVotesBy?.includes(authUser?.id)
-              ? (<BiDislike className='dislike-thread'/>)
-              : (<BiSolidDislike className='undislike-thread'/>)
+              ? (<BiSolidDislike className='dislike-thread'/>)
+              : (<BiDislike className='undislike-thread'/>)
           }
         </button>
         <span className="span-count">
-          {upVotesBy?.length || '0'}
+          {downVotesBy?.length || '0'}
         </span>
       </div>
       <div className="thread-footer__comment">

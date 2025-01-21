@@ -101,7 +101,7 @@ const api = (() => {
   };
 
   const createThread = async ({ title, body, category = '' }) => {
-    const response = await fetch(`${BASE_URL}/threads`, {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
       method: 'POST',
       headers : {
         'Content-Type': 'application/json',

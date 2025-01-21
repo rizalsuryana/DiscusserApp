@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { LuMessageCircle } from 'react-icons/lu';
+import { BiSolidMessageAdd } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import ThreadList from '../components/thread/ThreadList';
 import { asyncPopulateUserAndThreads } from '../states/shared/action';
@@ -25,7 +25,7 @@ const HomePage = () => {
         <ThreadList threads={threads} filtered={filtered}/>
         <Link to={ROUTE_PATH.ADD_PAGE}>
           <div className="button-div" type='button'>
-            <LuMessageCircle/>
+            <BiSolidMessageAdd/>
           </div>
         </Link>
       </div>
