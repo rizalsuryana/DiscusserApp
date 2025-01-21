@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from '../../button/Button';
-import useInput from '../../../hooks/useInput';
+import Button from '../button/Button';
+import useInput from '../../hooks/useInput';
 
-const FormRegister = ({ register }) => {
+const RegisterForm = ({ register }) => {
   const [name, onNameChange] = useInput('');
   const [email, onEmailChange] = useInput('');
   const [password, onPasswordChange] = useInput('');
@@ -48,8 +48,8 @@ const FormRegister = ({ register }) => {
 };
 
 
-FormRegister.propTypes ={
+RegisterForm.propTypes ={
   register: PropTypes.func.isRequired
 };
 
-export default FormRegister;
+export default RegisterForm;

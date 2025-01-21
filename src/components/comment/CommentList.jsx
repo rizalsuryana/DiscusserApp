@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from '../page-materials/Card';
 import { postedAt } from '../../utils';
 import { asyncDownVoteComment, asyncUpVoteComment, asyncNeutralizeVoteComment } from '../../states/comments/action';
+import parse from 'html-react-parser';
 
 const CommentList = (attributes) => {
   const { comment } = attributes;
 
-  const { authUser } =useDispatch();
+  const { authUser } =useSelector((states)=> states);
 
   const dispatch = useDispatch();
 
@@ -40,7 +41,7 @@ const CommentList = (attributes) => {
             <span className="comment-list__span-name">{comment?.owner.name}</span>
             <p className="comment-list__content">
               {
-                (comment?.content)
+                parse(comment?.content)
               }
             </p>
           </div>
@@ -62,7 +63,7 @@ const CommentList = (attributes) => {
                   ? (<BiSolidLike/>) : (<BiLike/>)
               }
             </button>
-            <span className="comment-list__count">
+            <span className="span-count">
               {comment?.upVotesBy.length || '0'}
             </span>
           </div>
@@ -82,7 +83,7 @@ const CommentList = (attributes) => {
                   ? (<BiSolidDislike/>) :(<BiDislike/>)
               }
             </button>
-            <span className="comment-list__count">
+            <span className="span-count">
               {comment?.downVotesBy?.length || '0'}
             </span>
           </div>
