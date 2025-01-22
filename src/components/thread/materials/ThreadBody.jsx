@@ -19,7 +19,7 @@ ThreadBody.propTypes = {
   longThread: PropTypes.bool
 };
 
-ThreadBody.defaultPros = {
+ThreadBody.defaultProps = {
   body: '',
   longThread: false,
 };

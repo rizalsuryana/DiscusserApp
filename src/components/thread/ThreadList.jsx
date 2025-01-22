@@ -24,6 +24,19 @@ const ThreadList = (attributes) =>  {
       </div>
     );
   }
+  return (
+    <div className="thread-list">
+      <div className="thread-list__container">
+        {
+          threads?.filter((threadFilter)=> threadFilter?.category === filtered).map((thread)=>(
+            <Card className='thread-list__card' key={thread?.id}>
+              <ThreadItems key={thread?.id} threads={thread} users={users}/>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  );
 };
 
 const threadShape = {

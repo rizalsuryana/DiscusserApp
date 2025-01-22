@@ -1,9 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { LuSendHorizontal } from 'react-icons/lu';
+import { useSelector } from 'react-redux';
+import useInput from '../../hooks/useInput';
+import Button from '../button/Button';
+import Card from '../page-materials/Card';
 
-const CommentForm = () => {
+
+const CommentForm = (attributes) => {
+  const { onAddComment } = attributes;
+  const { authUser = [] } = useSelector((states)=> states);
+  const [isLoading, setIsLoading] =useState(false);
+  const [comment, onCommentChange, handleResetComment] = useInput('');
+
+  const onHandleComment = (event) => {
+    setIsLoading(true);
+    event.preventDefault();
+    onAddComment({ comment });
+    setIsLoading(false);
+    handleResetComment();
+  };
   return (
-    <p>Form comment</p>
+    <div className="comment-form">
+      <Card.Body>
+        <form onSubmit={onHandleComment} className="comment-form__form">
+          <div className="comment-form__avatar">
+            <img src={authUser?.avatar} alt={authUser?.avatar} className='comment-form__avatar'/>
+          </div>
+          <div className="comment-form__text-area">
+            <textarea
+              className='comment-form__text-area-input'
+              type='text'
+              value={!comment? '' : comment}
+              onChange={onCommentChange}
+              placeholder='Answer discussion'
+              required />
+          </div>
+          <div className="comment-form__button">
+            <Button type='submit' isLoading={isLoading}>
+              <LuSendHorizontal/>
+            </Button>
+          </div>
+
+        </form>
+      </Card.Body>
+    </div>
   );
+};
+
+CommentForm.propTypes = {
+  onAddComment: PropTypes.func.isRequired
 };
 
 export default CommentForm;

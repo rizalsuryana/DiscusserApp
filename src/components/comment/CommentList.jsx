@@ -7,8 +7,7 @@ import { postedAt } from '../../utils';
 import { asyncDownVoteComment, asyncUpVoteComment, asyncNeutralizeVoteComment } from '../../states/comments/action';
 import parse from 'html-react-parser';
 
-const CommentList = (attributes) => {
-  const { comment } = attributes;
+const CommentList = (comment) => {
 
   const { authUser } =useSelector((states)=> states);
 

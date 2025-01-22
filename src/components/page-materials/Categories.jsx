@@ -25,6 +25,7 @@ const Categories = (attributes) => {
               <button
                 onClick={()=> handleFilteredThereadByCategories(thread?.category)}
                 type='button'
+                className={`${filtered=== thread?.category? 'filtered-black' : 'filtered-white'} `}
               >
                 <span>
                     #{thread?.category}

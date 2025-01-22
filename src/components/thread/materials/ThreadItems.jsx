@@ -13,7 +13,7 @@ const ThreadItems = (attributes) => {
   const { threadDetail, threads, isDetails, users } = attributes;
 
   const dispatch = useDispatch();
-  const handleUserDetails = (id) => users?.filter((user)=> user?.id === id)[0];
+  const handleUserDetails = (id) => users?.filter((user)=> user?.id === id)?.[0] || {};
 
   const onHandleUpVoteThread = (id) => {
     if (isDetails){
@@ -69,6 +69,7 @@ const ThreadItems = (attributes) => {
             />
           ) : (
             <ThreadTitle
+              id={threads?.id}
               title={threads?.title}
               category={threads?.category}
               isDetails={isDetails}

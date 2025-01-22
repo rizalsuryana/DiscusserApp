@@ -17,10 +17,10 @@ import { asyncPreloadProcess } from './states/isPreload/action';
 import './styles/style.css';
 
 const App = () => {
-  const { authUser = null, isPreload = false } = useSelector((states)=> states);
+  const { authUser = null, isPreload = false } = useSelector((states) => states);
   const dispatch = useDispatch();
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(asyncPreloadProcess());
   }, [dispatch]);
 
@@ -28,25 +28,25 @@ const App = () => {
     dispatch(asyncUnsetAuthUser());
   };
 
-  if (isPreload){
+  if (isPreload) {
     return (
       <div className="loading-div">
-        <Loading/>
+        <Loading />
       </div>
     );
   }
 
-  if (authUser === null){
+  if (authUser === null) {
     return (
       <>
-        <Loading/>
+        <Loading />
         <header>
-          <Header/>
+          <Header />
         </header>
         <main>
           <Routes>
-            <Route path='/*' element={<LoginPage/>}/>
-            <Route path={ROUTE_PATH.REGISTER_PAGE} element={<RegisterPage/>}/>
+            <Route path='/*' element={<LoginPage />} />
+            <Route path={ROUTE_PATH.REGISTER_PAGE} element={<RegisterPage />} />
           </Routes>
         </main>
       </>
@@ -55,28 +55,26 @@ const App = () => {
 
   return (
     <div>
-      <Loading/>
+      <Loading />
       <header>
-        <Header/>
+        <Header />
       </header>
-      <Navbar authUser={authUser} signOut={onSignOut}/>
+      <Navbar authUser={authUser} signOut={onSignOut} />
       <div className="sidebar">
-        <Sidebar authUser={authUser} signOut={onSignOut}/>
+        <Sidebar authUser={authUser} signOut={onSignOut} />
       </div>
       <div className="div-main">
         <main>
           <Routes>
-            <Route path={ROUTE_PATH.HOME_PAGE} element={<HomePage/>}/>
-            <Route path={ROUTE_PATH.DETAIL_PAGE} element={<DetailPage/>}/>
-            <Route path={ROUTE_PATH.ADD_PAGE} element={<AddThread/>}/>
-            <Route path={ROUTE_PATH.LEADER_BOARDS_PAGE} element={<LeaderBoards/>}/>
+            <Route path={ROUTE_PATH.HOME_PAGE} element={<HomePage />} />
+            <Route path={ROUTE_PATH.DETAIL_PAGE} element={<DetailPage />} />
+            <Route path={ROUTE_PATH.ADD_PAGE} element={<AddThread />} />
+            <Route path={ROUTE_PATH.LEADER_BOARDS_PAGE} element={<LeaderBoards />} />
           </Routes>
         </main>
       </div>
     </div>
   );
-
 };
-
 
 export default App;

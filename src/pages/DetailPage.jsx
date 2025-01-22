@@ -9,26 +9,27 @@ import CommentForm from '../components/comment/CommentForm';
 import { asyncCreateComment } from '../states/comments/action';
 import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
 
-
 const DetailPage = () => {
-  const { id } = useParams;
+  const { id } = useParams();
 
   const {
-    detailThread = [], users =[], comments = [],
-  } = useSelector((states)=> states);
+    detailThread = [],
+    users = [],
+    comments = [],
+  } = useSelector((states) => states);
 
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
 
   const onAddComment = ({ comment }) => {
     const payload = {
       threadId: id,
-      comment
+      comment,
     };
     dispatch(asyncCreateComment(payload));
     dispatch(asyncReceiveThreadDetail(id));
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id));
   }, [id, dispatch]);
 
@@ -37,15 +38,11 @@ const DetailPage = () => {
       <div className="detail-thread">
         <div className="detail-thread-scroll">
           <Card>
-            <ThreadItems isDetails threadDetail={detailThread} users={users}/>
-            <CommentForm comments={comments} onAddComment={onAddComment}/>
-            {
-              comments?.map((comment)=>(
-                <div key={`${comment?.id}`}>
-                  <CommentList key={comment?.id} comment={comment}/>
-                </div>
-              ))
-            }
+            <ThreadItems isDetails threadDetail={detailThread} users={users} />
+            <CommentForm comments={comments} onAddComment={onAddComment} />
+            {comments?.map((comment) => (
+              <CommentList key={comment?.id} comment={comment} />
+            ))}
           </Card>
         </div>
       </div>
