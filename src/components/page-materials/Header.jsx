@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <div className="header-app">
       <Title className="header-app__title">
-                Threadify
+                Discusser
       </Title>
     </div>
   );

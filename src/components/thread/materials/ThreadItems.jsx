@@ -40,7 +40,7 @@ const ThreadItems = (attributes) => {
   };
 
   return (
-    <div className="thread list">
+    <div className="thread-item__list">
       {
         isDetails? (
           <ThreadHeader

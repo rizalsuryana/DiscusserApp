@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { asyncUnsetAuthUser } from './states/authUser/action';
 import { asyncPreloadProcess } from './states/isPreload/action';
+import './styles/style.css';
 
 const App = () => {
   const { authUser = null, isPreload = false } = useSelector((states)=> states);
@@ -58,9 +59,9 @@ const App = () => {
       <header>
         <Header/>
       </header>
-      <Navbar authUser={authUser} onSignOut={onSignOut}/>
+      <Navbar authUser={authUser} signOut={onSignOut}/>
       <div className="sidebar">
-        <Sidebar authUser={authUser} onSignOut={onSignOut}/>
+        <Sidebar authUser={authUser} signOut={onSignOut}/>
       </div>
       <div className="div-main">
         <main>

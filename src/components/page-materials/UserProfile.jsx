@@ -25,14 +25,14 @@ const UserProfile = ({ authUser }) => {
   );
 };
 
-const authUserShape ={
+const authUserShape = {
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired
 };
 
 UserProfile.propTypes = {
-  authUserShape: PropTypes.shape(authUserShape).isRequired
+  authUser: PropTypes.shape(authUserShape).isRequired
 };
 
 export default UserProfile;

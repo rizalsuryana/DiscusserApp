@@ -1,0 +1,10 @@
+.card-card{
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 2rem auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 20px;
+    text-align: left;
+    border-radius: 8px;
+}
