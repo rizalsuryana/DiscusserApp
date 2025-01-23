@@ -7,7 +7,7 @@ import { postedAt } from '../../utils';
 import { asyncDownVoteComment, asyncUpVoteComment, asyncNeutralizeVoteComment } from '../../states/comments/action';
 import parse from 'html-react-parser';
 
-const CommentList = (comment) => {
+const CommentList = ({ comment }) => {
 
   const { authUser } =useSelector((states)=> states);
 
@@ -70,7 +70,7 @@ const CommentList = (comment) => {
             <button
               onClick={()=>{
                 if (comment?.downVotesBy?.includes(authUser.id)){
-                  onHandleNeutralizeVoteComment(comment.id);
+                  onHandleNeutralizeVoteComment(comment?.id);
                   return;
                 }
                 onHandleDownVoteComment(comment?.id);
@@ -78,7 +78,7 @@ const CommentList = (comment) => {
               type='button'
             >
               {
-                comment?.downVotesBy.includes(authUser.id)
+                comment?.downVotesBy?.includes(authUser.id)
                   ? (<BiSolidDislike/>) :(<BiDislike/>)
               }
             </button>

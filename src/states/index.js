@@ -21,7 +21,7 @@ const store = configureStore({
     isPreload: isPreloadReducer,
     leaderBoards: leaderBoardsReducer,
     filtered: filteredReducer,
-    threadDetails: threadDetailReducer,
+    detailThread: threadDetailReducer,
     comments: commentReducer,
   }
 });

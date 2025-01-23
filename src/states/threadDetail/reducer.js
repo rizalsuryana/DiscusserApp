@@ -20,8 +20,9 @@ const threadDetailReducer = (detailThread = {}, action = {}) => {
       downVotesBy: detailThread.downVotesBy.includes(action.payload.userId)
         ? detailThread.downVotesBy.filter((id)=> id !== action.payload.userId)
         : detailThread.downVotesBy.concat([action.payload.userId]),
-      upVotesBy: detailThread.filter((id)=> id !== action.payload.userId),
+      upVotesBy: detailThread.upVotesBy.filter((id)=> id !== action.payload.userId), // Corrected line
     };
+
   case ActionType.NEUTRALIZE_VOTE_THREAD_DETAIL:
     return {
       ...detailThread,

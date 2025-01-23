@@ -156,6 +156,9 @@ const api = (() => {
   const upVoteComment = async (threadId, commentId) => {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments/${commentId}/up-vote`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
     });
     await checkStatus(response);
   };
@@ -163,6 +166,9 @@ const api = (() => {
   const downVoteComment = async (threadId, commentId) => {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments/${commentId}/down-vote`, {
       method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      }
     });
     await checkStatus(response);
   };

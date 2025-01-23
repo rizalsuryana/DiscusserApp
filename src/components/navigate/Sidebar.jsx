@@ -6,10 +6,10 @@ import UserProfile from '../page-materials/UserProfile';
 const Sidebar = ({ authUser, signOut }) => {
   return (
     <div className="sidebar-container">
-      <div className="navbar-container__user-profile">
+      <div className="sidebar-container__user-profile">
         <UserProfile authUser={authUser}/>
       </div>
-      <div className="navbar-container__signout">
+      <div className="sidebar-container__signout">
         <SidebarList signOut={signOut}/>
       </div>
     </div>

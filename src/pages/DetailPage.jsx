@@ -13,7 +13,7 @@ const DetailPage = () => {
   const { id } = useParams();
 
   const {
-    detailThread = [],
+    detailThread = {},
     users = [],
     comments = [],
   } = useSelector((states) => states);
@@ -32,6 +32,11 @@ const DetailPage = () => {
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id));
   }, [id, dispatch]);
+
+
+  if (!detailThread?.id) {
+    return <div>Loading...</div>;  // Menampilkan loading jika detailThread masih kosong
+  }
 
   return (
     <PageView>

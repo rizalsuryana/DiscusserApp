@@ -9,8 +9,8 @@ import ThreadFooter from './ThreadFooter';
 import { asyncDownVoteThread, asyncUpVoteThread, asyncNeutralizeVoteThread } from '../../../states/threads/action';
 import { asyncDownVoteThreadDetail, asyncUpVoteThreadDetail, asyncNeutralizeVoteThreadDetail } from '../../../states/threadDetail/action';
 
-const ThreadItems = (attributes) => {
-  const { threadDetail, threads, isDetails, users } = attributes;
+const ThreadItems = ({ threadDetail, threads, isDetails, users }) => {
+
 
   const dispatch = useDispatch();
   const handleUserDetails = (id) => users?.filter((user)=> user?.id === id)?.[0] || {};

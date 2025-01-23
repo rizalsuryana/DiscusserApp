@@ -5,13 +5,13 @@ const ThreadHeader = (attributes) => {
   const {
     avatar,
     name,
-    isDetail
+    isDetails
   } =  attributes;
 
   return (
     <div className="thread-header">
       {
-        isDetail ? (
+        isDetails ? (
           <div className="thread-header__avatar">
             <img src={avatar} alt={avatar} className='avatar-thread-header'/>
           </div>
@@ -33,7 +33,7 @@ const ThreadHeader = (attributes) => {
 ThreadHeader.propTypes = {
   avatar: PropTypes.string,
   name: PropTypes.string,
-  isDetail: PropTypes.bool.isRequired,
+  isDetails: PropTypes.bool.isRequired,
 };
 
 ThreadHeader.defaultProps = {

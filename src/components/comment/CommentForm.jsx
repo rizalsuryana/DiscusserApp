@@ -7,8 +7,7 @@ import Button from '../button/Button';
 import Card from '../page-materials/Card';
 
 
-const CommentForm = (attributes) => {
-  const { onAddComment } = attributes;
+const CommentForm = ({ onAddComment }) => {
   const { authUser = [] } = useSelector((states)=> states);
   const [isLoading, setIsLoading] =useState(false);
   const [comment, onCommentChange, handleResetComment] = useInput('');

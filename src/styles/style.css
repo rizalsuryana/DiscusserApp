@@ -8,3 +8,10 @@
     text-align: left;
     border-radius: 8px;
 }
+
+.loading {
+    position: sticky;
+    top: 0;
+  }
+
+

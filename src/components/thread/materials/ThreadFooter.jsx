@@ -16,7 +16,7 @@ const ThreadFooter = (attributes) => {
     onHandleNeutralizeVoteThread,
     totalComments,
     comments,
-    isDetail
+    isDetails
   } = attributes;
 
   const { authUser }= useSelector((states)=> states);
@@ -68,7 +68,7 @@ const ThreadFooter = (attributes) => {
         <BiCommentDetail className='thread-footer__comment-icon'/>
         <span className="span-count">
           {
-            isDetail ? (
+            isDetails ? (
               comments?.length || '0'
             ) : (
               totalComments || '0'
@@ -103,7 +103,7 @@ ThreadFooter.propTypes = {
   downVotesBy: PropTypes.arrayOf(PropTypes.string),
   totalComments: PropTypes.number,
   comments: PropTypes.arrayOf(PropTypes.exact),
-  isDetail: PropTypes.bool.isRequired,
+  isDetails: PropTypes.bool.isRequired,
   onHandleDownVoteThread: PropTypes.func.isRequired,
   onHandleUpVoteThread: PropTypes.func.isRequired,
   onHandleNeutralizeVoteThread: PropTypes.func.isRequired,
