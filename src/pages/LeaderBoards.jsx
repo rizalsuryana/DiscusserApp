@@ -14,7 +14,7 @@ const LeaderBoards = () => {
     <div>
       {/* Navbar Section */}
       <div className="leaderboards-navbar">
-        <h3>Active Standings</h3>
+        <h3>Rank</h3>
       </div>
 
       {/* Leaderboard Header */}

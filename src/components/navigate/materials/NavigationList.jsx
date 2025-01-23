@@ -5,6 +5,7 @@ import { FaRankingStar } from 'react-icons/fa6';
 import { IoIosLogOut } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import ROUTE_PATH from '../../../config/routePaths';
+import { BiSolidMessageAdd } from 'react-icons/bi';
 
 const NavigationData = ({ signOut }) => {
   return (
@@ -17,6 +18,16 @@ const NavigationData = ({ signOut }) => {
           <div className="navbar-title__discussion">
           Discussion
           </div>
+        </div>
+        <div className="navbar-add-post">
+          <Link to={ROUTE_PATH.ADD_PAGE}>
+            <div className="button-div" type='button'>
+              <BiSolidMessageAdd/>
+            </div>
+            <div className="navbar-add-post-text">
+              Create Post
+            </div>
+          </Link>
         </div>
       </Link>
       <Link to={ROUTE_PATH.LEADER_BOARDS_PAGE}>

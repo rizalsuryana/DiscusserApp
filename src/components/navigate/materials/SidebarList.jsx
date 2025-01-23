@@ -5,6 +5,7 @@ import { FaRankingStar } from 'react-icons/fa6';
 import { RiLogoutCircleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import ROUTE_PATH from '../../../config/routePaths';
+import { BiSolidMessageAdd } from 'react-icons/bi';
 
 const SidebarList = ({ signOut }) => {
   return (
@@ -19,6 +20,16 @@ const SidebarList = ({ signOut }) => {
           </div>
         </div>
       </Link>
+      <div className="sidebar-add-post">
+        <Link to={ROUTE_PATH.ADD_PAGE}>
+          <div className="button-div" type='button'>
+            <BiSolidMessageAdd/>
+          </div>
+          <div className="sidebar-add-post-text">
+              Create Post
+          </div>
+        </Link>
+      </div>
       <Link to={ROUTE_PATH.LEADER_BOARDS_PAGE}>
         <div className="sidebar-leaderboar">
           <div className="sidebar-icon__leaderboard">

@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BiSolidMessageAdd } from 'react-icons/bi';
-import { Link } from 'react-router-dom';
 import ThreadList from '../components/thread/ThreadList';
 import { asyncPopulateUserAndThreads } from '../states/shared/action';
-import ROUTE_PATH from '../config/routePaths';
 import PageView from '../components/page-materials/PageView';
 import Categories from '../components/page-materials/Categories';
 
@@ -23,11 +20,6 @@ const HomePage = () => {
           <Categories threads={threads} filtered={filtered}/>
         </div>
         <ThreadList threads={threads} filtered={filtered}/>
-        <Link to={ROUTE_PATH.ADD_PAGE}>
-          <div className="button-div" type='button'>
-            <BiSolidMessageAdd/>
-          </div>
-        </Link>
       </div>
     </PageView>
   );
