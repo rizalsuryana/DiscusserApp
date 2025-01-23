@@ -47,24 +47,24 @@ const upVoteCommentActionCreator = ({ threadId, commentId, userId }) => {
   };
 };
 
-const downVoteCommentActionCreator = ({ threadId, userId, commentId }) => {
+const downVoteCommentActionCreator = ({ threadId, commentId, userId }) => {
   return {
     type: ActionType.DOWN_VOTE_COMMENT,
     payload:{
       threadId,
-      userId,
       commentId,
+      userId,
     }
   };
 };
 
-const neutralizeCommentActionCreator = (threadId, commentId, userId) => {
+const neutralizeCommentActionCreator = ({ threadId, commentId,  userId }) => {
   return {
     type: ActionType.NEUTRALIZE_VOTE_COMMENT,
     payload:{
       threadId,
       commentId,
-      userId
+      userId,
     }
   };
 };
@@ -102,7 +102,7 @@ const asyncUpVoteComment = (commentId) => {
         threadId: detailThread?.id,
         userId: authUser?.id,
       }));
-      await api.upVoteComment({ commentId, threadId: detailThread?.id });
+      await api.upVoteComment(detailThread?.id, commentId);
     } catch (error) {
       dispatch(upVoteCommentActionCreator({
         commentId,
@@ -127,7 +127,8 @@ const asyncDownVoteComment = (commentId) => {
         threadId: detailThread?.id,
         userId: authUser?.id,
       }));
-      await api.downVoteComment({ commentId, threadId: detailThread?.id });
+      await api.downVoteComment(detailThread?.id, commentId);
+      console.log('API call completed');
     } catch (error) {
       dispatch(downVoteCommentActionCreator({
         commentId,
@@ -146,18 +147,22 @@ const asyncNeutralizeVoteComment = (commentId) => {
     const { authUser, detailThread } = getState();
     try {
       dispatch(showLoading());
+      console.log('Dispatching NEUTRALIZE_VOTE_COMMENT action');
       dispatch(neutralizeCommentActionCreator({
         commentId,
         threadId: detailThread?.id,
         userId: authUser?.id,
       }));
-      await api.neutralizeCommentVote({ commentId, threadId: detailThread?.id });
+      await api.neutralizeCommentVote(detailThread?.id, commentId);
+      console.log('Neutralize vote API call successful');
     } catch (error) {
+      console.log('Error in neutralize vote API call:', error);
       dispatch(neutralizeCommentActionCreator({
         commentId,
         threadId: detailThread?.id,
         userId: authUser?.id,
       }));
+      toast.error(error.message);
     } finally {
       dispatch(hideLoading());
     }

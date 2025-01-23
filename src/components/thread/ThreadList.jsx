@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import Card from '../page-materials/Card';
 import ThreadItems from './materials/ThreadItems';
 
-const ThreadList = (attributes) =>  {
-  const { threads, filtered } = attributes;
+const ThreadList = ({ threads, filtered }) =>  {
 
   const { users = [] } = useSelector((states)=>states);
 

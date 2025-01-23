@@ -11,9 +11,8 @@ import { asyncDownVoteThreadDetail, asyncUpVoteThreadDetail, asyncNeutralizeVote
 
 const ThreadItems = ({ threadDetail, threads, isDetails, users }) => {
 
-
   const dispatch = useDispatch();
-  const handleUserDetails = (id) => users?.filter((user)=> user?.id === id)?.[0] || {};
+  const handleUserDetails = (id) => users?.filter((user)=> user?.id === id)[0] || {};
 
   const onHandleUpVoteThread = (id) => {
     if (isDetails){

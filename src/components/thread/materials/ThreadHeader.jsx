@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ThreadHeader = (attributes) => {
-  const {
-    avatar,
-    name,
-    isDetails
-  } =  attributes;
+const ThreadHeader = ({ avatar, name, isDetails }) => {
 
   return (
     <div className="thread-header">

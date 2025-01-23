@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import parse from 'html-react-parser';
 
-const ThreadBody = (attributes) => {
-  const { body, longThread } = attributes;
+const ThreadBody = ({ body, longThread }) => {
 
   return (
     <div>

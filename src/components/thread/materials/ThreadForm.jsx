@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '../../button/Button';
 import useInput from '../../../hooks/useInput';
 
-const ThreadForm = (attributes) => {
-  const { onAddThread } = attributes;
+const ThreadForm = ({ onAddThread }) => {
 
   const [title, onTitleChange] = useInput('');
   const [category, onCategoryChange] = useInput('');

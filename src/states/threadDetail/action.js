@@ -17,7 +17,7 @@ const receiveThreadDetailActionCreator = (detailThread) => {
   return {
     type: ActionType.RECEIVE_THREAD_DETAILS,
     payload: {
-      detailThread
+      detailThread,
     }
   };
 };
@@ -30,10 +30,10 @@ const clearThreadDetailActionCreator = () => {
 
 const upVoteThreadDetailActionCreator = ({ threadId, userId }) => {
   return {
-    action: ActionType.UP_VOTE_THREAD_DETAIL,
+    type: ActionType.UP_VOTE_THREAD_DETAIL,
     payload: {
       threadId,
-      userId
+      userId,
     }
   };
 };
@@ -43,17 +43,17 @@ const downVoteThreadDetailActionCreator = ({ threadId, userId }) => {
     type: ActionType.DOWN_VOTE_THREAD_DETAIL,
     payload: {
       threadId,
-      userId
+      userId,
     }
   };
 };
 
 const neutralizeVoteThreadDetailActionCreator = ({ threadId, userId }) => {
   return {
-    action: ActionType.NEUTRALIZE_VOTE_THREAD_DETAIL,
+    type: ActionType.NEUTRALIZE_VOTE_THREAD_DETAIL,
     payload: {
       threadId,
-      userId
+      userId,
     }
   };
 };

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const ThreadTitle = (attributes) => {
-  const { id, title, category, isDetails } = attributes;
+const ThreadTitle = ({ id, title, category, isDetails }) => {
 
   return (
     <div className="thread-title">

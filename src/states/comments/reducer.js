@@ -34,13 +34,24 @@ const commentReducer = (comment = [], action = {}) => {
       }
       return commen;
     });
+  // case ActionType.NEUTRALIZE_VOTE_COMMENT:
+  //   return comment.map((commen)=> {
+  //     if (commen.id === action.payload.commentId){
+  //       return {
+  //         ...commen,
+  //         upVotesBy: commen.upVotesBy.filter((id)=> id !== action.payload.userId),
+  //         downVotesBy: commen.downVotesBy.filter((id)=> id !== action.payload.userId),
+  //       };
+  //     }
+  //     return commen;
+  //   });
   case ActionType.NEUTRALIZE_VOTE_COMMENT:
-    return comment.map((commen)=> {
-      if (commen.id === action.payload.commentId){
+    return comment.map((commen) => {
+      if (commen.id === action.payload.commentId) {
         return {
           ...commen,
-          upVotesBy: commen.upVotesBy.filter((id)=> id !== action.payload.userId),
-          downVotesBy: commen.downVotesBy.filter((id)=> id !== action.payload.userId),
+          upVotesBy: commen.upVotesBy.filter((id) => id !== action.payload.userId),
+          downVotesBy: commen.downVotesBy.filter((id) => id !== action.payload.userId),
         };
       }
       return commen;

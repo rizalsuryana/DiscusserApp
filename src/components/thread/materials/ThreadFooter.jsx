@@ -5,19 +5,18 @@ import { useSelector } from 'react-redux';
 import { postedAt } from '../../../utils';
 
 
-const ThreadFooter = (attributes) => {
-  const {
-    id,
-    createdAt,
-    upVotesBy,
-    downVotesBy,
-    onHandleUpVoteThread,
-    onHandleDownVoteThread,
-    onHandleNeutralizeVoteThread,
-    totalComments,
-    comments,
-    isDetails
-  } = attributes;
+const ThreadFooter = ({
+  id,
+  createdAt,
+  upVotesBy,
+  downVotesBy,
+  onHandleUpVoteThread,
+  onHandleDownVoteThread,
+  onHandleNeutralizeVoteThread,
+  totalComments,
+  comments,
+  isDetails
+}) => {
 
   const { authUser }= useSelector((states)=> states);
   return (
