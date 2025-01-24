@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BiLike, BiSolidLike, BiDislike, BiSolidDislike, BiCommentDetail } from 'react-icons/bi';
 import { useSelector } from 'react-redux';
 import { postedAt } from '../../../utils';
-
+import { useNavigate } from 'react-router-dom';
 
 const ThreadFooter = ({
   id,
@@ -17,7 +17,7 @@ const ThreadFooter = ({
   comments,
   isDetails
 }) => {
-
+  const navigate = useNavigate();
   const { authUser }= useSelector((states)=> states);
   return (
     <div className="thread-footer">
@@ -63,7 +63,11 @@ const ThreadFooter = ({
           {downVotesBy?.length || '0'}
         </span>
       </div>
-      <div className="thread-footer__comment">
+      <div
+        className="thread-footer__comment"
+        onClick={() => navigate(`/thread/${id}`)}
+        style={{ cursor: 'pointer' }}
+      >
         <BiCommentDetail className='thread-footer__comment-icon'/>
         <span className="span-count">
           {

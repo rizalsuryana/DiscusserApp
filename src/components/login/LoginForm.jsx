@@ -17,8 +17,11 @@ const LoginForm = ({ login }) => {
 
     <form onSubmit={handleLogin} className="login-form">
       <div>
+        <div className="login-image">
+          <img className='image-login' src="icon.webp" alt="Discusser" />
+        </div>
         <h2 className="login-page-head">
-            Login to Theadify
+            Login to Discusser
         </h2>
         <div className="login-page__email">
           <input type="text"
@@ -42,7 +45,8 @@ const LoginForm = ({ login }) => {
           </Button>
         </div>
         <div className="login-page__create-account">
-          <Link to='/register'>Create an Account</Link>
+          <span>Don't Have an Account?</span>
+          <Link to='/register'> Create Here</Link>
         </div>
       </div>
     </form>

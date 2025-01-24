@@ -11,13 +11,11 @@ const LeaderBoards = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      {/* Navbar Section */}
+    <div className='leaderboards-page'>
       <div className="leaderboards-navbar">
         <h3>Rank</h3>
       </div>
 
-      {/* Leaderboard Header */}
       <div className="leaderboards-header">
         <div>
           <h3>User</h3>
@@ -27,7 +25,6 @@ const LeaderBoards = () => {
         </div>
       </div>
 
-      {/* Leaderboard List */}
       <div className="leaderboards-list">
         {leaderBoards?.map((user) => (
           <div key={user?.user?.id} className="leaderboards-item">
@@ -39,13 +36,10 @@ const LeaderBoards = () => {
                 className="leaderboards-avatar-img"
               />
             </div>
-
-            {/* User Name */}
             <div className="leaderboards-user-name">
               <h3>{user?.user?.name}</h3>
             </div>
 
-            {/* User Score */}
             <div className="leaderboards-score">
               <h3>{user?.score}</h3>
             </div>

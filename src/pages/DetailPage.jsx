@@ -35,7 +35,7 @@ const DetailPage = () => {
 
 
   if (!detailThread?.id) {
-    return <div>Loading...</div>;  // Menampilkan loading jika detailThread masih kosong
+    return <div>Loading...</div>;
   }
 
   return (

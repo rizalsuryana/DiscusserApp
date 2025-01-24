@@ -17,6 +17,12 @@ const RegisterForm = ({ register }) => {
   return (
     <form className="form-register" onSubmit={handleRegister}>
       <div>
+        <div className="register-image">
+          <img className='image-register' src="icon.webp" alt="Discusser" />
+        </div>
+        <h2 className="register-page-head">
+            Create Account Discusser
+        </h2>
         <div className="register-input__name">
           <input type="text" className="register-input__name-field"
             value={name} onChange={onNameChange} placeholder='Name' required
@@ -40,7 +46,8 @@ const RegisterForm = ({ register }) => {
           </Button>
         </div>
         <div className="register-input__login-link">
-          <Link to='/'>LogIn</Link>
+          <span>Already Have Acoount? </span>
+          <Link to='/'>LogIn Here</Link>
         </div>
       </div>
     </form>

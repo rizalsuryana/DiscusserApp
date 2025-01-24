@@ -4,6 +4,9 @@ import ThreadList from '../components/thread/ThreadList';
 import { asyncPopulateUserAndThreads } from '../states/shared/action';
 import PageView from '../components/page-materials/PageView';
 import Categories from '../components/page-materials/Categories';
+import { Link } from 'react-router-dom';
+import ROUTE_PATH from '../config/routePaths';
+import { BiSolidMessageAdd } from 'react-icons/bi';
 
 const HomePage = () => {
   const { threads=[], filtered='' } = useSelector((states)=> states);
@@ -15,6 +18,9 @@ const HomePage = () => {
   }, [dispatch]);
   return (
     <PageView>
+      <Link className='floating-button' to={ROUTE_PATH.ADD_PAGE}>
+        <BiSolidMessageAdd />
+      </Link>
       <div className="home-page">
         <div className="home-page-category">
           <Categories threads={threads} filtered={filtered}/>

@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import Loading from './components/page-materials/Loading';
-import Header from './components/page-materials/Header';
 import Navbar from './components/navigate/Navbar';
-import Sidebar from './components/navigate/Sidebar';
 import ROUTE_PATH from './config/routePaths';
 import AddThread from './pages/AddThread';
 import DetailPage from './pages/DetailPage';
@@ -14,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { asyncUnsetAuthUser } from './states/authUser/action';
 import { asyncPreloadProcess } from './states/isPreload/action';
+import PagesInfo from './components/page-materials/Pagesinfo';
 import './styles/style.css';
 
 const App = () => {
@@ -40,9 +39,6 @@ const App = () => {
     return (
       <>
         <Loading />
-        <header>
-          <Header />
-        </header>
         <main>
           <Routes>
             <Route path='/*' element={<LoginPage />} />
@@ -56,15 +52,10 @@ const App = () => {
   return (
     <div>
       <Loading />
-      <header>
-        <Header />
-      </header>
       <Navbar authUser={authUser} signOut={onSignOut} />
-      <div className="sidebar">
-        <Sidebar authUser={authUser} signOut={onSignOut} />
-      </div>
       <div className="div-main">
         <main>
+          <PagesInfo />
           <Routes>
             <Route path={ROUTE_PATH.HOME_PAGE} element={<HomePage />} />
             <Route path={ROUTE_PATH.DETAIL_PAGE} element={<DetailPage />} />
