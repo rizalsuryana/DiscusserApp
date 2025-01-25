@@ -1,10 +1,10 @@
 import React from 'react';
-import { LoadingBar } from 'react-redux-loading-bar';
+import  LoadingBar  from 'react-redux-loading-bar';
 
 const Loading = () => {
   return (
     <div className="loading-discusser">
-      <LoadingBar/>
+      <LoadingBar progressIncrease={1} showFastActions updateTime={100}/>
     </div>
   );
 };

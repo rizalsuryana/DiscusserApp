@@ -581,30 +581,12 @@ h2 {
 
 
 .loading-discusser {
-position: absolute;
-top: 0;
-padding: 100px;
-z-index: -30;
-}
-
-.ReactReduxLoadingBar {
-  height: 4px;
-  background-color: #4caf50;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.ReactReduxLoadingBar__progress {
-  background-color: #2196f3;
-}
-.ReactReduxLoadingBar {
   position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 4px;
-  background-color: #4caf50;
+  top: 0;
   z-index: 9999;
 }
+
 
 
 
@@ -1214,15 +1196,6 @@ margin-bottom: 20px;
     top: 70px; 
     margin-top: 20px;
   }
-}
-.loading-bar {
-  background-color: #4caf50;  /* Ganti dengan warna yang diinginkan */
-  height: 5px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 9999;
 }
 
 /* reset filter button */

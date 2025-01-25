@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import Loading from './components/page-materials/Loading';
-import { LoadingBar } from 'react-redux-loading-bar';
+// import { LoadingBar } from 'react-redux-loading-bar';
 import Navbar from './components/navigate/Navbar';
 import ROUTE_PATH from './config/routePaths';
 import AddThread from './pages/AddThread';
@@ -39,7 +39,7 @@ const App = () => {
   if (authUser === null) {
     return (
       <>
-        <LoadingBar />
+        {/* <LoadingBar /> */}
         <Loading />
         <main>
           <Routes>
@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <div>
-      <LoadingBar />
+      {/* <LoadingBar /> */}
       <Loading />
       <Navbar authUser={authUser} signOut={onSignOut} />
       <div className="div-main">

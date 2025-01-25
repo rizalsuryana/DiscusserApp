@@ -6,8 +6,30 @@ import daStyle from 'eslint-config-dicodingacademy';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ['**/*.{js,mjs,cjs,jsx}'] },
-  { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
+  // { files: ['**/*.{js,mjs,cjs,jsx}'] },
+  // { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
+  // pluginJs.configs.recommended,
+  // pluginReact.configs.flat.recommended,
+  // daStyle,
+  {
+    files: ['**/*.{js,mjs,cjs,jsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node
+      },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
   daStyle,
