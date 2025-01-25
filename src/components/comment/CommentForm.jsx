@@ -12,13 +12,19 @@ const CommentForm = ({ onAddComment }) => {
   const [isLoading, setIsLoading] =useState(false);
   const [comment, onCommentChange, handleResetComment] = useInput('');
 
-  const onHandleComment = (event) => {
-    setIsLoading(true);
+  const onHandleComment = async (event) => {
     event.preventDefault();
-    onAddComment({ comment });
-    setIsLoading(false);
-    handleResetComment();
+    setIsLoading(true);
+    try {
+      await onAddComment({ comment });
+      handleResetComment();
+    } catch (error) {
+      console.error('Failed to add comment:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   return (
     <div className="comment-form">
       <Card.Body>
