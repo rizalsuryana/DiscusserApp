@@ -29,7 +29,7 @@ const RegisterForm = ({ register }) => {
           />
         </div>
         <div className="register-input__email">
-          <input type="text" className="register-input__email-field"
+          <input type="email" className="register-input__email-field"
             value={email} onChange={onEmailChange}
             placeholder='Email' required
           />
@@ -37,7 +37,7 @@ const RegisterForm = ({ register }) => {
         <div className="register-input__password">
           <input type="password" className="register-input__password-field"
             value={password} onChange={onPasswordChange}
-            placeholder='Password' required
+            placeholder='Password' minLength="8" required
           />
         </div>
         <div className="register-input__button">
