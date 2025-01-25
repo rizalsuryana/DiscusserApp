@@ -83,8 +83,8 @@ const asyncCreateComment = ({ threadId, comment }) => {
       });
 
       dispatch(createCommentActionCreator(responseComment));
-      // const newDetailThread = await api.getThreadDetail(threadId);
-      // dispatch(receiveThreadDetailActionCreator(newDetailThread));
+      const newDetailThread = await api.getThreadDetail(threadId);
+      dispatch(receiveThreadDetailActionCreator(newDetailThread));
     }
     catch (error) {
       alert(error.message);
