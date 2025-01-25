@@ -108,8 +108,8 @@ const asyncDownVoteThreadDetail = (threadId) => {
 const asyncNeutralizeVoteThreadDetail = (threadId) => {
   return async (dispatch, getState) => {
     const { authUser } = getState();
+    dispatch(showLoading());
     try {
-      dispatch(showLoading());
       dispatch(neutralizeVoteThreadDetailActionCreator({ threadId, userId: authUser.id }));
       await api.neutralizeThreadVote(threadId);
     } catch (error) {

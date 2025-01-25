@@ -28,7 +28,6 @@ const LeaderBoards = () => {
       <div className="leaderboards-list">
         {leaderBoards?.map((user) => (
           <div key={user?.user?.id} className="leaderboards-item">
-            {/* Avatar */}
             <div className="leaderboards-avatar">
               <img
                 src={user?.user?.avatar}

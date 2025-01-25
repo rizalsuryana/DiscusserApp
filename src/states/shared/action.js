@@ -6,8 +6,8 @@ import { receiveUsersActionCreator } from '../users/action';
 
 const asyncPopulateUserAndThreads = () => {
   return async (dispatch) => {
+    dispatch(showLoading());
     try {
-      dispatch(showLoading());
       const users = await api.getAllUsers();
       const threads = await api.getAllThreads();
 

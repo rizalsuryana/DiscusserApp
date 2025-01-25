@@ -74,8 +74,10 @@ const neutralizeCommentActionCreator = ({ threadId, commentId,  userId }) => {
 
 const asyncCreateComment = ({ threadId, comment }) => {
   return async (dispatch) => {
+    dispatch(showLoading());
+    console.log('SHOW LOADING');
+    console.log(showLoading());
     try {
-      dispatch(showLoading());
       const responseComment = await api.createComment({
         threadId,
         comment,
@@ -85,9 +87,11 @@ const asyncCreateComment = ({ threadId, comment }) => {
       toast('Sending your comment...');
     }
     catch (error) {
-      toast.error(error.message);
+      return error(error.message);
     } finally {
       dispatch(hideLoading());
+      console.log('HIDE LOADING');
+      console.log(hideLoading());
     }
   };
 };
@@ -97,6 +101,7 @@ const asyncUpVoteComment = (commentId) => {
     const { authUser, detailThread } = getState();
     try {
       dispatch(showLoading());
+      console.log(showLoading());
       dispatch(upVoteCommentActionCreator({
         commentId,
         threadId: detailThread?.id,
@@ -109,7 +114,7 @@ const asyncUpVoteComment = (commentId) => {
         threadId: detailThread?.id,
         userId: authUser?.id,
       }));
-      toast.error(error.message);
+      return error(error.message);
     } finally {
       dispatch(hideLoading());
     }
@@ -120,8 +125,8 @@ const asyncUpVoteComment = (commentId) => {
 const asyncDownVoteComment = (commentId) => {
   return async (dispatch, getState) => {
     const { authUser, detailThread }= getState();
+    dispatch(showLoading());
     try {
-      dispatch(showLoading());
       dispatch(downVoteCommentActionCreator({
         commentId,
         threadId: detailThread?.id,
@@ -145,8 +150,8 @@ const asyncDownVoteComment = (commentId) => {
 const asyncNeutralizeVoteComment = (commentId) => {
   return async (dispatch, getState) =>{
     const { authUser, detailThread } = getState();
+    dispatch(showLoading());
     try {
-      dispatch(showLoading());
       console.log('Dispatching NEUTRALIZE_VOTE_COMMENT action');
       dispatch(neutralizeCommentActionCreator({
         commentId,

@@ -25,12 +25,12 @@ const clearLeaderboardsActionCreator = () => {
 const asyncReceiveLeaderboard = () => {
   return async (dispatch) => {
     try {
-      dispatch(clearLeaderboardsActionCreator());
       dispatch(showLoading());
+      dispatch(clearLeaderboardsActionCreator());
       const leaderBoards = await api.getLeaderboards();
       dispatch(receiveLeaderboardsActionCreator(leaderBoards));
     } catch (error) {
-      toast.error(error?.message);
+      return error(error?.message);
     } finally {
       dispatch(hideLoading());
     }

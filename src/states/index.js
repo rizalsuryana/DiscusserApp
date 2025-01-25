@@ -8,6 +8,7 @@ import leaderBoardsReducer from './leaderBoards/reducer';
 import threadDetailReducer from './threadDetail/reducer';
 import threadsReducer from './threads/reducer';
 import usersReducer from './users/reducer';
+import { loadingBarMiddleware } from 'react-redux-loading-bar';
 
 
 
@@ -23,7 +24,11 @@ const store = configureStore({
     filtered: filteredReducer,
     detailThread: threadDetailReducer,
     comments: commentReducer,
-  }
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      immutableCheck: false,  // Nonaktifkan pemeriksaan status yang tidak dapat diubah
+    }).concat(loadingBarMiddleware()),
 });
 
 export default store;

@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { BiLike, BiDislike, BiSolidLike, BiSolidDislike  } from 'react-icons/bi';
+import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from 'react-icons/bi';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import Card from '../page-materials/Card';
@@ -8,9 +9,7 @@ import { asyncDownVoteComment, asyncUpVoteComment, asyncNeutralizeVoteComment } 
 import parse from 'html-react-parser';
 
 const CommentList = ({ comment }) => {
-
-  const { authUser } =useSelector((states)=> states);
-
+  const { authUser } = useSelector((states) => states);
   const dispatch = useDispatch();
 
   const onHandleUpVoteComment = (id) => {
@@ -25,31 +24,34 @@ const CommentList = ({ comment }) => {
     dispatch(asyncNeutralizeVoteComment(id));
   };
 
+
+  if (!comment || !comment.owner) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
+    <div className='comment-list-card'>
       <Card.Body>
         <div className="comment-list">
           <div className="comment-list__top">
             <img
-              src={comment?.owner.avatar}
-              alt={comment?.owner.avatar}
+              src={comment?.owner?.avatar || '/default-avatar.png'} // fallback image if avatar is not available
+              alt={comment?.owner?.name || 'User Avatar'}
               className='comment-list__top-foto'
             />
           </div>
           <div className="comment-list__name">
-            <span className="comment-list__span-name">{comment?.owner.name}</span>
+            <span className="comment-list__span-name">{comment?.owner?.name}</span>
             <p className="comment-list__content">
-              {
-                parse(comment?.content)
-              }
+              {parse(comment?.content)}
             </p>
           </div>
         </div>
         <div className="comment-list__interaction">
           <div className="comment-list__like">
             <button
-              onClick={()=>{
-                if (comment?.upVotesBy?.includes(authUser.id)){
+              onClick={() => {
+                if (comment?.upVotesBy?.includes(authUser.id)) {
                   onHandleNeutralizeVoteComment(comment?.id);
                   return;
                 }
@@ -57,19 +59,19 @@ const CommentList = ({ comment }) => {
               }}
               type='button'
             >
-              {
-                comment?.upVotesBy.includes(authUser.id)
-                  ? (<BiSolidLike/>) : (<BiLike/>)
+              {comment?.upVotesBy?.includes(authUser.id)
+                ? (<BiSolidLike />)
+                : (<BiLike />)
               }
             </button>
             <span className="span-count">
-              {comment?.upVotesBy.length || '0'}
+              {comment?.upVotesBy?.length || '0'}
             </span>
           </div>
           <div className="comment-list__dislike">
             <button
-              onClick={()=>{
-                if (comment?.downVotesBy?.includes(authUser.id)){
+              onClick={() => {
+                if (comment?.downVotesBy?.includes(authUser.id)) {
                   onHandleNeutralizeVoteComment(comment.id);
                   return;
                 }
@@ -77,9 +79,9 @@ const CommentList = ({ comment }) => {
               }}
               type='button'
             >
-              {
-                comment?.downVotesBy.includes(authUser.id)
-                  ? (<BiSolidDislike/>) :(<BiDislike/>)
+              {comment?.downVotesBy?.includes(authUser.id)
+                ? (<BiSolidDislike />)
+                : (<BiDislike />)
               }
             </button>
             <span className="span-count">
@@ -102,19 +104,27 @@ const commentShape = {
   createdAt: PropTypes.string,
   upVotesBy: PropTypes.array,
   downVotesBy: PropTypes.array,
+  owner: PropTypes.shape({
+    name: PropTypes.string,
+    avatar: PropTypes.string,
+  }),
 };
 
-CommentList.defaultProps ={
+CommentList.defaultProps = {
   comment: {
     content: '',
     createdAt: '',
     upVotesBy: [],
-    downVotesBy: []
-  }
+    downVotesBy: [],
+    owner: {
+      name: '',
+      avatar: '',
+    },
+  },
 };
 
-CommentList.propTypes ={
-  comment: PropTypes.shape(commentShape)
+CommentList.propTypes = {
+  comment: PropTypes.shape(commentShape),
 };
 
 export default CommentList;
