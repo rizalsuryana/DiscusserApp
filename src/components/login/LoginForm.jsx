@@ -45,7 +45,7 @@ const LoginForm = ({ login }) => {
           </Button>
         </div>
         <div className="login-page__create-account">
-          <span>Don't Have an Account?</span>
+          <span>Dont Have an Account?</span>
           <Link to='/register'> Create Here</Link>
         </div>
       </div>

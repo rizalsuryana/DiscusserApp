@@ -1,5 +1,4 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import { receiveCommentActionCreator } from '../comments/action';
 
@@ -68,7 +67,7 @@ const asyncReceiveThreadDetail = (threadId) => {
       dispatch(receiveThreadDetailActionCreator(detailThread));
       dispatch(receiveCommentActionCreator(detailThread?.comments));
     } catch (error) {
-      toast.error(error?.message);
+      error(error?.message);
     } finally {
       dispatch(hideLoading());
     }
@@ -83,7 +82,7 @@ const asyncUpVoteThreadDetail = (threadId) => {
       dispatch(upVoteThreadDetailActionCreator({ threadId, userId: authUser.id }));
       await api.upVoteThread(threadId);
     } catch (error) {
-      toast.error(error?.message);
+      error(error?.message);
     } finally {
       dispatch(hideLoading());
     }
@@ -98,7 +97,7 @@ const asyncDownVoteThreadDetail = (threadId) => {
       dispatch(downVoteThreadDetailActionCreator({ threadId, userId: authUser.id }));
       await api.downVoteThread(threadId);
     } catch (error) {
-      toast.error(error?.message);
+      error(error?.message);
     } finally {
       dispatch(hideLoading());
     }
@@ -113,7 +112,7 @@ const asyncNeutralizeVoteThreadDetail = (threadId) => {
       dispatch(neutralizeVoteThreadDetailActionCreator({ threadId, userId: authUser.id }));
       await api.neutralizeThreadVote(threadId);
     } catch (error) {
-      toast.error(error?.message);
+      error(error?.message);
     } finally {
       dispatch(hideLoading());
     }

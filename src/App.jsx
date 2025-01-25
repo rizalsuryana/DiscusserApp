@@ -53,6 +53,7 @@ const App = () => {
 
   return (
     <div>
+      <LoadingBar />
       <Loading />
       <Navbar authUser={authUser} signOut={onSignOut} />
       <div className="div-main">

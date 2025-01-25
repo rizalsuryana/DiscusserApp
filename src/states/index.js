@@ -26,9 +26,7 @@ const store = configureStore({
     comments: commentReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      immutableCheck: false,  // Nonaktifkan pemeriksaan status yang tidak dapat diubah
-    }).concat(loadingBarMiddleware()),
+    getDefaultMiddleware().concat(loadingBarMiddleware()),
 });
 
 export default store;

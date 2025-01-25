@@ -1,5 +1,4 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-import { toast } from 'react-toastify';
 import api from '../../utils/api';
 
 const ActionType = {
@@ -24,16 +23,18 @@ const clearLeaderboardsActionCreator = () => {
 
 const asyncReceiveLeaderboard = () => {
   return async (dispatch) => {
+    console.log('Loading bar show started...');
+    dispatch(showLoading());
+    console.log(showLoading());
     try {
-      dispatch(showLoading());
       dispatch(clearLeaderboardsActionCreator());
       const leaderBoards = await api.getLeaderboards();
       dispatch(receiveLeaderboardsActionCreator(leaderBoards));
     } catch (error) {
       return error(error?.message);
-    } finally {
-      dispatch(hideLoading());
     }
+    dispatch(hideLoading());
+
   };
 };
 

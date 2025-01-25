@@ -1,6 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
-import { toast } from 'react-toastify';
+
 
 const ActionType ={
   RECEIVE_COMMENT: 'RECEIVE_COMMENT',
@@ -84,24 +84,21 @@ const asyncCreateComment = ({ threadId, comment }) => {
       });
 
       dispatch(createCommentActionCreator(responseComment));
-      toast('Sending your comment...');
     }
     catch (error) {
       return error(error.message);
-    } finally {
-      dispatch(hideLoading());
-      console.log('HIDE LOADING');
-      console.log(hideLoading());
     }
+    dispatch(hideLoading());
+    console.log('HIDE LOADING');
   };
 };
 
 const asyncUpVoteComment = (commentId) => {
   return async (dispatch, getState) => {
     const { authUser, detailThread } = getState();
+    dispatch(showLoading());
+    console.log(showLoading());
     try {
-      dispatch(showLoading());
-      console.log(showLoading());
       dispatch(upVoteCommentActionCreator({
         commentId,
         threadId: detailThread?.id,
@@ -115,9 +112,9 @@ const asyncUpVoteComment = (commentId) => {
         userId: authUser?.id,
       }));
       return error(error.message);
-    } finally {
-      dispatch(hideLoading());
     }
+    dispatch(hideLoading());
+
   };
 };
 
@@ -140,10 +137,10 @@ const asyncDownVoteComment = (commentId) => {
         threadId: detailThread?.id,
         userId: authUser?.id,
       }));
-      toast.error(error.message);
-    } finally {
-      dispatch(hideLoading());
+      error(error.message);
     }
+    dispatch(hideLoading());
+
   };
 };
 
@@ -167,10 +164,10 @@ const asyncNeutralizeVoteComment = (commentId) => {
         threadId: detailThread?.id,
         userId: authUser?.id,
       }));
-      toast.error(error.message);
-    } finally {
-      dispatch(hideLoading());
+      error(error.message);
     }
+    dispatch(hideLoading());
+
   };
 };
 

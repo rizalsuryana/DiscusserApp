@@ -1,5 +1,4 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-import { toast } from 'react-toastify';
 import api from '../../utils/api';
 
 
@@ -24,9 +23,8 @@ const asyncRegisterUser = ({ name, email, password }) => {
       await api.register({
         name, email, password
       });
-      toast('Account Created !');
     } catch (error) {
-      toast.error(error.message);
+      error(error.message);
     } finally {
       dispatch(hideLoading());
     }

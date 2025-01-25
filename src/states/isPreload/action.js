@@ -22,11 +22,12 @@ const asyncPreloadProcess = () => {
       const authUser = await api.getOwnProfile();
       dispatch(setAuthUserActionCreator(authUser));
     } catch (error) {
+      console.log(error);
       dispatch(setAuthUserActionCreator(null));
     } finally {
       dispatch(setIsPreloadActionCreator(false));
-      dispatch(hideLoading());
     }
+    dispatch(hideLoading());
   };
 };
 
