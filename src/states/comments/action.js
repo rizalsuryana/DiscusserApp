@@ -21,11 +21,11 @@ const receiveCommentActionCreator = (comments) => {
   };
 };
 
-const createCommentActionCreator = ({ threadId, comment }) => {
+const createCommentActionCreator = ({  comment }) => {
   return {
     type: ActionType.ADD_COMMENT,
     payload: {
-      threadId,
+      // threadId,
       comment,
     }
   };
@@ -76,8 +76,6 @@ const neutralizeCommentActionCreator = ({ threadId, commentId,  userId }) => {
 const asyncCreateComment = ({ threadId, comment }) => {
   return async (dispatch) => {
     dispatch(showLoading());
-    console.log('SHOW LOADING');
-    console.log(showLoading());
     try {
       const responseComment = await api.createComment({
         threadId,
@@ -85,14 +83,14 @@ const asyncCreateComment = ({ threadId, comment }) => {
       });
 
       dispatch(createCommentActionCreator(responseComment));
-      const newDetailThread = await api.getThreadDetail(threadId);
-      dispatch(receiveThreadDetailActionCreator(newDetailThread));
+      // const newDetailThread = await api.getThreadDetail(threadId);
+      // dispatch(receiveThreadDetailActionCreator(newDetailThread));
     }
     catch (error) {
       alert(error.message);
+    } finally {
+      dispatch(hideLoading());
     }
-    dispatch(hideLoading());
-    console.log('HIDE LOADING');
   };
 };
 
