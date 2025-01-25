@@ -1,5 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
+import { receiveThreadDetailActionCreator } from '../threadDetail/action';
 
 
 const ActionType ={
@@ -84,9 +85,11 @@ const asyncCreateComment = ({ threadId, comment }) => {
       });
 
       dispatch(createCommentActionCreator(responseComment));
+      const newDetailThread = await api.getThreadDetail(threadId);
+      dispatch(receiveThreadDetailActionCreator(newDetailThread));
     }
     catch (error) {
-      return error(error.message);
+      alert(error.message);
     }
     dispatch(hideLoading());
     console.log('HIDE LOADING');
