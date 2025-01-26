@@ -26,7 +26,7 @@ const CommentList = ({ comment }) => {
 
 
   if (!comment || !comment.owner) {
-    return <div>Loading...</div>; // You can replace this with a better loading indicator
+    return <div>Loading...</div>;
   }
 
   return (
