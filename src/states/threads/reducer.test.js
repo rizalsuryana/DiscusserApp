@@ -13,6 +13,7 @@
 
 import { describe, expect, it } from 'vitest';
 import threadsReducer from './reducer';
+import { ActionType } from './action';
 
 describe('threadReducer function', ()=> {
   it('should return the initial state when given by unknow action', () => {
@@ -32,7 +33,7 @@ describe('threadReducer function', ()=> {
     // Arrange
     const initialState = [];
     const action = {
-      type: 'RECEIVE_THREADS',
+      type: ActionType.RECEIVE_THREADS,
       payload: {
         threads: [
           {
@@ -84,7 +85,7 @@ describe('threadReducer function', ()=> {
       },
     ];
     const action ={
-      type: 'ADD_THREAD',
+      type: ActionType.ADD_THREAD,
       payload: {
         thread: {
           'id': 'thread-2',
@@ -123,7 +124,7 @@ describe('threadReducer function', ()=> {
       }
     ];
     const action = {
-      type : 'UP_VOTE_THREAD',
+      type : ActionType.UP_VOTE_THREAD,
       payload: {
         'userId': 'users-1',
         'threadId': 'thread-1',
@@ -160,7 +161,7 @@ describe('threadReducer function', ()=> {
       }
     ];
     const action = {
-      type : 'DOWN_VOTE_THREAD',
+      type : ActionType.DOWN_VOTE_THREAD,
       payload: {
         'userId': 'users-1',
         'threadId': 'thread-1',
@@ -198,7 +199,7 @@ describe('threadReducer function', ()=> {
     ];
 
     const action = {
-      type: 'NEUTRALIZE_THREAD',
+      type: ActionType.NEUTRALIZE_THREAD,
       payload:{
         'userId': 'users-1',
         'threadId': 'thread-1',
