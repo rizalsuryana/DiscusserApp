@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { LuSendHorizontal } from 'react-icons/lu';
-import { useSelector } from 'react-redux';
 import useInput from '../../hooks/useInput';
 import Button from '../button/Button';
 import Card from '../page-materials/Card';
 
 
-const CommentForm = ({ onAddComment }) => {
-  const { authUser = [] } = useSelector((states)=> states);
+const CommentForm = ({ onAddComment, authUser }) => {
+  console.log(`auth user benerin komen loading ${authUser}`);
   const [isLoading, setIsLoading] =useState(false);
   const [comment, onCommentChange, handleResetComment] = useInput('');
 
@@ -38,7 +37,7 @@ const CommentForm = ({ onAddComment }) => {
               type='text'
               value={!comment? '' : comment}
               onChange={onCommentChange}
-              placeholder='Answer discussion'
+              placeholder='Answer Discussion'
               required />
           </div>
           <div className="comment-form__button">
@@ -54,7 +53,10 @@ const CommentForm = ({ onAddComment }) => {
 };
 
 CommentForm.propTypes = {
-  onAddComment: PropTypes.func.isRequired
+  onAddComment: PropTypes.func.isRequired,
+  authUser: PropTypes.shape({
+    avatar: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default CommentForm;
