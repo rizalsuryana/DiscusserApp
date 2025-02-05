@@ -1,6 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
-import { receiveThreadDetailActionCreator } from '../threadDetail/action';
+// import { receiveThreadDetailActionCreator } from '../threadDetail/action';
 
 
 const ActionType ={

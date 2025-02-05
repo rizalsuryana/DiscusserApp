@@ -18,7 +18,7 @@
  *   - should handle error correctly when neutralizing vote fails
  */
 
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, } from 'vitest';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
 import {
