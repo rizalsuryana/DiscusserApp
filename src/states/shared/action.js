@@ -13,7 +13,7 @@ const asyncPopulateUserAndThreads = () => {
       dispatch(receiveThreadsActionCreator(threads));
       dispatch(receiveUsersActionCreator(users));
     } catch (error) {
-      error(error?.message);
+      alert(error?.message || 'Ups..., Something went wrong');
     } finally {
       dispatch(hideLoading());
     }
