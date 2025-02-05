@@ -5,7 +5,7 @@ const leaderBoardsReducer = (leaderBoards = null, action = {}) => {
   case ActionType.RECEIVE_LEADERBOARDS:
     return action.payload.leaderBoards;
   case ActionType.CLEAR_LEADERBOARDS:
-    return null;
+    return [];
   default:
     // leaderBoards;
     return leaderBoards;
