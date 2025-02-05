@@ -15,6 +15,7 @@ const DetailPage = () => {
     detailThread = {},
     users = [],
     comments = [],
+    authUser,
   } = useSelector((states) => states);
 
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const DetailPage = () => {
       <div className="detail-thread-scroll">
         <Card>
           <ThreadItems isDetails threadDetail={detailThread} users={users} />
-          <CommentForm comments={comments} onAddComment={onAddComment} />
+          <CommentForm authUser={authUser} comments={comments} onAddComment={onAddComment} />
           {comments?.map((comment) => (
             <CommentList key={comment?.id} comment={comment} />
           ))}
