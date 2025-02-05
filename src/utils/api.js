@@ -4,13 +4,20 @@ const api = (() => {
   // Fungsi untuk memeriksa status respons
   const checkStatus = async (response) => {
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const responseJson = await response.json();
+      const errorMessage = responseJson.message || `HTTP error! status: ${response.status}`;
+
+      // Tambahkan alert untuk menangkap error di Cypress
+      window.alert(errorMessage);
+
+      throw new Error(errorMessage);
     }
 
     const responseJson = await response.json();
     const { status, message } = responseJson;
 
     if (status !== 'success') {
+      window.alert(message);  // Pastikan alert ditampilkan
       throw new Error(message);
     }
 

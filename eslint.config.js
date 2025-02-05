@@ -2,6 +2,7 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import pluginReact from 'eslint-plugin-react';
 import daStyle from 'eslint-config-dicodingacademy';
+import pluginCypress from 'eslint-plugin-cypress/flat';
 
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -30,6 +31,7 @@ export default [
       },
     },
   },
+  pluginCypress.configs.recommended,
   pluginJs.configs.recommended,
   pluginReact.configs.flat.recommended,
   daStyle,

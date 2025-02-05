@@ -1,59 +1,3 @@
-// import React, { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useParams } from 'react-router-dom';
-// import Card from '../components/page-materials/Card';
-// import ThreadItems from '../components/thread/materials/ThreadItems';
-// import CommentList from '../components/comment/CommentList';
-// import CommentForm from '../components/comment/CommentForm';
-// import { asyncCreateComment } from '../states/comments/action';
-// import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
-
-// const DetailPage = () => {
-//   const { id } = useParams();
-
-//   const {
-//     detailThread = {},
-//     users = [],
-//     comments = [],
-//     authUser,
-//   } = useSelector((states) => states);
-
-//   const dispatch = useDispatch();
-
-//   const onAddComment = ({ comment }) => {
-//     const payload = {
-//       threadId: id,
-//       comment,
-//     };
-//     dispatch(asyncCreateComment(payload));
-//     dispatch(asyncReceiveThreadDetail(id));
-//   };
-
-//   useEffect(() => {
-//     dispatch(asyncReceiveThreadDetail(id));
-//   }, [id, dispatch]);
-
-
-//   if (!detailThread?.id) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div className="detail-thread">
-//       <div className="detail-thread-scroll">
-//         <Card>
-//           <ThreadItems isDetails threadDetail={detailThread} users={users} />
-//           <CommentForm authUser={authUser} comments={comments} onAddComment={onAddComment} />
-//           {comments?.map((comment) => (
-//             <CommentList key={comment?.id} comment={comment} />
-//           ))}
-//         </Card>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DetailPage;
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -75,7 +19,7 @@ const DetailPage = () => {
     authUser,
   } = useSelector((states) => states);
 
-  // ✅ Gunakan state lokal untuk menyimpan komentar terbaru
+  // Gunakan state lokal untuk menyimpan komentar terbaru
   const [localComments, setLocalComments] = useState(comments);
 
   useEffect(() => {
@@ -96,10 +40,10 @@ const DetailPage = () => {
       downVotesBy: [],
     };
 
-    // ✅ Update state lokal langsung, tanpa menunggu Redux
+    //  Update state lokal langsung, tanpa menunggu Redux
     setLocalComments((prevComments) => [newComment, ...prevComments]);
 
-    // ✅ Dispatch Redux agar data tetap sinkron dengan backend
+    //  Dispatch Redux agar data tetap sinkron dengan backend
     await dispatch(asyncCreateComment({ threadId: id, comment }));
     dispatch(asyncReceiveThreadDetail(id)); // Ambil ulang data thread
   };
