@@ -1,8 +1,9 @@
 import React from 'react';
-import { IoLogOut } from 'react-icons/io5';
+import { RiLogoutBoxRFill } from 'react-icons/ri';
+
 import PropTypes from 'prop-types';
 import NavbarList from './materials/NavbarList';
-import { NavbarContainer, Discusser, ProfileName, ProfileInfo, ProfileAvatar, ButtonLogout, NavbarTitle } from '../styled/Navbar';
+import { NavbarContainer, Discusser, ProfileName, ProfileInfo, ProfileAvatar, ButtonLogout, NavbarTitleButton } from '../styled/Navbar';
 
 const Navbar = ({ signOut, authUser }) => {
   return (
@@ -13,11 +14,11 @@ const Navbar = ({ signOut, authUser }) => {
         <ProfileAvatar src={authUser.avatar} alt="User Avatar" />
         <ProfileName>{authUser.name}</ProfileName>
         <ButtonLogout onClick={signOut}>
-          <IoLogOut />
-          <NavbarTitle>
-                  Sign Out
-          </NavbarTitle>
+          <RiLogoutBoxRFill />
         </ButtonLogout>
+        <NavbarTitleButton onClick={signOut}>
+                  Sign Out
+        </NavbarTitleButton>
       </ProfileInfo>
     </NavbarContainer>
   );

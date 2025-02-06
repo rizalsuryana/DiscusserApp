@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Title, LinkTitile } from '../../styled/Title';
 
 const ThreadTitle = ({ id, title, category, isDetails }) => {
 
@@ -9,22 +10,20 @@ const ThreadTitle = ({ id, title, category, isDetails }) => {
       {
         isDetails ? (
           <div>
-            <p>
-              <span className="span-thread-title">
-                {title}
-              </span>
-            </p>
+            <Title>
+              {title}
+            </Title>
             <span className="span-thread-category">
                     #{`${category}`}
             </span>
           </div>
         ) : (
           <div>
-            <Link to={`/thread/${id}`}>
-              <span className="span-thread-title">
+            <LinkTitile to={`/thread/${id}`}>
+              <Title>
                 {title}
-              </span>
-            </Link>
+              </Title>
+            </LinkTitile>
             <br/>
             <span className="span-thread-category">
                 #{`${category}`}

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { LuSendHorizontal } from 'react-icons/lu';
 import useInput from '../../hooks/useInput';
 import Button from '../button/Button';
-import Card from '../page-materials/Card';
-
+import CardThread from '../styled/CardThread';
+import Container from '../styled/Container';
+import Avatar from '../styled/Avatar';
 
 const CommentForm = ({ onAddComment, authUser }) => {
   console.log(`auth user benerin komen loading ${authUser}`);
@@ -25,11 +26,12 @@ const CommentForm = ({ onAddComment, authUser }) => {
   };
 
   return (
-    <div className="comment-form">
-      <Card.Body>
+    <Container>
+      <CardThread>
+
         <form onSubmit={onHandleComment} className="comment-form__form">
           <div className="comment-form__avatar">
-            <img src={authUser?.avatar} alt={authUser?.avatar} className='comment-form__avatar'/>
+            <Avatar src={authUser?.avatar} alt={authUser?.avatar} className='comment-form__avatar'/>
           </div>
           <div className="comment-form__text-area">
             <textarea
@@ -47,8 +49,10 @@ const CommentForm = ({ onAddComment, authUser }) => {
           </div>
 
         </form>
-      </Card.Body>
-    </div>
+
+      </CardThread>
+
+    </Container>
   );
 };
 

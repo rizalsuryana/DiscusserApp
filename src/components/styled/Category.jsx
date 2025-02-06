@@ -21,7 +21,7 @@ export const CategoriesContainer = styled.div`
     background-color: white;
     left: 0;
     right: 0;
-    height: 22px;
+    height: 2rem;
     justify-content: flex-start;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }

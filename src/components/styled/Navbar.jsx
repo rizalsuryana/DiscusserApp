@@ -25,7 +25,7 @@ export const NavbarContainer = styled.nav`
     background-color: white;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 2rem;
     justify-content: space-around;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
   }
@@ -160,7 +160,7 @@ export const NavbarItem = styled(Link)`
 export const ButtonLogout = styled.button`
   background-color: white;
   border: none;
-   color: #007bff;
+  color: #007bff;
   text-decoration: none;
   display: flex;
   flex-direction: row; /* Align icons and titles side by side */
@@ -173,11 +173,16 @@ export const ButtonLogout = styled.button`
     color:rgb(8, 8, 8);
   }
 
+  @media (min-width: 768px) {
+  display: none;
+
+  }
 
   @media (max-width: 768px) {
     font-size: 2rem;
     margin: auto;
-    padding-right:100px;
+    padding-right: 4rem;
+    padding-left: 1rem;
   }
 `;
 
@@ -197,5 +202,23 @@ export const AddPost = styled(Link)`
 
   @media (max-width: 769px) {
     // display: none;
+  }
+`;
+
+export const NavbarTitleButton = styled(Link)`
+  font-size: 1rem;
+  color:  #007bff;
+  align-items: center;
+  margin-bottom: 3rem;
+  width: 100%;
+  text-decoration: none;
+
+    &:hover {
+    color: Black;
+    background-color: #007bff;
+  }
+
+  @media (max-width: 769px) {
+    display: none;
   }
 `;

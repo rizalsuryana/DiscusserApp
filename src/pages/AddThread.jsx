@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import ThreadForm from '../components/thread/materials/ThreadForm';
 import ROUTE_PATH from '../config/routePaths';
 import { asyncAddThread } from '../states/threads/action';
+import Container from '../components/styled/Container';
+import CardThread from '../components/styled/CardThread';
+
 
 const AddThread = () => {
   const navigate = useNavigate();
@@ -20,11 +23,11 @@ const AddThread = () => {
   };
 
   return (
-    <div className="add-thread">
-      <div className="add-thread__form">
+    <Container>
+      <CardThread>
         <ThreadForm onAddThread={onAddThread}/>
-      </div>
-    </div>
+      </CardThread>
+    </Container>
   );
 };
 
