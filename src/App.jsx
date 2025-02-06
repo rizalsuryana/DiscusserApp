@@ -14,7 +14,7 @@ import RegisterPage from './pages/RegisterPage';
 import { asyncUnsetAuthUser } from './states/authUser/action';
 import { asyncPreloadProcess } from './states/isPreload/action';
 import PagesInfo from './components/page-materials/Pagesinfo';
-import './styles/style.css';
+// import './styles/style.css';
 
 const App = () => {
   const { authUser = null, isPreload = false } = useSelector((states) => states);

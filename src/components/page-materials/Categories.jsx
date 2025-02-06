@@ -1,99 +1,114 @@
 // import React from 'react';
 // import PropTypes from 'prop-types';
-// import { useDispatch } from 'react-redux';
-// import { setFilteredActionCreator } from '../../states/filters/action';
+// import { CategoriesContainer, ResetFilterButton, FilterCategoryButton, MobileCategoriesMenu, MobileCategoriesButton } from '../../components/styled/Category';
 
-// const Categories = (attributes) => {
-//   const { threads, filtered } = attributes;
+// const Categories = ({ threads, filtered, setFiltered, isMobileMenuOpen }) => {
+//   const handleFilteredThreadByCategory = (key) => {
+//     setFiltered(key); // Mengubah filter kategori
+//   };
 
-//   const dispatch = useDispatch();
-
-//   const handleFilteredThereadByCategories = (key) => {
-//     dispatch(setFilteredActionCreator(key));
+//   const handleResetFilter = () => {
+//     setFiltered(''); // Reset filter ke kosong untuk menampilkan semua thread
 //   };
 
 //   return (
-//     <div className="categories">
+//     <CategoriesContainer isMobileMenuOpen={isMobileMenuOpen}>
 //       <h2>Categories:</h2>
+//       <ResetFilterButton onClick={handleResetFilter}>Reset</ResetFilterButton>
 //       <div className="filter-category">
-//         {
-//           threads?.filter((value, index, item)=> index === item.findIndex((temp)=>(
-//             temp?.category === value?.category
-//           )))?.map((thread)=> (
-//             <div key={`${thread?.category}-${thread?.createdAt}`}
-//             >
-//               <button
-//                 onClick={()=> handleFilteredThereadByCategories(thread?.category)}
-//                 type='button'
-//                 className={`${filtered=== thread?.category? 'filtered-black' : 'filtered-white'} `}
+//         {threads
+//           ?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
+//           .map((thread) => (
+//             <div key={`${thread?.category}-${thread?.createdAt}`}>
+//               <FilterCategoryButton
+//                 isSelected={filtered === thread?.category}
+//                 onClick={() => handleFilteredThreadByCategory(thread?.category)}
 //               >
-//                 <span>
-//                     #{thread?.category}
-//                 </span>
-
-//               </button>
-
+//                 <span>#{thread?.category}</span>
+//               </FilterCategoryButton>
 //             </div>
-
-//           ))
-//         }
+//           ))}
 //       </div>
-//     </div>
+
+//       {/* Tampilan mobile dengan menu kategori */}
+//       <MobileCategoriesMenu isMobileMenuOpen={isMobileMenuOpen}>
+//         <MobileCategoriesButton onClick={handleResetFilter}>Reset</MobileCategoriesButton>
+//         {threads
+//           ?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
+//           .map((thread) => (
+//             <div key={`${thread?.category}-${thread?.createdAt}`}>
+//               <MobileCategoriesButton
+//                 onClick={() => handleFilteredThreadByCategory(thread?.category)}
+//               >
+//                 <span>#{thread?.category}</span>
+//               </MobileCategoriesButton>
+//             </div>
+//           ))}
+//       </MobileCategoriesMenu>
+//     </CategoriesContainer>
 //   );
 // };
 
-
 // const threadShape = {
-//   category: PropTypes.string.isRequired
+//   category: PropTypes.string.isRequired,
 // };
 
 // Categories.propTypes = {
 //   threads: PropTypes.arrayOf(PropTypes.shape(threadShape)).isRequired,
-//   filtered: PropTypes.string.isRequired
+//   filtered: PropTypes.string.isRequired,
+//   setFiltered: PropTypes.func.isRequired,
+//   isMobileMenuOpen: PropTypes.bool.isRequired,
 // };
 
 // export default Categories;
 
+
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CategoriesContainer, FilterCategoryButton, MobileCategoriesMenu, MobileCategoriesButton } from '../../components/styled/Category';
 
-const Categories = ({ threads, filtered, setFiltered }) => {
+const Categories = ({ threads, filtered, setFiltered, isMobileMenuOpen }) => {
   const handleFilteredThreadByCategory = (key) => {
-    setFiltered(key); // Mengubah filter kategori
-  };
-
-  const handleResetFilter = () => {
-    setFiltered(''); // Reset filter ke kosong untuk menampilkan semua thread
+    if (filtered === key) {
+      setFiltered(''); // Reset filter jika kategori yang sama diklik
+    } else {
+      setFiltered(key); // Mengubah filter kategori jika kategori berbeda diklik
+    }
   };
 
   return (
-    <div className="categories">
+    <CategoriesContainer isMobileMenuOpen={isMobileMenuOpen}>
       <h2>Categories:</h2>
-      <button
-        onClick={handleResetFilter}
-        className="reset-filter-button"
-      >
-        Reset
-      </button>
       <div className="filter-category">
-        {
-          threads?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
-            .map((thread) => (
-              <div key={`${thread?.category}-${thread?.createdAt}`}>
-                <button
-                  onClick={() => handleFilteredThreadByCategory(thread?.category)}
-                  type='button'
-                  className={`${filtered === thread?.category ? 'filtered-black' : 'filtered-white'}`}
-                >
-                  <span>
-                    #{thread?.category}
-                  </span>
-                </button>
-              </div>
-            ))
-        }
+        {threads
+          ?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
+          .map((thread) => (
+            <div key={`${thread?.category}-${thread?.createdAt}`}>
+              <FilterCategoryButton
+                isSelected={filtered === thread?.category}
+                onClick={() => handleFilteredThreadByCategory(thread?.category)}
+              >
+                <span>#{thread?.category}</span>
+              </FilterCategoryButton>
+            </div>
+          ))}
       </div>
-    </div>
+
+      {/* Tampilan mobile dengan menu kategori */}
+      <MobileCategoriesMenu isMobileMenuOpen={isMobileMenuOpen}>
+        {threads
+          ?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
+          .map((thread) => (
+            <div key={`${thread?.category}-${thread?.createdAt}`}>
+              <MobileCategoriesButton
+                onClick={() => handleFilteredThreadByCategory(thread?.category)}
+              >
+                <span>#{thread?.category}</span>
+              </MobileCategoriesButton>
+            </div>
+          ))}
+      </MobileCategoriesMenu>
+    </CategoriesContainer>
   );
 };
 
@@ -105,7 +120,7 @@ Categories.propTypes = {
   threads: PropTypes.arrayOf(PropTypes.shape(threadShape)).isRequired,
   filtered: PropTypes.string.isRequired,
   setFiltered: PropTypes.func.isRequired,
+  isMobileMenuOpen: PropTypes.bool.isRequired,
 };
 
 export default Categories;
-

@@ -6,6 +6,8 @@ import Categories from '../components/page-materials/Categories';
 import { Link } from 'react-router-dom';
 import ROUTE_PATH from '../config/routePaths';
 import { BiSolidMessageAdd } from 'react-icons/bi';
+import Container from '../components/styled/Container';
+import Card from '../components/styled/Card';
 
 const HomePage = () => {
   const { threads = [] } = useSelector((states) => states);
@@ -18,7 +20,7 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <Container maxWidth='*80%'>
       <Link className='floating-button' to={ROUTE_PATH.ADD_PAGE}>
         <BiSolidMessageAdd />
       </Link>
@@ -28,7 +30,7 @@ const HomePage = () => {
         </div>
         <ThreadList threads={threads} filtered={filtered} />
       </div>
-    </div>
+    </Container>
   );
 };
 
