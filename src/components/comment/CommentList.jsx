@@ -1,12 +1,13 @@
-
 import React from 'react';
 import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from 'react-icons/bi';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import Card from '../page-materials/Card';
 import { postedAt } from '../../utils';
 import { asyncDownVoteComment, asyncUpVoteComment, asyncNeutralizeVoteComment } from '../../states/comments/action';
 import parse from 'html-react-parser';
+import CardThread from '../styled/CardThread';
+import Container from '../styled/Container';
+import Avatar from '../styled/Avatar';
 
 const CommentList = ({ comment }) => {
   const { authUser } = useSelector((states) => states);
@@ -24,17 +25,16 @@ const CommentList = ({ comment }) => {
     dispatch(asyncNeutralizeVoteComment(id));
   };
 
-
   if (!comment || !comment.owner) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className='comment-list-card'>
-      <Card.Body>
+    <Container>
+      <CardThread>
         <div className="comment-list">
           <div className="comment-list__top">
-            <img
+            <Avatar
               src={comment?.owner?.avatar || '/default-avatar.png'} // fallback image if avatar is not available
               alt={comment?.owner?.name || 'User Avatar'}
               className='comment-list__top-foto'
@@ -94,8 +94,8 @@ const CommentList = ({ comment }) => {
             </p>
           </div>
         </div>
-      </Card.Body>
-    </div>
+      </CardThread>
+    </Container>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Avatar from '../styled/Avatar';
 
 const UserProfile = ({ authUser }) => {
   const { name, email, avatar } = authUser;
@@ -7,10 +8,11 @@ const UserProfile = ({ authUser }) => {
     <div className="">
       <div className="user-profile">
         <div className="user-profile__avatar">
-          <img
+          <Avatar
             src= {avatar}
             alt= 'user-avatar'
           />
+
         </div>
       </div>
       <div className="user-profile__name-email">

@@ -1,18 +1,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VscCommentDiscussion } from 'react-icons/vsc';
 import { FaRankingStar } from 'react-icons/fa6';
-// import { IoLogOut } from 'react-icons/io5';
 import ROUTE_PATH from '../../../config/routePaths';
 import { NavbarLinks,
   NavbarItem,
-  // ButtonLogout,
-  CreatePostButton,
   AddPost,
   NavbarTitle } from '../../styled/Navbar';
-import { BiSolidMessageAdd } from 'react-icons/bi';
-
+import { MdHome, MdAddBox } from 'react-icons/md';
 const NavbarList = ({ signOut }) => {
   return (
     <>
@@ -24,13 +19,13 @@ const NavbarList = ({ signOut }) => {
           </NavbarTitle>
         </ButtonLogout> */}
         <NavbarItem to={ROUTE_PATH.HOME_PAGE}>
-          <VscCommentDiscussion />
+          <MdHome />
           <NavbarTitle>
           Discussion
           </NavbarTitle>
         </NavbarItem>
         <AddPost className='floating-button' to={ROUTE_PATH.ADD_PAGE}>
-          <BiSolidMessageAdd />
+          <MdAddBox />
           <NavbarTitle>
             Create Post
           </NavbarTitle>

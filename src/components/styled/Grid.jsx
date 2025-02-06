@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 
 const Grid = styled.div`
+// background-color:red;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   grid-gap: ${(props) => props.gap};
-  max-width: 80%;
+  max-width: 70%;
   
-  margin: 0 auto; /* Pastikan kontennya berada di tengah */
+  margin: auto; 
 
-  /* Menambahkan responsivitas */
+  
   @media (max-width: 768px) {
-    max-width: 100%; /* Atur menjadi 100% di mobile */
+    max-width: 100%; 
   }
 `;
 

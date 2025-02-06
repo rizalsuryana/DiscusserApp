@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import ThreadItems from './materials/ThreadItems';
 import Grid from '../styled/Grid';
-import Card from '../styled/Card';
+import CardThread from '../styled/CardThread';
 const ThreadList = ({ threads, filtered }) =>  {
 
   const { users = [] } = useSelector((states)=>states);
@@ -14,9 +14,9 @@ const ThreadList = ({ threads, filtered }) =>  {
         <Grid>
           {
             threads?.map((thread)=> (
-              <Card className='thread-list__filtered' key={`${thread?.id}-filtered`}>
+              <CardThread className='thread-list__filtered' key={`${thread?.id}-filtered`}>
                 <ThreadItems key={thread?.id} threads={thread} users={users}/>
-              </Card>
+              </CardThread>
             ))
           }
         </Grid>
@@ -28,9 +28,9 @@ const ThreadList = ({ threads, filtered }) =>  {
       <Grid>
         {
           threads?.filter((threadFilter)=> threadFilter?.category === filtered).map((thread)=>(
-            <Card className='thread-list__card' key={thread?.id}>
+            <CardThread className='thread-list__card' key={thread?.id}>
               <ThreadItems key={thread?.id} threads={thread} users={users}/>
-            </Card>
+            </CardThread>
           ))
         }
       </Grid>

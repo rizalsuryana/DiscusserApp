@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BiLike, BiSolidLike, BiDislike, BiSolidDislike, BiCommentDetail } from 'react-icons/bi';
 import { useSelector } from 'react-redux';
-import { postedAt } from '../../../utils';
 import { useNavigate } from 'react-router-dom';
+import { Flex } from '../../styled/Flex';
 
 const ThreadFooter = ({
   id,
-  createdAt,
   upVotesBy,
   downVotesBy,
   onHandleUpVoteThread,
@@ -20,7 +19,7 @@ const ThreadFooter = ({
   const navigate = useNavigate();
   const { authUser }= useSelector((states)=> states);
   return (
-    <div className="thread-footer">
+    <Flex>
       <div className="thread-footer__like-button">
         <button
           onClick={()=> {
@@ -78,13 +77,8 @@ const ThreadFooter = ({
             )
           }
         </span>
-        <div className="thread-footer__postedAt">
-          <p>
-            {postedAt(createdAt)}
-          </p>
-        </div>
       </div>
-    </div>
+    </Flex>
   );
 };
 
@@ -92,7 +86,6 @@ const ThreadFooter = ({
 
 ThreadFooter.defaultProps = {
   id: '',
-  createdAt: '',
   upVotesBy: [],
   downVotesBy: [],
   totalComments: 0,
@@ -101,7 +94,6 @@ ThreadFooter.defaultProps = {
 
 ThreadFooter.propTypes = {
   id: PropTypes.string.isRequired,
-  createdAt: PropTypes.string,
   upVotesBy: PropTypes.arrayOf(PropTypes.string),
   downVotesBy: PropTypes.arrayOf(PropTypes.string),
   totalComments: PropTypes.number,
