@@ -25,7 +25,7 @@ const ThreadList = ({ threads, filtered }) =>  {
   }
   return (
     <div className="thread-list">
-      <div className="thread-list__container">
+      <Grid>
         {
           threads?.filter((threadFilter)=> threadFilter?.category === filtered).map((thread)=>(
             <Card className='thread-list__card' key={thread?.id}>
@@ -33,7 +33,7 @@ const ThreadList = ({ threads, filtered }) =>  {
             </Card>
           ))
         }
-      </div>
+      </Grid>
     </div>
   );
 };

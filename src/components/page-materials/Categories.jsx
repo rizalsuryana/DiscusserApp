@@ -1,20 +1,19 @@
 // import React from 'react';
 // import PropTypes from 'prop-types';
-// import { CategoriesContainer, ResetFilterButton, FilterCategoryButton, MobileCategoriesMenu, MobileCategoriesButton } from '../../components/styled/Category';
-
+// import { CategoriesContainer, FilterCategoryButton, MobileCategoriesMenu, MobileCategoriesButton } from '../../components/styled/Category';
+// import Card from '../styled/Card';
 // const Categories = ({ threads, filtered, setFiltered, isMobileMenuOpen }) => {
 //   const handleFilteredThreadByCategory = (key) => {
-//     setFiltered(key); // Mengubah filter kategori
-//   };
-
-//   const handleResetFilter = () => {
-//     setFiltered(''); // Reset filter ke kosong untuk menampilkan semua thread
+//     if (filtered === key) {
+//       setFiltered(''); // Reset filter jika kategori yang sama diklik
+//     } else {
+//       setFiltered(key); // Mengubah filter kategori jika kategori berbeda diklik
+//     }
 //   };
 
 //   return (
 //     <CategoriesContainer isMobileMenuOpen={isMobileMenuOpen}>
 //       <h2>Categories:</h2>
-//       <ResetFilterButton onClick={handleResetFilter}>Reset</ResetFilterButton>
 //       <div className="filter-category">
 //         {threads
 //           ?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
@@ -32,7 +31,6 @@
 
 //       {/* Tampilan mobile dengan menu kategori */}
 //       <MobileCategoriesMenu isMobileMenuOpen={isMobileMenuOpen}>
-//         <MobileCategoriesButton onClick={handleResetFilter}>Reset</MobileCategoriesButton>
 //         {threads
 //           ?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
 //           .map((thread) => (
@@ -61,19 +59,17 @@
 // };
 
 // export default Categories;
-
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CategoriesContainer, FilterCategoryButton, MobileCategoriesMenu, MobileCategoriesButton } from '../../components/styled/Category';
+import {
+  CategoriesContainer,
+  FilterCategoryButton,
+  MobileCategoriesMenu,
+} from '../../components/styled/Category'; // Import styling dari kategori
 
 const Categories = ({ threads, filtered, setFiltered, isMobileMenuOpen }) => {
   const handleFilteredThreadByCategory = (key) => {
-    if (filtered === key) {
-      setFiltered(''); // Reset filter jika kategori yang sama diklik
-    } else {
-      setFiltered(key); // Mengubah filter kategori jika kategori berbeda diklik
-    }
+    setFiltered(filtered === key ? '' : key); // Jika kategori yang sama diklik lagi, reset
   };
 
   return (
@@ -94,17 +90,17 @@ const Categories = ({ threads, filtered, setFiltered, isMobileMenuOpen }) => {
           ))}
       </div>
 
-      {/* Tampilan mobile dengan menu kategori */}
+      {/* Tampilan Mobile dengan menu kategori */}
       <MobileCategoriesMenu isMobileMenuOpen={isMobileMenuOpen}>
         {threads
           ?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
           .map((thread) => (
             <div key={`${thread?.category}-${thread?.createdAt}`}>
-              <MobileCategoriesButton
+              <FilterCategoryButton
                 onClick={() => handleFilteredThreadByCategory(thread?.category)}
               >
                 <span>#{thread?.category}</span>
-              </MobileCategoriesButton>
+              </FilterCategoryButton>
             </div>
           ))}
       </MobileCategoriesMenu>
