@@ -2,19 +2,27 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const NavbarContainer = styled.nav`
-  background-color: #222;
-  color: white;
+  border: 2px solid #007bff;
   display: flex;
+  background-color: white;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
   position: fixed;
+  margin: 10px;
+  border-radius: 10px;
   transition: all 0.3s ease-in-out;
+  z-index: 10;
 
   @media (max-width: 768px) {
     flex-direction: row;
     width: 100%;
+    border: none;
     bottom: 0;
+    padding: 1rem;
+    margin: 0;
+    border-radius: 0;
+    background-color: white;
     left: 0;
     right: 0;
     height: 60px;
@@ -31,46 +39,45 @@ export const NavbarContainer = styled.nav`
   }
 `;
 
+export const Discusser = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+   @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+
 export const NavbarLinks = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
   width: 100%;
+  margin: auto;
 
   @media (max-width: 768px) {
     flex-direction: row;
   }
 `;
 
-export const NavbarItem = styled(Link)`
-  text-decoration: none;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 1.2rem;
-  transition: color 0.2s ease-in-out;
-
-  &:hover {
-    color: #f0a500;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: row;
-    font-size: 1rem;
-  }
-`;
 
 export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: auto;
   gap: 0.5rem;
+  margin; auto;
 
-  @media (max-width: 768px) {
+    @media (max-width: 769px) {
+    flex-direction: row;
+  }
+`;
+
+export const ProfileName = styled.span`
+    @media (max-width: 769px) {
     display: none;
   }
 `;
@@ -82,30 +89,11 @@ export const ProfileAvatar = styled.img`
   object-fit: cover;
 `;
 
-export const ButtonLogout = styled.button`
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: color 0.2s ease-in-out;
-
-  &:hover {
-    color: red;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-  }
-`;
 
 export const CreatePostButton = styled(Link)`
-  background-color: #f0a500;
-  color: white;
+  background-color: #white;
   padding: 0.8rem;
+  border: solid;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -119,12 +107,89 @@ export const CreatePostButton = styled(Link)`
   transition: background-color 0.3s ease-in-out;
 
   &:hover {
-    background-color: #ffba08;
+    background-color: #007bff;
   }
 
-  /* Sembunyikan di tampilan desktop */
   @media (min-width: 769px) {
     display: none;
   }
 `;
 
+
+export const NavbarTitle = styled.div`
+  font-size: 1rem;
+   display: none;
+  align-items: center;
+  margin: 10px 1px;
+  width: 100%;
+  color: black;
+  padding:10px;
+    &:hover {
+    color: #007bff;
+  }
+
+  @media (max-width: 769px) {
+    display: none;
+  }
+`;
+
+export const NavbarItem = styled(Link)`
+  text-decoration: none;
+  display: flex;
+  color: #007bff;
+  flex-direction: row; /* Align icons and titles side by side */
+  align-items: center;
+  font-size: 2rem;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color:rgb(8, 8, 8);
+  }
+
+  @media (max-width: 768px) {
+     font-size: 2rem;
+    margin: auto;
+  }
+`;
+
+export const ButtonLogout = styled.button`
+  background-color: white;
+  border: none;
+   color: #007bff;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row; /* Align icons and titles side by side */
+  align-items: center;
+  font-size: 2rem;
+  transition: color 0.2s ease-in-out;
+  margin-bottom: 55px;
+
+  &:hover {
+    color:rgb(8, 8, 8);
+  }
+
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin: auto;
+  }
+`;
+
+export const AddPost = styled(Link)`
+   text-decoration: none;
+   color: #007bff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 2rem;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color:rgb(8, 8, 8);
+  }
+
+
+  @media (max-width: 769px) {
+    // display: none;
+  }
+`;

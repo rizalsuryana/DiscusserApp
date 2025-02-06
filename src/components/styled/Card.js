@@ -5,7 +5,7 @@ const Card = styled.div`
   border-radius: 0.5rem;
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-   width: 80%;
+   width: 60%;
   margin: 0 auto; /* Pastikan kontennya berada di tengah */
 
   &:hover {

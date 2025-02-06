@@ -58,7 +58,7 @@ const App = () => {
       <Navbar authUser={authUser} signOut={onSignOut} />
       <div className="div-main">
         <main>
-          <PagesInfo />
+          {/* <PagesInfo /> */}
           <Routes>
             <Route path={ROUTE_PATH.HOME_PAGE} element={<HomePage />} />
             <Route path={ROUTE_PATH.DETAIL_PAGE} element={<DetailPage />} />

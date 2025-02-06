@@ -1,74 +1,96 @@
 import styled from 'styled-components';
 
-// Untuk tampilan Desktop
 export const CategoriesContainer = styled.div`
+  border: 2px solid #007bff;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  max-width: 250px; /* Lebar container kategori */
+  align-items: center;
   position: fixed;
-  top: 100px; /* Jarak dari atas */
-  right: 0; /* Menempatkan kategori di sebelah kanan */
-  z-index: 10; /* Agar tetap di atas konten utama */
+  margin: 10px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+  z-index: 10;
 
   @media (max-width: 768px) {
-    position: fixed; /* Agar mengambang saat mobile */
-    top: 0; /* Menempel di atas */
-    left: 0;
-    width: 100%;
-    background-color: #222;
-    color: white;
+    flex-direction: row;  
+    border: none;
+    top: 0;
     padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    display: ${(props) => (props.isMobileMenuOpen ? 'block' : 'none')}; /* Menyembunyikan kategori pada mobile */
+    margin: 0;
+    border-radius: 0;
+    background-color: white;
+    left: 0;
+    right: 0;
+    height: 22px;
+    justify-content: flex-start;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (min-width: 769px) {
+    flex-direction: column;
+    height: 100%;
+    width: 12%;
+    top: 0;
+    right: 0;
+    padding: 1rem; /* Menambah padding untuk tampilan desktop agar lebih rapi */
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
   }
 `;
 
-// Menampilkan kategori tombol
 export const FilterCategoryButton = styled.button`
   background-color: ${(props) => (props.isSelected ? '#f0a500' : 'transparent')};
   color: ${(props) => (props.isSelected ? 'white' : '#f0a500')};
-  border: 1px solid #f0a500;
+  border: 1px solid #007bff;
   padding: 0.5rem 1rem;
-  margin: 0.25rem 0;
+  margin: 0.25rem;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.3s ease;
 
+  display: inline-block;
+  max-width: 100px;  /* Membatasi lebar maksimal kategori */
+  overflow: hidden;  /* Sembunyikan teks yang lebih panjang */
+  text-overflow: ellipsis;  /* Menampilkan ... jika teks terpotong */
+  white-space: nowrap;  /* Agar teks tidak ter-wrap ke bawah */
+
   &:hover {
-    background-color: #d88800;
+    background-color: #007bff;
     color: white;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
   }
 `;
 
-// Menu kategori di tampilan mobile
-export const MobileCategoriesMenu = styled.div`
-  display: ${(props) => (props.isMobileMenuOpen ? 'block' : 'none')};
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: #222;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  z-index: 20;
-  overflow-y: auto;
+export const CategoriesList = styled.div`
+  display: flex;
+  flex-wrap: nowrap;  /* Jangan biarkan kategori wrap ke bawah */
+  gap: 1rem;
+  justify-content: flex-start;
+
+  @media (max-width: 768px) {
+    overflow-x: auto; /* Untuk scrolling horizontal pada mobile */
+    white-space: nowrap; /* Agar kategori tidak ter-wrap */
+    padding: 1rem;
+    max-width: 100%; /* Pastikan container tidak melewati layar */
+  }
+
+  @media (min-width: 769px) {
+    flex-direction: column; 
+    gap: 1rem;
+    max-width: 100%;  
+    justify-content: flex-start; 
+  }
 `;
 
-// Tombol kategori di mobile
-export const MobileCategoriesButton = styled.button`
-  background-color: #f0a500;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 1rem;
+export const CategoriesTitle = styled.h2`
+  font-size: 1.5rem;
+  color: #007bff;
 
-  &:hover {
-    background-color: #d88800;
+  @media (max-width: 768px) {
+    // display: none; /* Sembunyikan judul kategori pada mobile */
   }
 `;
