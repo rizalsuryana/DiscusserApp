@@ -64,8 +64,9 @@ describe('Login spec', () => {
     cy.get('button').contains(/^Login$/).click();
 
     // verification elemetn homepage
-    cy.get('div').contains(/^Discussion$/).should('be.visible');
-    cy.get('button').contains('SignOut').should('be.visible');
+    cy.get('nav').contains(/^Discussion$/).should('be.visible');
+    // button logout
+    cy.get('button').find('svg').should('be.visible');
   });
 
 

@@ -14,7 +14,7 @@ import RegisterPage from './pages/RegisterPage';
 import { asyncUnsetAuthUser } from './states/authUser/action';
 import { asyncPreloadProcess } from './states/isPreload/action';
 import PagesInfo from './components/page-materials/Pagesinfo';
-import './styles/style.css';
+// import './styles/style.css';
 
 const App = () => {
   const { authUser = null, isPreload = false } = useSelector((states) => states);
@@ -58,7 +58,7 @@ const App = () => {
       <Navbar authUser={authUser} signOut={onSignOut} />
       <div className="div-main">
         <main>
-          <PagesInfo />
+          {/* <PagesInfo /> */}
           <Routes>
             <Route path={ROUTE_PATH.HOME_PAGE} element={<HomePage />} />
             <Route path={ROUTE_PATH.DETAIL_PAGE} element={<DetailPage />} />
