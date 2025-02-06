@@ -87,6 +87,11 @@ export const ProfileAvatar = styled.img`
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+
+    @media (max-width: 769px) {
+    display: none;
+    border-radius: 10px;
+  }
 `;
 
 
@@ -172,6 +177,7 @@ export const ButtonLogout = styled.button`
   @media (max-width: 768px) {
     font-size: 2rem;
     margin: auto;
+    padding-right:100px;
   }
 `;
 
