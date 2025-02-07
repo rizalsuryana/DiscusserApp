@@ -9,6 +9,12 @@ import { asyncDownVoteThread, asyncUpVoteThread, asyncNeutralizeVoteThread } fro
 import { asyncDownVoteThreadDetail, asyncUpVoteThreadDetail, asyncNeutralizeVoteThreadDetail } from '../../../states/threadDetail/action';
 import Container from '../../styled/Container';
 import CardThread from '../../styled/CardThread';
+import styled from 'styled-components';
+
+const DetailView = styled.div`
+margin: 1rem;
+`;
+
 
 const ThreadItems = ({ threadDetail, threads, isDetails, users }) => {
   const dispatch = useDispatch();
@@ -69,7 +75,7 @@ const ThreadItems = ({ threadDetail, threads, isDetails, users }) => {
     </>
   );
 
-  return <Container>{isDetails ? <CardThread>{content}</CardThread> : content}</Container>;
+  return <Container>{isDetails ? <CardThread><DetailView>{content}</DetailView></CardThread> : content}</Container>;
 };
 
 const userAray = {

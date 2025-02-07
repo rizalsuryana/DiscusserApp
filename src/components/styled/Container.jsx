@@ -5,6 +5,10 @@ const Container = styled.div`
   margin: 0 auto;
   max-width: ${(props) => props.maxWidth};
   margin: ${(props) => props.margin};
+  
+//     @media (max-width: 768px) {
+//   height: 100%;
+// }
 `;
 
 Container.defaultProps = {
