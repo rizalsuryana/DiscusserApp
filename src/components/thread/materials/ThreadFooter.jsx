@@ -1,9 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BiLike, BiSolidLike, BiDislike, BiSolidDislike, BiCommentDetail } from 'react-icons/bi';
+import { BiCommentDetail } from 'react-icons/bi';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Flex } from '../../styled/Flex';
+import Icons from '../../styled/Icons';
+import ButtonIcon from '../../styled/icons/ButtonIcon';
+import { LikeIcon, LikedIcon } from '../../styled/icons/LikeIcon';
+import { Dislike, Disliked } from '../../styled/icons/DislikeIcon';
+import styled from 'styled-components';
+
+const Comment = styled(BiCommentDetail)`
+font-size: 1.2rem;
+  &:hover {
+    color: Black;
+    transform: scale(1.2);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+`;
+
+
 
 const ThreadFooter = ({
   id,
@@ -20,8 +39,8 @@ const ThreadFooter = ({
   const { authUser }= useSelector((states)=> states);
   return (
     <Flex>
-      <div className="thread-footer__like-button">
-        <button
+      <Icons>
+        <ButtonIcon
           onClick={()=> {
             if (upVotesBy?.includes(authUser.id)){
               onHandleNeutralizeVoteThread(id);
@@ -33,16 +52,16 @@ const ThreadFooter = ({
         >
           {
             upVotesBy?.includes(authUser?.id)
-              ? (<BiSolidLike className='unlike-thread'/>)
-              : (<BiLike className='like-thread'/>)
+              ? (<LikedIcon/>)
+              : (<LikeIcon/>)
           }
-        </button>
+        </ButtonIcon>
         <span className="span-count">
           {upVotesBy?.length || '0'}
         </span>
-      </div>
-      <div className="thread-footer__dislike-button">
-        <button
+      </Icons>
+      <Icons>
+        <ButtonIcon
           onClick={()=> {
             if (downVotesBy?.includes(authUser?.id)) {
               onHandleNeutralizeVoteThread(id);
@@ -54,20 +73,19 @@ const ThreadFooter = ({
         >
           {
             downVotesBy?.includes(authUser?.id)
-              ? (<BiSolidDislike className='dislike-thread'/>)
-              : (<BiDislike className='undislike-thread'/>)
+              ? (<Disliked/>)
+              : (<Dislike/>)
           }
-        </button>
+        </ButtonIcon>
         <span className="span-count">
           {downVotesBy?.length || '0'}
         </span>
-      </div>
-      <div
-        className="thread-footer__comment"
+      </Icons>
+      <Icons
         onClick={() => navigate(`/thread/${id}`)}
         style={{ cursor: 'pointer' }}
       >
-        <BiCommentDetail className='thread-footer__comment-icon'/>
+        <Comment/>
         <span className="span-count">
           {
             isDetails ? (
@@ -77,7 +95,7 @@ const ThreadFooter = ({
             )
           }
         </span>
-      </div>
+      </Icons>
     </Flex>
   );
 };

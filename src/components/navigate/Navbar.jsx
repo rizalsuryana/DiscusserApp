@@ -1,5 +1,5 @@
 import React from 'react';
-import { RiLogoutBoxRFill } from 'react-icons/ri';
+import { BiSolidExit } from 'react-icons/bi';
 
 import PropTypes from 'prop-types';
 import NavbarList from './materials/NavbarList';
@@ -14,7 +14,7 @@ const Navbar = ({ signOut, authUser }) => {
         <ProfileAvatar src={authUser.avatar} alt="User Avatar" />
         <ProfileName>{authUser.name}</ProfileName>
         <ButtonLogout onClick={signOut}>
-          <RiLogoutBoxRFill />
+          <BiSolidExit/>
         </ButtonLogout>
         <NavbarTitleButton onClick={signOut}>
                   Sign Out
