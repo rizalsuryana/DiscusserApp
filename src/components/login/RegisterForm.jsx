@@ -1,8 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from '../button/Button';
 import useInput from '../../hooks/useInput';
+import {
+  AuthContainer,
+  AuthBox,
+  AuthImageWrapper,
+  AuthImage,
+  AuthForm,
+  AuthHeading,
+  AuthInput,
+  AuthButton,
+  AuthLinkWrapper
+} from '../styled/AuthStyled';
 
 const RegisterForm = ({ register }) => {
   const [name, onNameChange] = useInput('');
@@ -15,47 +25,28 @@ const RegisterForm = ({ register }) => {
   };
 
   return (
-    <form className="form-register" onSubmit={handleRegister}>
-      <div>
-        <div className="register-image">
-          <img className='image-register' src="icon.webp" alt="Discusser" />
-        </div>
-        <h2 className="register-page-head">
-            Create Account Discusser
-        </h2>
-        <div className="register-input__name">
-          <input type="text" className="register-input__name-field"
-            value={name} onChange={onNameChange} placeholder='Name' required
-          />
-        </div>
-        <div className="register-input__email">
-          <input type="email" className="register-input__email-field"
-            value={email} onChange={onEmailChange}
-            placeholder='Email' required
-          />
-        </div>
-        <div className="register-input__password">
-          <input type="password" className="register-input__password-field"
-            value={password} onChange={onPasswordChange}
-            placeholder='Password' minLength="8" required
-          />
-        </div>
-        <div className="register-input__button">
-          <Button type='submit' className='register-button'>
-                Register
-          </Button>
-        </div>
-        <div className="register-input__login-link">
-          <span>Already Have Acoount? </span>
-          <Link to='/'>LogIn Here</Link>
-        </div>
-      </div>
-    </form>
+    <AuthContainer>
+      <AuthBox>
+        <AuthImageWrapper>
+          <AuthImage src="icon.webp" alt="Discusser" />
+        </AuthImageWrapper>
+        <AuthHeading>Create Account Discusser</AuthHeading>
+        <AuthForm onSubmit={handleRegister}>
+          <AuthInput type="text" value={name} onChange={onNameChange} placeholder="Name" required />
+          <AuthInput type="email" value={email} onChange={onEmailChange} placeholder="Email" required />
+          <AuthInput type="password" value={password} onChange={onPasswordChange} placeholder="Password" minLength="8" required />
+          <AuthButton type="submit">Register</AuthButton>
+        </AuthForm>
+        <AuthLinkWrapper>
+          <span>Already have an account? </span>
+          <Link to="/">Log in here</Link>
+        </AuthLinkWrapper>
+      </AuthBox>
+    </AuthContainer>
   );
 };
 
-
-RegisterForm.propTypes ={
+RegisterForm.propTypes = {
   register: PropTypes.func.isRequired
 };
 

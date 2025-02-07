@@ -8,7 +8,7 @@ import { NavbarLinks,
   AddPost,
   NavbarTitle } from '../../styled/Navbar';
 import { MdHome, MdAddBox } from 'react-icons/md';
-const NavbarList = ({ signOut }) => {
+const NavbarList = () => {
   return (
     <>
       <NavbarLinks>

@@ -13,7 +13,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { asyncUnsetAuthUser } from './states/authUser/action';
 import { asyncPreloadProcess } from './states/isPreload/action';
-import PagesInfo from './components/page-materials/Pagesinfo';
+// import PagesInfo from './components/page-materials/Pagesinfo';
 // import './styles/style.css';
 
 const App = () => {

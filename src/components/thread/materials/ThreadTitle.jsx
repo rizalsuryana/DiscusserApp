@@ -1,7 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { Title, LinkTitile } from '../../styled/Title';
+import styled from 'styled-components';
+
+const CategoryDiscussion = styled.div`
+border-radius: 0.2rem;
+width: fit-content;
+background-color:rgba(0, 0, 0, 0.24) ;
+
+`;
+
 
 const ThreadTitle = ({ id, title, category, isDetails }) => {
 
@@ -9,26 +17,25 @@ const ThreadTitle = ({ id, title, category, isDetails }) => {
     <div className="thread-title">
       {
         isDetails ? (
-          <div>
+          <>
             <Title>
               {title}
             </Title>
-            <span className="span-thread-category">
+            <CategoryDiscussion>
                     #{`${category}`}
-            </span>
-          </div>
+            </CategoryDiscussion>
+          </>
         ) : (
-          <div>
+          <>
             <LinkTitile to={`/thread/${id}`}>
               <Title>
                 {title}
               </Title>
             </LinkTitile>
-            <br/>
-            <span className="span-thread-category">
+            <CategoryDiscussion>
                 #{`${category}`}
-            </span>
-          </div>
+            </CategoryDiscussion>
+          </>
         )
       }
     </div>

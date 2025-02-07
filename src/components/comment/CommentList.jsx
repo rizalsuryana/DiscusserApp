@@ -1,5 +1,4 @@
 import React from 'react';
-import { BiLike, BiDislike, BiSolidLike, BiSolidDislike } from 'react-icons/bi';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { postedAt } from '../../utils';
@@ -8,6 +7,23 @@ import parse from 'html-react-parser';
 import CardThread from '../styled/CardThread';
 import Container from '../styled/Container';
 import Avatar from '../styled/Avatar';
+import { Flex } from '../styled/Flex';
+import styled from 'styled-components';
+import Icons from '../styled/Icons';
+import ButtonIcon from '../styled/icons/ButtonIcon';
+import { LikeIcon, LikedIcon } from '../styled/icons/LikeIcon';
+import { Dislike, Disliked } from '../styled/icons/DislikeIcon';
+
+
+const ListComment = styled.div`
+margin: 1rem
+`;
+const NameComenter = styled.div`
+margin-top: 0.5rem;
+width: 100%;
+height: 100%;
+font-size : 1rem;
+`;
 
 const CommentList = ({ comment }) => {
   const { authUser } = useSelector((states) => states);
@@ -32,68 +48,73 @@ const CommentList = ({ comment }) => {
   return (
     <Container>
       <CardThread>
-        <div className="comment-list">
-          <div className="comment-list__top">
-            <Avatar
-              src={comment?.owner?.avatar || '/default-avatar.png'} // fallback image if avatar is not available
-              alt={comment?.owner?.name || 'User Avatar'}
-              className='comment-list__top-foto'
-            />
-          </div>
-          <div className="comment-list__name">
-            <span className="comment-list__span-name">{comment?.owner?.name}</span>
-            <p className="comment-list__content">
-              {parse(comment?.content)}
-            </p>
-          </div>
-        </div>
-        <div className="comment-list__interaction">
-          <div className="comment-list__like">
-            <button
-              onClick={() => {
-                if (comment?.upVotesBy?.includes(authUser.id)) {
-                  onHandleNeutralizeVoteComment(comment?.id);
-                  return;
-                }
-                onHandleUpVoteComment(comment?.id);
-              }}
-              type='button'
-            >
-              {comment?.upVotesBy?.includes(authUser.id)
-                ? (<BiSolidLike />)
-                : (<BiLike />)
-              }
-            </button>
-            <span className="span-count">
-              {comment?.upVotesBy?.length || '0'}
-            </span>
-          </div>
-          <div className="comment-list__dislike">
-            <button
-              onClick={() => {
-                if (comment?.downVotesBy?.includes(authUser.id)) {
-                  onHandleNeutralizeVoteComment(comment.id);
-                  return;
-                }
-                onHandleDownVoteComment(comment?.id);
-              }}
-              type='button'
-            >
-              {comment?.downVotesBy?.includes(authUser.id)
-                ? (<BiSolidDislike />)
-                : (<BiDislike />)
-              }
-            </button>
-            <span className="span-count">
-              {comment?.downVotesBy?.length || '0'}
-            </span>
-          </div>
-          <div className="comment-list__createdAt">
-            <p className="comment-list__createdAt-text">
-              {postedAt(comment?.createdAt)}
-            </p>
-          </div>
-        </div>
+
+        <>
+          <ListComment>
+            <Flex>
+              <div className="comment-list__top">
+                <Avatar
+                  src={comment?.owner?.avatar || '/default-avatar.png'} // fallback image if avatar is not available
+                  alt={comment?.owner?.name || 'User Avatar'}
+                  className='comment-list__top-foto'
+                />
+              </div>
+              <NameComenter>{comment?.owner?.name}</NameComenter>
+            </Flex>
+            <div className="comment-list__name">
+              <p className="comment-list__content">
+                {parse(comment?.content)}
+              </p>
+            </div>
+            <Flex>
+              <Icons>
+                <ButtonIcon
+                  onClick={() => {
+                    if (comment?.upVotesBy?.includes(authUser.id)) {
+                      onHandleNeutralizeVoteComment(comment?.id);
+                      return;
+                    }
+                    onHandleUpVoteComment(comment?.id);
+                  }}
+                  type='button'
+                >
+                  {comment?.upVotesBy?.includes(authUser.id)
+                    ? (<LikedIcon/>)
+                    : (<LikeIcon />)
+                  }
+                </ButtonIcon>
+                <span className="span-count">
+                  {comment?.upVotesBy?.length || '0'}
+                </span>
+              </Icons>
+              <Icons>
+                <ButtonIcon
+                  onClick={() => {
+                    if (comment?.downVotesBy?.includes(authUser.id)) {
+                      onHandleNeutralizeVoteComment(comment.id);
+                      return;
+                    }
+                    onHandleDownVoteComment(comment?.id);
+                  }}
+                  type='button'
+                >
+                  {comment?.downVotesBy?.includes(authUser.id)
+                    ? (<Disliked />)
+                    : (<Dislike />)
+                  }
+                </ButtonIcon>
+                <span className="span-count">
+                  {comment?.downVotesBy?.length || '0'}
+                </span>
+              </Icons>
+              <div className="comment-list__createdAt">
+                <p className="comment-list__createdAt-text">
+                  {postedAt(comment?.createdAt)}
+                </p>
+              </div>
+            </Flex>
+          </ListComment>
+        </>
       </CardThread>
     </Container>
   );
