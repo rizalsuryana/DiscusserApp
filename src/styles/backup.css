@@ -1,0 +1,205 @@
+/* login */
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f6f9;
+  }
+  
+  .page-view {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .page-view .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .page-view .login-form input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .page-view .login-form button {
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .page-view .login-form button:disabled {
+    background-color: #ccc;
+  }
+  
+  .page-view .login-form .error-message {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+  }
+  
+  /* login form */
+  
+  .register-input__login-link, .login-page__create-account {
+    margin-top: 15px;
+  }
+  
+  .login-image, .register-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  }
+  .image-login, .image-register {
+    max-width: 40%;
+    height: auto;
+    border-radius: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .image-login:hover, .image-register:hover {
+    transform: scale(1.1);
+  }
+  
+  .login-form {
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-page-head {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .login-page__email,
+  .login-page__password {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-page__email input,
+  .login-page__password input {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .login-page__button {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .login-page__create-account {
+    text-align: center;
+  }
+  
+  .login-page__create-account a {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .login-page__create-account a:hover {
+    text-decoration: underline;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-button:disabled {
+    background-color: #ccc;
+  }
+  
+
+
+.form-register {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .register-input__name,
+  .register-input__email,
+  .register-input__password {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .register-input__name-field,
+  .register-input__email-field,
+  .register-input__password-field {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .register-input__button {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .register-button:disabled {
+    background-color: #ccc;
+  }
+  
+  .register-input__login-link {
+    text-align: center;
+  }
+  
+  .register-input__login-link a {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .register-input__login-link a:hover {
+    text-decoration: underline;
+  }
+  

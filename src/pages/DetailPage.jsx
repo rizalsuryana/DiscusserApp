@@ -6,7 +6,6 @@ import CommentList from '../components/comment/CommentList';
 import CommentForm from '../components/comment/CommentForm';
 import { asyncCreateComment } from '../states/comments/action';
 import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
-import CardThread from '../components/styled/CardThread';
 import Container from '../components/styled/Container';
 
 const DetailPage = () => {

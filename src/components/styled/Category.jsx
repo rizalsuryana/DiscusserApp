@@ -10,7 +10,12 @@ export const CategoriesContainer = styled.div`
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
   z-index: 10;
+ box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Efek neon awal */
 
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8), 0 0 25px rgba(0, 123, 255, 0.6); /* Glow lebih terang saat hover */
+  }
   @media (max-width: 768px) {
     flex-direction: row;  
     border: none;
@@ -24,6 +29,7 @@ export const CategoriesContainer = styled.div`
     height: 2rem;
     justify-content: flex-start;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+
   }
 
   @media (min-width: 769px) {
@@ -90,7 +96,4 @@ export const CategoriesTitle = styled.h2`
   font-size: 1.5rem;
   color: #007bff;
 
-  @media (max-width: 768px) {
-    // display: none; /* Sembunyikan judul kategori pada mobile */
-  }
 `;

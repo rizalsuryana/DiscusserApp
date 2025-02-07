@@ -26,7 +26,7 @@ describe('ThreadForm component', () => {
   it('should handle title typing correctly', async () => {
     // Arrange
     render(<ThreadForm onAddThread={() => {}} />);
-    const titleInput = await screen.getByPlaceholderText('Title');
+    const titleInput = await screen.getByPlaceholderText('Topic');
 
     // Action
     await userEvent.type(titleInput, 'Test Thread Title');
@@ -50,7 +50,7 @@ describe('ThreadForm component', () => {
   it('should handle body typing correctly', async () => {
     // Arrange
     render(<ThreadForm onAddThread={() => {}} />);
-    const bodyInput = await screen.getByPlaceholderText("what's going on today?");
+    const bodyInput = await screen.getByPlaceholderText('What would you like to discuss ?');
 
     // Action
     await userEvent.type(bodyInput, 'This is the thread body content.');
@@ -64,11 +64,11 @@ describe('ThreadForm component', () => {
     const mockOnAddThread = vi.fn();
     render(<ThreadForm onAddThread={mockOnAddThread} />);
 
-    const titleInput = await screen.getByPlaceholderText('Title');
+    const titleInput = await screen.getByPlaceholderText('Topic');
     await userEvent.type(titleInput, 'Test Thread Title');
     const categoryInput = await screen.getByPlaceholderText('Category');
     await userEvent.type(categoryInput, 'Test Category');
-    const bodyInput = await screen.getByPlaceholderText("what's going on today?");
+    const bodyInput = await screen.getByPlaceholderText('What would you like to discuss ?');
     await userEvent.type(bodyInput, 'This is the thread body content.');
 
     const submitButton = await screen.getByRole('button', { name: /post/i });

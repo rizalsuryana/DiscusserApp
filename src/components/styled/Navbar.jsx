@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const NavbarContainer = styled.nav`
-  border: 2px solid #007bff;
+  border: 0.1rem solid #007bff;
   display: flex;
   background-color: white;
   flex-direction: column;
@@ -13,10 +13,16 @@ export const NavbarContainer = styled.nav`
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
   z-index: 10;
+   box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Efek neon awal */
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8), 0 0 25px rgba(0, 123, 255, 0.6); /* Glow lebih terang saat hover */
+  }
 
   @media (max-width: 768px) {
     flex-direction: row;
-    width: 100%;
+    // width: fit;
     border: none;
     bottom: 0;
     padding: 1rem;
@@ -27,7 +33,9 @@ export const NavbarContainer = styled.nav`
     right: 0;
     height: 2rem;
     justify-content: space-around;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    // box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    border: 0.1rem solid #007bff;
+    border-radius: 10px;
   }
 
   @media (min-width: 769px) {
@@ -181,7 +189,7 @@ export const ButtonLogout = styled.button`
   @media (max-width: 768px) {
     font-size: 2rem;
     margin: auto;
-    padding-right: 4rem;
+    padding-right: 3rem;
     padding-left: 1rem;
   }
 `;
