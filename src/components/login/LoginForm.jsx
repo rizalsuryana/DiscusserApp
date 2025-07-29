@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import useInput from '../../hooks/useInput';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import useInput from "../../hooks/useInput";
 import {
   AuthContainer,
   AuthBox,
@@ -11,12 +11,12 @@ import {
   AuthHeading,
   AuthInput,
   AuthButton,
-  AuthLinkWrapper
-} from '../styled/AuthStyled';
+  AuthLinkWrapper,
+} from "../styled/AuthStyled";
 
 const LoginForm = ({ login }) => {
-  const [email, onEmailChange] = useInput('');
-  const [password, onPasswordChange] = useInput('');
+  const [email, onEmailChange] = useInput("");
+  const [password, onPasswordChange] = useInput("");
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -31,8 +31,20 @@ const LoginForm = ({ login }) => {
         </AuthImageWrapper>
         <AuthHeading>Login to Discusser</AuthHeading>
         <AuthForm onSubmit={handleLogin}>
-          <AuthInput type="text" value={email} onChange={onEmailChange} placeholder="Email" required />
-          <AuthInput type="password" value={password} onChange={onPasswordChange} placeholder="Password" required />
+          <AuthInput
+            type="text"
+            value={email}
+            onChange={onEmailChange}
+            placeholder="Email"
+            required
+          />
+          <AuthInput
+            type="password"
+            value={password}
+            onChange={onPasswordChange}
+            placeholder="Password"
+            required
+          />
           <AuthButton type="submit">Login</AuthButton>
         </AuthForm>
         <AuthLinkWrapper>
@@ -45,7 +57,7 @@ const LoginForm = ({ login }) => {
 };
 
 LoginForm.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

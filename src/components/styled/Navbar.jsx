@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const NavbarContainer = styled.nav`
   border: 0.1rem solid #007bff;
@@ -13,7 +13,7 @@ export const NavbarContainer = styled.nav`
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
   z-index: 10;
-   box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Efek neon awal */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Efek neon awal */
 
   &:hover {
     transform: translateY(-5px);
@@ -52,11 +52,10 @@ export const Discusser = styled.img`
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
-
 
 export const NavbarLinks = styled.div`
   display: flex;
@@ -71,7 +70,6 @@ export const NavbarLinks = styled.div`
   }
 `;
 
-
 export const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -85,7 +83,7 @@ export const ProfileInfo = styled.div`
 `;
 
 export const ProfileName = styled.span`
-    @media (max-width: 769px) {
+  @media (max-width: 769px) {
     display: none;
   }
 `;
@@ -96,12 +94,11 @@ export const ProfileAvatar = styled.img`
   border-radius: 50%;
   object-fit: cover;
 
-    @media (max-width: 769px) {
+  @media (max-width: 769px) {
     display: none;
     border-radius: 10px;
   }
 `;
-
 
 export const CreatePostButton = styled(Link)`
   background-color: #white;
@@ -128,16 +125,15 @@ export const CreatePostButton = styled(Link)`
   }
 `;
 
-
 export const NavbarTitle = styled.div`
   font-size: 1rem;
-   display: none;
+  display: none;
   align-items: center;
   margin: 10px 1px;
   width: 100%;
   color: black;
-  padding:10px;
-    &:hover {
+  padding: 10px;
+  &:hover {
     color: #007bff;
   }
 
@@ -156,11 +152,11 @@ export const NavbarItem = styled(Link)`
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color:rgb(8, 8, 8);
+    color: rgb(8, 8, 8);
   }
 
   @media (max-width: 768px) {
-     font-size: 2rem;
+    font-size: 2rem;
     margin: auto;
   }
 `;
@@ -178,12 +174,11 @@ export const ButtonLogout = styled.button`
   margin-bottom: 55px;
 
   &:hover {
-    color:rgb(8, 8, 8);
+    color: rgb(8, 8, 8);
   }
 
   @media (min-width: 768px) {
-  display: none;
-
+    display: none;
   }
 
   @media (max-width: 768px) {
@@ -195,8 +190,8 @@ export const ButtonLogout = styled.button`
 `;
 
 export const AddPost = styled(Link)`
-   text-decoration: none;
-   color: #007bff;
+  text-decoration: none;
+  color: #007bff;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -204,9 +199,8 @@ export const AddPost = styled(Link)`
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color:rgb(8, 8, 8);
+    color: rgb(8, 8, 8);
   }
-
 
   @media (max-width: 769px) {
     // display: none;
@@ -215,13 +209,13 @@ export const AddPost = styled(Link)`
 
 export const NavbarTitleButton = styled(Link)`
   font-size: 1rem;
-  color:  #007bff;
+  color: #007bff;
   align-items: center;
   margin-bottom: 3rem;
   width: 100%;
   text-decoration: none;
 
-    &:hover {
+  &:hover {
     color: Black;
     background-color: #007bff;
   }

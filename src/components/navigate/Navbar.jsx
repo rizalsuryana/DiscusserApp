@@ -1,9 +1,17 @@
-import React from 'react';
-import { BiSolidExit } from 'react-icons/bi';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import NavbarList from './materials/NavbarList';
-import { NavbarContainer, Discusser, ProfileName, ProfileInfo, ProfileAvatar, ButtonLogout, NavbarTitleButton } from '../styled/Navbar';
+import React from "react";
+import { BiSolidExit } from "react-icons/bi";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import NavbarList from "./materials/NavbarList";
+import {
+  NavbarContainer,
+  Discusser,
+  ProfileName,
+  ProfileInfo,
+  ProfileAvatar,
+  ButtonLogout,
+  NavbarTitleButton,
+} from "../styled/Navbar";
 
 const DiscusserWrapper = styled.div`
   display: flex;
@@ -25,13 +33,16 @@ const DiscusserWrapper = styled.div`
 // }
 // `;
 
-
 const Navbar = ({ signOut, authUser }) => {
   return (
     <NavbarContainer>
       <DiscusserWrapper>
-        <a href="https://github.com/rizalsuryana" target="_blank" rel="noopener noreferrer">
-          <Discusser src='/icon.webp' alt='Discusser'/>
+        <a
+          href="https://github.com/rizalsuryana"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Discusser src="/icon.webp" alt="Discusser" />
         </a>
         {/* <DiscusserName href="https://github.com/rizalsuryana" target="_blank" rel="noopener noreferrer">
           Disscuser
@@ -42,11 +53,9 @@ const Navbar = ({ signOut, authUser }) => {
         <ProfileAvatar src={authUser.avatar} alt="User Avatar" />
         <ProfileName>{authUser.name}</ProfileName>
         <ButtonLogout onClick={signOut}>
-          <BiSolidExit/>
+          <BiSolidExit />
         </ButtonLogout>
-        <NavbarTitleButton onClick={signOut}>
-                  Sign Out
-        </NavbarTitleButton>
+        <NavbarTitleButton onClick={signOut}>Sign Out</NavbarTitleButton>
       </ProfileInfo>
     </NavbarContainer>
   );
