@@ -12,9 +12,7 @@ const LoginPage = () => {
 
   return (
     <div>
-      <div className="flex">
-        <LoginForm login={onLogin}/>
-      </div>
+      <LoginForm login={onLogin} />
     </div>
   );
 };

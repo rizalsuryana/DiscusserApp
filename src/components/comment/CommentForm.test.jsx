@@ -1,12 +1,3 @@
-/**
- * Skenario testing
- *
- * - CommentForm component
- *   - should handle comment typing correctly
- *   - should call onAddComment function when form is submitted
- */
-
-
 import { cleanup, render, screen } from '@testing-library/react';
 import React from 'react';
 import { expect, describe, it, vi, afterEach } from 'vitest';
@@ -15,42 +6,47 @@ import userEvent from '@testing-library/user-event';
 import matchers from '@testing-library/jest-dom/matchers';
 
 expect.extend(matchers);
+
 describe('CommentForm component', () => {
-  afterEach(()=> {
+  afterEach(() => {
     cleanup();
   });
 
-  it('should handle comment typing correctly', async () => {
-    // arrange
-    render(<CommentForm onAddComment={()=> {}}/>);
-    // mock
-    const commentInput = await screen.getByPlaceholderText('Answer Discussion');
+  const mockAuthUser = { avatar: 'https://example.com/avatar.png' };
 
-    // action
+  it('should handle comment typing correctly', async () => {
+    render(<CommentForm onAddComment={vi.fn()} authUser={mockAuthUser} />);
+
+    const commentInput = screen.getByPlaceholderText('Answer Discussion');
+
     await userEvent.type(commentInput, 'Biasa aja');
 
-    // assert
     expect(commentInput).toHaveValue('Biasa aja');
   });
 
-  it('should send comment when button send is clicked', async () => {
-    // Arrange
-    const mockInput = vi.fn();
-    render(
-      <CommentForm onAddComment={mockInput}/>
-    );
-    const commentInput = await screen.getByPlaceholderText('Answer Discussion');
-    await userEvent.type(commentInput, 'Biasa aja');
-    const sendButton = await screen.getByRole('button');
+  it('should call onAddComment with correct value when form is submitted', async () => {
+    const mockAddComment = vi.fn().mockResolvedValue(); // async mock
+    render(<CommentForm onAddComment={mockAddComment} authUser={mockAuthUser} />);
 
-    // action
+    const commentInput = screen.getByPlaceholderText('Answer Discussion');
+    await userEvent.type(commentInput, 'Biasa aja');
+
+    const sendButton = screen.getByRole('button');
     await userEvent.click(sendButton);
 
-    // assert
-    expect(mockInput).toBeCalled({
-      comment: 'Biasa aja'
-    });
+    expect(mockAddComment).toHaveBeenCalledWith({ comment: 'Biasa aja' });
   });
 
+  it('should disable submit button while submitting', async () => {
+    const mockAddComment = vi.fn(() => new Promise((res) => setTimeout(res, 100)));
+    render(<CommentForm onAddComment={mockAddComment} authUser={mockAuthUser} />);
 
+    const commentInput = screen.getByPlaceholderText('Answer Discussion');
+    await userEvent.type(commentInput, 'Test');
+
+    const sendButton = screen.getByRole('button');
+    await userEvent.click(sendButton);
+
+    expect(sendButton).toBeDisabled();
+  });
 });

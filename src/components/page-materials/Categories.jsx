@@ -1,35 +1,38 @@
+// src/components/page-materials/Categories.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  CategoriesContainer,
-  FilterCategoryButton,
-  CategoriesList,
-  CategoriesTitle,
-} from '../../components/styled/Category'; // Import styling dari kategori
+import * as UI from './CategoryStyles';
 
-const Categories = ({ threads, filtered, setFiltered, isMobileMenuOpen }) => {
+const Categories = ({ threads, filtered, setFiltered }) => {
   const handleFilteredThreadByCategory = (key) => {
-    setFiltered(filtered === key ? '' : key); // Jika kategori yang sama diklik lagi, reset
+    setFiltered(filtered === key ? '' : key);
   };
 
+  const uniqueCategories = [...new Set(threads.map((thread) => thread?.category))].filter(Boolean);
+
   return (
-    <CategoriesContainer isMobileMenuOpen={isMobileMenuOpen}>
-      <CategoriesTitle>Categories:</CategoriesTitle>
-      <CategoriesList>
-        {threads
-          ?.filter((value, index, item) => index === item.findIndex((temp) => temp?.category === value?.category))
-          .map((thread) => (
-            <div key={`${thread?.category}-${thread?.createdAt}`}>
-              <FilterCategoryButton
-                isSelected={filtered === thread?.category}
-                onClick={() => handleFilteredThreadByCategory(thread?.category)}
-              >
-                <span>#{thread?.category}</span>
-              </FilterCategoryButton>
-            </div>
-          ))}
-      </CategoriesList>
-    </CategoriesContainer>
+    <UI.CategoriesContainer>
+      <UI.CategoriesHeader>
+        <h3>Categories</h3>
+        {filtered && (
+          <UI.ClearFilter onClick={() => setFiltered('')}>
+            Clear filter
+          </UI.ClearFilter>
+        )}
+      </UI.CategoriesHeader>
+
+      <UI.CategoriesList>
+        {uniqueCategories.map((category) => (
+          <UI.CategoryItem
+            key={category}
+            active={filtered === category}
+            onClick={() => handleFilteredThreadByCategory(category)}
+          >
+            #{category}
+          </UI.CategoryItem>
+        ))}
+      </UI.CategoriesList>
+    </UI.CategoriesContainer>
   );
 };
 
@@ -41,7 +44,6 @@ Categories.propTypes = {
   threads: PropTypes.arrayOf(PropTypes.shape(threadShape)).isRequired,
   filtered: PropTypes.string.isRequired,
   setFiltered: PropTypes.func.isRequired,
-  isMobileMenuOpen: PropTypes.bool.isRequired,
 };
 
 export default Categories;

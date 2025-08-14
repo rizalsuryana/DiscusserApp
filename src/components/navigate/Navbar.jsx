@@ -1,65 +1,117 @@
-import React from 'react';
-import { BiSolidExit } from 'react-icons/bi';
-import styled from 'styled-components';
+// Navbar.js
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import NavbarList from './materials/NavbarList';
-import { NavbarContainer, Discusser, ProfileName, ProfileInfo, ProfileAvatar, ButtonLogout, NavbarTitleButton } from '../styled/Navbar';
-
-const DiscusserWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-// const DiscusserName = styled.a`
-//   font-size: 1rem;
-//   color: #007bff;
-//   text-decoration: none;
-//   margin-top: 5px;
-// font-weight: bold;
-//   &:hover {
-//     color: black;
-//   }
-// @media(max-width: 769px) {
-// display: none;
-// }
-// `;
-
+import ROUTE_PATH from '../../config/routePaths';
+import { Link, useLocation } from 'react-router-dom';
+import {
+  BiLogOut,
+  BiHomeAlt,
+  BiTrophy,
+  BiPlusCircle
+} from 'react-icons/bi';
+import * as UI from './NavbarStyles';
 
 const Navbar = ({ signOut, authUser }) => {
+  const location = useLocation();
+  const [showDesktopProfileMenu, setShowDesktopProfileMenu] = useState(false);
+  const [showMobileProfileMenu, setShowMobileProfileMenu] = useState(false);
+
+  const toggleDesktopProfileMenu = () => setShowDesktopProfileMenu(!showDesktopProfileMenu);
+  const toggleMobileProfileMenu = () => setShowMobileProfileMenu(!showMobileProfileMenu);
+
+  const navItems = [
+    { path: ROUTE_PATH.HOME_PAGE, icon: BiHomeAlt, label: 'Home' },
+    { path: ROUTE_PATH.LEADER_BOARDS_PAGE, icon: BiTrophy, label: 'Leaderboard' },
+  ];
+
   return (
-    <NavbarContainer>
-      <DiscusserWrapper>
-        <a href="https://github.com/rizalsuryana" target="_blank" rel="noopener noreferrer">
-          <Discusser src='/icon.webp' alt='Discusser'/>
-        </a>
-        {/* <DiscusserName href="https://github.com/rizalsuryana" target="_blank" rel="noopener noreferrer">
-          Disscuser
-        </DiscusserName> */}
-      </DiscusserWrapper>
-      <NavbarList signOut={signOut} />
-      <ProfileInfo>
-        <ProfileAvatar src={authUser.avatar} alt="User Avatar" />
-        <ProfileName>{authUser.name}</ProfileName>
-        <ButtonLogout onClick={signOut}>
-          <BiSolidExit/>
-        </ButtonLogout>
-        <NavbarTitleButton onClick={signOut}>
-                  Sign Out
-        </NavbarTitleButton>
-      </ProfileInfo>
-    </NavbarContainer>
+    <UI.NavbarContainer>
+      {/* Desktop Navbar */}
+      <UI.DesktopNav>
+        <UI.LogoContainer>
+          <UI.LogoImage src="/icon.webp" alt="Discusser" />
+          <UI.LogoText>Discusser</UI.LogoText>
+        </UI.LogoContainer>
+
+        <UI.NavLinks>
+          {navItems.map((item) => (
+            <UI.NavLinkItem key={item.path}>
+              <Link to={item.path}>
+                <item.icon size={24} />
+                <span>{item.label}</span>
+              </Link>
+            </UI.NavLinkItem>
+          ))}
+        </UI.NavLinks>
+
+        <UI.ProfileSection>
+          <UI.ProfileInfo onClick={toggleDesktopProfileMenu}>
+            <UI.AvatarImage src={authUser.avatar} alt="User Avatar" />
+          </UI.ProfileInfo>
+
+          <UI.ProfileMenu show={showDesktopProfileMenu}>
+            <UI.MenuItem onClick={signOut}>
+              <BiLogOut size={18} />
+              <span>Log Out</span>
+            </UI.MenuItem>
+          </UI.ProfileMenu>
+        </UI.ProfileSection>
+
+        <UI.FloatingCreateButton to={ROUTE_PATH.ADD_PAGE}>
+          <BiPlusCircle size={24} />
+        </UI.FloatingCreateButton>
+      </UI.DesktopNav>
+
+      {/* Mobile Navbar */}
+      <UI.MobileNav>
+        {navItems.map((item) => (
+          <UI.MobileNavItem key={item.path}>
+            <Link to={item.path}>
+              <item.icon
+                size={24}
+                color={location.pathname === item.path ? '#ffffff' : 'rgba(255,255,255,0.7)'}
+              />
+            </Link>
+          </UI.MobileNavItem>
+        ))}
+
+        <UI.MobileNavItem>
+          <Link to={ROUTE_PATH.ADD_PAGE}>
+            <BiPlusCircle
+              size={24}
+              color={location.pathname === ROUTE_PATH.ADD_PAGE ? '#ffffff' : 'rgba(255,255,255,0.7)'}
+            />
+          </Link>
+        </UI.MobileNavItem>
+
+        <UI.MobileNavItem>
+          <UI.ProfileButton onClick={toggleMobileProfileMenu}>
+            <UI.AvatarImage
+              src={authUser.avatar}
+              alt="User Avatar"
+              active={location.pathname === ROUTE_PATH.PROFILE}
+            />
+          </UI.ProfileButton>
+        </UI.MobileNavItem>
+      </UI.MobileNav>
+
+      {/* Mobile Profile Menu */}
+      <UI.MobileProfileMenu show={showMobileProfileMenu}>
+        <UI.MobileMenuItem onClick={signOut}>
+          <BiLogOut size={20} />
+          <span>Log Out</span>
+        </UI.MobileMenuItem>
+      </UI.MobileProfileMenu>
+    </UI.NavbarContainer>
   );
 };
 
-const authUserShape = {
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
-};
-
 Navbar.propTypes = {
-  authUser: PropTypes.shape(authUserShape).isRequired,
+  authUser: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    avatar: PropTypes.string.isRequired,
+  }).isRequired,
   signOut: PropTypes.func.isRequired,
 };
 

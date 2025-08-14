@@ -1,5 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
+import toast from 'react-hot-toast';
 
 const ActionType ={
   SET_AUTH_USER: 'SET_AUTH_USER',
@@ -35,8 +36,9 @@ const asyncSetAuthUser = ({ email, password }) => {
       api.putAccessToken(token);
       const authUser = await api.getOwnProfile();
       dispatch(setAuthUserActionCreator(authUser));
+      toast.success('Login Berhasil');
     } catch (error){
-      alert(error.message);
+      toast.error(`Silahkan coba kembali ${error.message}`);
     }
     dispatch(hideLoading());
   };

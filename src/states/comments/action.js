@@ -1,5 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
+import toast from 'react-hot-toast';
 // import { receiveThreadDetailActionCreator } from '../threadDetail/action';
 
 
@@ -85,9 +86,10 @@ const asyncCreateComment = ({ threadId, comment }) => {
       dispatch(createCommentActionCreator(responseComment));
       // const newDetailThread = await api.getThreadDetail(threadId);
       // dispatch(receiveThreadDetailActionCreator(newDetailThread));
+      toast.success('Jawaban Berhasil dikirim');
     }
     catch (error) {
-      alert(error.message);
+      toast.error(`Silahkan coba kembali ${error.message}`);
     } finally {
       dispatch(hideLoading());
     }

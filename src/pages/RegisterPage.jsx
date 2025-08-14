@@ -15,8 +15,8 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="flex">
-      <RegisterForm register={onRegister}/>
+    <div>
+      <RegisterForm register={onRegister} />
     </div>
   );
 };
