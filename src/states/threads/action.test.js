@@ -1,24 +1,13 @@
 /**
- * Skenario test
+ * Test Threads Thunks
  *
- * - asyncAddThread thunk
- *   - should dispatch action correctly when API call is successful
- *   - should handle error correctly when API call fails
- *
- * - asyncUpVoteThread thunk
- *   - should dispatch action correctly when upvoting a thread
- *   - should handle error correctly when upvoting fails
- *
- * - asyncDownVoteThread thunk
- *   - should dispatch action correctly when downvoting a thread
- *   - should handle error correctly when downvoting fails
- *
- * - asyncNeutralizeVoteThread thunk
- *   - should dispatch action correctly when neutralizing vote
- *   - should handle error correctly when neutralizing vote fails
+ * - asyncAddThread
+ * - asyncUpVoteThread
+ * - asyncDownVoteThread
+ * - asyncNeutralizeVoteThread
  */
 
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
 import toast from 'react-hot-toast';
@@ -33,9 +22,10 @@ import {
   neutralizeThreadActionCreator,
 } from './action';
 
+// --- Mock API dan toast ---
 vi.mock('../../utils/api');
 vi.mock('react-hot-toast', () => ({
-  toast: { success: vi.fn(), error: vi.fn() },
+  default: { success: vi.fn(), error: vi.fn() },
 }));
 
 const fakeThread = {
@@ -49,12 +39,23 @@ const fakeThread = {
   downVotesBy: [],
   totalComments: 0,
 };
+
 const fakeThreads = [fakeThread];
 
 describe('Threads Thunks', () => {
+  let dispatch;
+  let getState;
+
+  beforeEach(() => {
+    dispatch = vi.fn();
+    getState = () => ({ authUser: { id: 'users-1' }, threads: fakeThreads });
+    toast.success.mockClear();
+    toast.error.mockClear();
+  });
+
+  // --- asyncAddThread ---
   it('asyncAddThread should dispatch actions on success', async () => {
     api.createThread.mockResolvedValue(fakeThread);
-    const dispatch = vi.fn();
 
     await asyncAddThread({ title: fakeThread.title, body: fakeThread.body, category: fakeThread.category })(dispatch);
 
@@ -67,7 +68,6 @@ describe('Threads Thunks', () => {
   it('asyncAddThread should call toast.error on failure', async () => {
     const error = new Error('Failed create thread');
     api.createThread.mockRejectedValue(error);
-    const dispatch = vi.fn();
 
     await asyncAddThread({ title: fakeThread.title, body: fakeThread.body, category: fakeThread.category })(dispatch);
 
@@ -75,9 +75,8 @@ describe('Threads Thunks', () => {
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 
+  // --- asyncUpVoteThread ---
   it('asyncUpVoteThread should dispatch actions correctly', async () => {
-    const dispatch = vi.fn();
-    const getState = () => ({ authUser: { id: 'users-1' }, threads: fakeThreads });
     api.upVoteThread.mockResolvedValue();
 
     await asyncUpVoteThread(fakeThread.id)(dispatch, getState);
@@ -87,9 +86,8 @@ describe('Threads Thunks', () => {
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 
+  // --- asyncDownVoteThread ---
   it('asyncDownVoteThread should dispatch actions correctly', async () => {
-    const dispatch = vi.fn();
-    const getState = () => ({ authUser: { id: 'users-1' }, threads: fakeThreads });
     api.downVoteThread.mockResolvedValue();
 
     await asyncDownVoteThread(fakeThread.id)(dispatch, getState);
@@ -99,9 +97,8 @@ describe('Threads Thunks', () => {
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 
+  // --- asyncNeutralizeVoteThread ---
   it('asyncNeutralizeVoteThread should dispatch actions correctly', async () => {
-    const dispatch = vi.fn();
-    const getState = () => ({ authUser: { id: 'users-1' }, threads: fakeThreads });
     api.neutralizeThreadVote.mockResolvedValue();
 
     await asyncNeutralizeVoteThread(fakeThread.id)(dispatch, getState);

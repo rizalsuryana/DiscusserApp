@@ -1,20 +1,30 @@
 /**
- * Skenario test
+ * Test Thunks authUser
  *
  * - asyncSetAuthUser thunk
  *   - should dispatch action correctly when login is successful
- *   - should call alert when login fails
+ *   - should call toast.error when login fails
  * - asyncUnsetAuthUser thunk
  *   - should dispatch action correctly when logging out
  */
 
+import { describe, it, vi, expect, beforeEach, afterEach } from 'vitest';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-import { asyncSetAuthUser, asyncUnsetAuthUser } from './action';
-import { setAuthUserActionCreator, unsetAuthUserActionCreator } from './action';
+import { asyncSetAuthUser, asyncUnsetAuthUser, setAuthUserActionCreator, unsetAuthUserActionCreator } from './action';
 import api from '../../utils/api';
 import toast from 'react-hot-toast';
-import { describe, it, vi, expect, beforeEach, afterEach } from 'vitest';
 
+// --- Mock react-hot-toast ---
+vi.mock('react-hot-toast', () => {
+  return {
+    default: {
+      success: vi.fn(),
+      error: vi.fn(),
+    },
+  };
+});
+
+// --- Fake data ---
 const fakeAuthUser = {
   id: 'user-1',
   name: 'John Doe',
@@ -27,27 +37,26 @@ const fakeErrorResponse = new Error('Ups..., Something went wrong');
 
 describe('asyncSetAuthUser Thunk', () => {
   beforeEach(() => {
+    // backup API
     api._login = api.login;
     api._getOwnProfile = api.getOwnProfile;
-    toast._success = toast.success;
-    toast._error = toast.error;
   });
 
   afterEach(() => {
+    // restore API
     api.login = api._login;
     api.getOwnProfile = api._getOwnProfile;
-    toast.success = toast._success;
-    toast.error = toast._error;
     delete api._login;
     delete api._getOwnProfile;
-    delete toast._success;
-    delete toast._error;
+
+    // reset mocks
+    toast.success.mockReset();
+    toast.error.mockReset();
   });
 
   it('should dispatch actions correctly when login is successful', async () => {
     api.login = () => Promise.resolve(fakeToken);
     api.getOwnProfile = () => Promise.resolve(fakeAuthUser);
-    toast.success = vi.fn();
 
     const dispatch = vi.fn();
 
@@ -61,7 +70,6 @@ describe('asyncSetAuthUser Thunk', () => {
 
   it('should call toast.error when login fails', async () => {
     api.login = () => Promise.reject(fakeErrorResponse);
-    toast.error = vi.fn();
 
     const dispatch = vi.fn();
 
@@ -84,5 +92,3 @@ describe('asyncUnsetAuthUser Thunk', () => {
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 });
-
-
