@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { postedAt } from '../../../utils';
 import * as UI from '../ThreadStyle';
 
-const ThreadHeader = ({ avatar, name, isDetails, createdAt }) => {
+const ThreadHeader = ({ avatar, name, createdAt }) => {
   return (
     <UI.ThreadHeaderContainer>
       <UI.Avatar src={avatar} />
