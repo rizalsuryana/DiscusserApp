@@ -4,7 +4,7 @@ import * as UI from '../ThreadStyle';
 
 const ThreadTitle = ({ id, title, category, isDetails }) => {
   return (
-<UI.ThreadTitleContainer>
+    <UI.ThreadTitleContainer>
       {isDetails ? (
         <>
           <h2>{title}</h2>

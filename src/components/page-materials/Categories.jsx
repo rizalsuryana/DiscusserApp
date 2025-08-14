@@ -8,7 +8,7 @@ const Categories = ({ threads, filtered, setFiltered }) => {
     setFiltered(filtered === key ? '' : key);
   };
 
-  const uniqueCategories = [...new Set(threads.map(thread => thread?.category))].filter(Boolean);
+  const uniqueCategories = [...new Set(threads.map((thread) => thread?.category))].filter(Boolean);
 
   return (
     <UI.CategoriesContainer>
@@ -23,7 +23,7 @@ const Categories = ({ threads, filtered, setFiltered }) => {
 
       <UI.CategoriesList>
         {uniqueCategories.map((category) => (
-          <UI.CategoryItem 
+          <UI.CategoryItem
             key={category}
             active={filtered === category}
             onClick={() => handleFilteredThreadByCategory(category)}

@@ -12,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { asyncUnsetAuthUser } from './states/authUser/action';
 import { asyncPreloadProcess } from './states/isPreload/action';
+import { Toaster } from 'react-hot-toast';
 
 
 const App = () => {
@@ -53,6 +54,12 @@ const App = () => {
     <div>
       {/* <LoadingBar /> */}
       <Loading />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: { marginTop: '70px', zIndex: 2000 },
+        }}
+      />
       <Navbar authUser={authUser} signOut={onSignOut} />
       <div className="div-main">
         <main>

@@ -87,7 +87,7 @@ export const ThreadBodyContainer = styled.p`
 
   @media (max-width: 480px) {
     ${({ longThread }) =>
-      !longThread &&
+    !longThread &&
       `
       -webkit-line-clamp: 4;
       max-height: 6em;

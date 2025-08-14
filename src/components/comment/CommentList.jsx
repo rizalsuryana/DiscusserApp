@@ -2,16 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { postedAt } from '../../utils';
-import { 
-  asyncDownVoteComment, 
-  asyncUpVoteComment, 
-  asyncNeutralizeVoteComment 
+import {
+  asyncDownVoteComment,
+  asyncUpVoteComment,
+  asyncNeutralizeVoteComment
 } from '../../states/comments/action';
 import parse from 'html-react-parser';
+import { AiOutlineLike, AiFillLike, AiOutlineDislike, AiFillDislike } from 'react-icons/ai';
+import * as UI from './CommentStyles';
 
 const CommentList = ({ comment }) => {
   const { authUser } = useSelector((states) => states);
   const dispatch = useDispatch();
+
+  const isLiked = comment?.upVotesBy?.includes(authUser.id);
+  const isDisliked = comment?.downVotesBy?.includes(authUser.id);
 
   const onHandleUpVoteComment = (id) => {
     dispatch(asyncUpVoteComment(id));
@@ -25,56 +30,50 @@ const CommentList = ({ comment }) => {
     dispatch(asyncNeutralizeVoteComment(id));
   };
 
-  if (!comment || !comment.owner) {
-    return <div>Loading...</div>;
-  }
+  if (!comment || !comment.owner) return <div>Loading...</div>;
 
   return (
-    <div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <img
-          src={comment?.owner?.avatar || '/default-avatar.png'}
-          alt={comment?.owner?.name || 'User Avatar'}
-          width="40"
-          height="40"
-        />
-        <strong>{comment?.owner?.name}</strong>
-      </div>
+    <UI.CommentContainer>
+      <UI.CommentItem>
+        <UI.CommentHeader>
+          <UI.CommentAvatarSmall
+            src={comment?.owner?.avatar || '/default-avatar.png'}
+            alt={comment?.owner?.name || 'User Avatar'}
+          />
+          <strong>{comment?.owner?.name}</strong>
+        </UI.CommentHeader>
 
-      <div>
-        <p>{parse(comment?.content)}</p>
-      </div>
+        <UI.CommentContent>{parse(comment?.content)}</UI.CommentContent>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <button
-          onClick={() => {
-            if (comment?.upVotesBy?.includes(authUser.id)) {
-              onHandleNeutralizeVoteComment(comment?.id);
-              return;
-            }
-            onHandleUpVoteComment(comment?.id);
-          }}
-        >
-          👍
-        </button>
-        <span>{comment?.upVotesBy?.length || '0'}</span>
+        <UI.CommentFooter>
+          {/* Like */}
+          <button
+            onClick={() => {
+              if (isLiked) return onHandleNeutralizeVoteComment(comment?.id);
+              onHandleUpVoteComment(comment?.id);
+            }}
+            style={{ color: isLiked ? '#007bff' : '#495057' }}
+          >
+            {isLiked ? <AiFillLike size={18} /> : <AiOutlineLike size={18} />}
+          </button>
+          <span>{comment?.upVotesBy?.length || 0}</span>
 
-        <button
-          onClick={() => {
-            if (comment?.downVotesBy?.includes(authUser.id)) {
-              onHandleNeutralizeVoteComment(comment.id);
-              return;
-            }
-            onHandleDownVoteComment(comment?.id);
-          }}
-        >
-          👎
-        </button>
-        <span>{comment?.downVotesBy?.length || '0'}</span>
+          {/* Dislike */}
+          <button
+            onClick={() => {
+              if (isDisliked) return onHandleNeutralizeVoteComment(comment?.id);
+              onHandleDownVoteComment(comment?.id);
+            }}
+            style={{ color: isDisliked ? '#007bff' : '#495057' }}
+          >
+            {isDisliked ? <AiFillDislike size={18} /> : <AiOutlineDislike size={18} />}
+          </button>
+          <span>{comment?.downVotesBy?.length || 0}</span>
 
-        <span>{postedAt(comment?.createdAt)}</span>
-      </div>
-    </div>
+          <span>{postedAt(comment?.createdAt)}</span>
+        </UI.CommentFooter>
+      </UI.CommentItem>
+    </UI.CommentContainer>
   );
 };
 

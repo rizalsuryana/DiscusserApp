@@ -1,4 +1,3 @@
-// HomePage.jsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ThreadList from '../components/thread/ThreadList';
@@ -6,8 +5,8 @@ import { asyncPopulateUserAndThreads } from '../states/shared/action';
 import Categories from '../components/page-materials/Categories';
 import styled from 'styled-components';
 
-const NAVBAR_HEIGHT = 60;
-const MOBILE_NAVBAR_HEIGHT = 60;
+const NAVBAR_HEIGHT = 60; // tinggi navbar desktop
+const MOBILE_BOTTOM_HEIGHT = 70; // tinggi tombol like/dislike di mobile
 
 const HomeContainer = styled.div`
   display: flex;
@@ -17,36 +16,40 @@ const HomeContainer = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    padding: 0;  /* hapus padding di mobile supaya kategori nempel atas */
+    padding: 0; 
   }
 `;
 
 const Sidebar = styled.div`
   flex: 0 0 250px;  
-  max-height: 100vh;
-  overflow: hidden;
   position: sticky;
   top: ${NAVBAR_HEIGHT}px;
+  max-height: calc(100vh - ${NAVBAR_HEIGHT}px);
+  overflow-y: auto;
+  padding-top: 0.5rem;
 
   @media (max-width: 768px) {
-    flex: 1 1 100%;
-    max-height: none;
     position: relative;
-    top: 0;   /* kategori di mobile nempel paling atas */
+    top: 0;
+    max-height: none;
+    flex: 1 1 100%;
+    padding: 0;
   }
 `;
 
 const MainContent = styled.div`
   flex: 1 1 0;
   width: 100%;
-  padding-bottom: ${MOBILE_NAVBAR_HEIGHT + 16}px;
+  box-sizing: border-box;
 
+  /* desktop */
   @media (min-width: 769px) {
     padding-top: ${NAVBAR_HEIGHT}px;
   }
 
+  /* mobile */
   @media (max-width: 768px) {
-    padding-top: 0; /* hilangkan padding atas di mobile */
+    padding-bottom: ${MOBILE_BOTTOM_HEIGHT}px;
   }
 `;
 

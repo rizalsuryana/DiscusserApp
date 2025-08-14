@@ -9,7 +9,6 @@ import threadDetailReducer from './threadDetail/reducer';
 import threadsReducer from './threads/reducer';
 import usersReducer from './users/reducer';
 import { loadingBarMiddleware } from 'react-redux-loading-bar';
-import filterReducer from './filter/reducer';
 
 
 
@@ -25,7 +24,6 @@ const store = configureStore({
     filtered: filteredReducer,
     detailThread: threadDetailReducer,
     comments: commentReducer,
-    filter: filterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(loadingBarMiddleware()),

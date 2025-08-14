@@ -5,12 +5,12 @@ import ThreadItems from './materials/ThreadItems';
 
 const ThreadList = ({ threads, filtered }) => {
   const { users = [] } = useSelector((states) => states);
-  const filteredThreads = filtered ? threads.filter(t => t.category === filtered) : threads;
+  const filteredThreads = filtered ? threads.filter((t) => t.category === filtered) : threads;
 
   return (
     <div>
       {filteredThreads.map((thread) => (
-        <ThreadItems key={thread.id} threads={thread} users={users} />
+        <ThreadItems key={thread.id} thread={thread} users={users} />
       ))}
     </div>
   );

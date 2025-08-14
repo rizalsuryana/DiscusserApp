@@ -1,15 +1,15 @@
 // Navbar.js
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import ROUTE_PATH from "../../config/routePaths";
-import { Link, useLocation } from "react-router-dom";
-import { 
-  BiLogOut, 
-  BiHomeAlt, 
-  BiTrophy, 
-  BiPlusCircle 
-} from "react-icons/bi";
-import * as UI from "./NavbarStyles";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import ROUTE_PATH from '../../config/routePaths';
+import { Link, useLocation } from 'react-router-dom';
+import {
+  BiLogOut,
+  BiHomeAlt,
+  BiTrophy,
+  BiPlusCircle
+} from 'react-icons/bi';
+import * as UI from './NavbarStyles';
 
 const Navbar = ({ signOut, authUser }) => {
   const location = useLocation();
@@ -20,8 +20,8 @@ const Navbar = ({ signOut, authUser }) => {
   const toggleMobileProfileMenu = () => setShowMobileProfileMenu(!showMobileProfileMenu);
 
   const navItems = [
-    { path: ROUTE_PATH.HOME_PAGE, icon: BiHomeAlt, label: "Home" },
-    { path: ROUTE_PATH.LEADER_BOARDS_PAGE, icon: BiTrophy, label: "Leaderboard" },
+    { path: ROUTE_PATH.HOME_PAGE, icon: BiHomeAlt, label: 'Home' },
+    { path: ROUTE_PATH.LEADER_BOARDS_PAGE, icon: BiTrophy, label: 'Leaderboard' },
   ];
 
   return (
@@ -30,6 +30,7 @@ const Navbar = ({ signOut, authUser }) => {
       <UI.DesktopNav>
         <UI.LogoContainer>
           <UI.LogoImage src="/icon.webp" alt="Discusser" />
+          <UI.LogoText>Discusser</UI.LogoText>
         </UI.LogoContainer>
 
         <UI.NavLinks>
@@ -66,28 +67,28 @@ const Navbar = ({ signOut, authUser }) => {
         {navItems.map((item) => (
           <UI.MobileNavItem key={item.path}>
             <Link to={item.path}>
-              <item.icon 
-                size={24} 
-                color={location.pathname === item.path ? "#ffffff" : "rgba(255,255,255,0.7)"} 
+              <item.icon
+                size={24}
+                color={location.pathname === item.path ? '#ffffff' : 'rgba(255,255,255,0.7)'}
               />
             </Link>
           </UI.MobileNavItem>
         ))}
-        
+
         <UI.MobileNavItem>
           <Link to={ROUTE_PATH.ADD_PAGE}>
-            <BiPlusCircle 
-              size={24} 
-              color={location.pathname === ROUTE_PATH.ADD_PAGE ? "#ffffff" : "rgba(255,255,255,0.7)"} 
+            <BiPlusCircle
+              size={24}
+              color={location.pathname === ROUTE_PATH.ADD_PAGE ? '#ffffff' : 'rgba(255,255,255,0.7)'}
             />
           </Link>
         </UI.MobileNavItem>
-        
+
         <UI.MobileNavItem>
           <UI.ProfileButton onClick={toggleMobileProfileMenu}>
-            <UI.AvatarImage 
-              src={authUser.avatar} 
-              alt="User Avatar" 
+            <UI.AvatarImage
+              src={authUser.avatar}
+              alt="User Avatar"
               active={location.pathname === ROUTE_PATH.PROFILE}
             />
           </UI.ProfileButton>

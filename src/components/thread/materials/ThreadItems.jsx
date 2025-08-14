@@ -1,3 +1,4 @@
+// src/components/thread/materials/ThreadItems.jsx
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
@@ -17,16 +18,23 @@ import {
   asyncNeutralizeVoteThreadDetail
 } from '../../../states/threadDetail/action';
 
-const ThreadItems = ({ threadDetail, threads, isDetails, users }) => {
+const ThreadItems = ({ thread, threadDetail, users, isDetails }) => {
   const dispatch = useDispatch();
+
+  // Cari owner berdasarkan ownerId
   const handleUserDetails = (id) => users?.find((user) => user?.id === id) || {};
 
-  const onHandleUpVoteThread = (id) => isDetails ? dispatch(asyncUpVoteThreadDetail(id)) : dispatch(asyncUpVoteThread(id));
-  const onHandleDownVoteThread = (id) => isDetails ? dispatch(asyncDownVoteThreadDetail(id)) : dispatch(asyncDownVoteThread(id));
-  const onHandleNeutralizeVoteThread = (id) => isDetails ? dispatch(asyncNeutralizeVoteThreadDetail(id)) : dispatch(asyncNeutralizeVoteThread(id));
+  // Vote handlers
+  const onHandleUpVoteThread = (id) =>
+    isDetails ? dispatch(asyncUpVoteThreadDetail(id)) : dispatch(asyncUpVoteThread(id));
+  const onHandleDownVoteThread = (id) =>
+    isDetails ? dispatch(asyncDownVoteThreadDetail(id)) : dispatch(asyncDownVoteThread(id));
+  const onHandleNeutralizeVoteThread = (id) =>
+    isDetails ? dispatch(asyncNeutralizeVoteThreadDetail(id)) : dispatch(asyncNeutralizeVoteThread(id));
 
-  const data = isDetails ? threadDetail : threads;
-  const owner = isDetails ? threadDetail?.owner : handleUserDetails(threads?.ownerId);
+  // Tentukan data thread dan owner
+  const data = isDetails ? threadDetail : thread;
+  const owner = isDetails ? threadDetail?.owner : handleUserDetails(data?.ownerId);
 
   return (
     <UI.ThreadContainer>
@@ -59,16 +67,16 @@ const ThreadItems = ({ threadDetail, threads, isDetails, users }) => {
 };
 
 ThreadItems.propTypes = {
+  thread: PropTypes.object,
   threadDetail: PropTypes.object,
-  threads: PropTypes.object,
   users: PropTypes.array.isRequired,
   isDetails: PropTypes.bool,
 };
 
 ThreadItems.defaultProps = {
   isDetails: false,
+  thread: {},
   threadDetail: {},
-  threads: {},
 };
 
 export default ThreadItems;

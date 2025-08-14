@@ -1,6 +1,6 @@
 // NavbarStyles.js
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const NavbarContainer = styled.div`
   position: relative;
@@ -52,7 +52,11 @@ export const LogoContainer = styled.div`
 export const LogoImage = styled.img`
   height: 30px;
   width: auto;
+  background: white;   // beri background putih supaya terlihat
+  border-radius: 1rem;  // optional biar bulat sedikit
+  padding: 0.1px;        // beri sedikit padding supaya nggak nempel pinggir
 `;
+
 
 export const NavLinks = styled.ul`
   display: flex;
@@ -99,7 +103,7 @@ export const AvatarImage = styled.img`
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: ${({ active }) => active ? "2px solid #ffffff" : "none"};
+  border: ${({ active }) => active ? '2px solid #ffffff' : 'none'};
 `;
 
 export const ProfileMenu = styled.div`
@@ -113,8 +117,8 @@ export const ProfileMenu = styled.div`
   min-width: 200px;
   z-index: 100;
   opacity: ${({ show }) => (show ? 1 : 0)};
-  transform: ${({ show }) => (show ? "translateY(0)" : "translateY(-10px)")};
-  pointer-events: ${({ show }) => (show ? "auto" : "none")};
+  transform: ${({ show }) => (show ? 'translateY(0)' : 'translateY(-10px)')};
+  pointer-events: ${({ show }) => (show ? 'auto' : 'none')};
   transition: all 0.2s ease;
 `;
 
@@ -162,8 +166,8 @@ export const MobileProfileMenu = styled.div`
   min-width: 180px;
   z-index: 1000;
   opacity: ${({ show }) => (show ? 1 : 0)};
-  transform: ${({ show }) => (show ? "translateY(0)" : "translateY(10px)")};
-  pointer-events: ${({ show }) => (show ? "auto" : "none")};
+  transform: ${({ show }) => (show ? 'translateY(0)' : 'translateY(10px)')};
+  pointer-events: ${({ show }) => (show ? 'auto' : 'none')};
   transition: all 0.2s ease;
 `;
 
@@ -212,5 +216,15 @@ export const FloatingCreateButton = styled(Link)`
 
   @media (max-width: 767px) {
     display: none;
+  }
+`;
+export const LogoText = styled.span`
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-left: 0.5rem;
+
+  @media (max-width: 768px) {
+    display: none; // sembunyikan di mobile
   }
 `;

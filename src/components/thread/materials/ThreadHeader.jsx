@@ -5,13 +5,13 @@ import * as UI from '../ThreadStyle';
 
 const ThreadHeader = ({ avatar, name, isDetails, createdAt }) => {
   return (
-<UI.ThreadHeaderContainer>
-  <UI.Avatar src={avatar} />
-  <UI.HeaderInfo>
-    <span>{name}</span>
-    <span>{postedAt(createdAt)}</span>
-  </UI.HeaderInfo>
-</UI.ThreadHeaderContainer>
+    <UI.ThreadHeaderContainer>
+      <UI.Avatar src={avatar} />
+      <UI.HeaderInfo>
+        <span>{name}</span>
+        <span>{postedAt(createdAt)}</span>
+      </UI.HeaderInfo>
+    </UI.ThreadHeaderContainer>
   );
 };
 
