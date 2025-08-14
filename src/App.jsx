@@ -40,6 +40,12 @@ const App = () => {
       <>
 
         <Loading />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            style: { marginTop: '1rem', zIndex: 10 },
+          }}
+        />
         <main>
           <Routes>
             <Route path='/*' element={<LoginPage />} />
