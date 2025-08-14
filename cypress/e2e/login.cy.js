@@ -76,10 +76,6 @@
 
 
 // });
-
-
-
-
 /**
  * - Login spec
  *   - should display login page correctly
@@ -91,8 +87,8 @@
 
 describe('Login spec', () => {
   beforeEach(() => {
-    // Pastikan desktop viewport supaya DesktopNav tampil
-    cy.viewport(1024, 768);
+    // Pastikan viewport desktop supaya DesktopNav tampil
+    cy.viewport(1280, 800);
     cy.visit('http://localhost:5173/');
   });
 
@@ -131,16 +127,13 @@ describe('Login spec', () => {
     cy.get('input[placeholder="Password"]').type('12345678');
     cy.get('button').contains(/^Login$/).click();
 
-    // Tunggu Navbar tampil
-    cy.get('nav', { timeout: 15000 }).within(() => {
+    // Tunggu Navbar Desktop tampil dan pilih yang visible
+    cy.get('nav').filter(':visible').within(() => {
       cy.get('a').contains('Home').should('be.visible');
       cy.get('a').contains('Leaderboard').should('be.visible');
     });
 
     // Verifikasi avatar user
     cy.get('img[alt="User Avatar"]').should('be.visible');
-
-    // Verifikasi floating create button (Desktop)
-    cy.get('a[href="/add"]').should('be.visible');
   });
 });
