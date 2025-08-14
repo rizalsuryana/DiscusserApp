@@ -228,3 +228,11 @@ export const LogoText = styled.span`
     display: none; // sembunyikan di mobile
   }
 `;
+export const LogoName = styled.span`
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  @media (max-width: 768px) {
+    display: none; // sembunyikan nama di mobile
+  }
+`;
