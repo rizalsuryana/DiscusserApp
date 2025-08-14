@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import Loading from './components/page-materials/Loading';
-// import { LoadingBar } from 'react-redux-loading-bar';
 import Navbar from './components/navigate/Navbar';
 import ROUTE_PATH from './config/routePaths';
 import AddThread from './pages/AddThread';
@@ -13,8 +12,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { asyncUnsetAuthUser } from './states/authUser/action';
 import { asyncPreloadProcess } from './states/isPreload/action';
-// import PagesInfo from './components/page-materials/Pagesinfo';
-// import './styles/style.css';
+
 
 const App = () => {
   const { authUser = null, isPreload = false } = useSelector((states) => states);
@@ -39,7 +37,7 @@ const App = () => {
   if (authUser === null) {
     return (
       <>
-        {/* <LoadingBar /> */}
+
         <Loading />
         <main>
           <Routes>

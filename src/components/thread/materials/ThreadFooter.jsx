@@ -1,28 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AiOutlineLike, AiFillLike, AiOutlineDislike, AiFillDislike } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Flex } from '../../styled/Flex';
-import Icons from '../../styled/Icons';
-import ButtonIcon from '../../styled/icons/ButtonIcon';
-import { LikeIcon, LikedIcon } from '../../styled/icons/LikeIcon';
-import { Dislike, Disliked } from '../../styled/icons/DislikeIcon';
-import styled from 'styled-components';
-
-const Comment = styled(BiCommentDetail)`
-font-size: 1.2rem;
-  &:hover {
-    color: Black;
-    transform: scale(1.2);
-  }
-
-  &:active {
-    transform: scale(1);
-  }
-`;
-
-
+import * as UI from '../ThreadStyle';
 
 const ThreadFooter = ({
   id,
@@ -36,71 +18,44 @@ const ThreadFooter = ({
   isDetails
 }) => {
   const navigate = useNavigate();
-  const { authUser }= useSelector((states)=> states);
+  const { authUser } = useSelector((states) => states);
+
+  const isLiked = upVotesBy?.includes(authUser?.id);
+  const isDisliked = downVotesBy?.includes(authUser?.id);
+
   return (
-    <Flex>
-      <Icons>
-        <ButtonIcon
-          onClick={()=> {
-            if (upVotesBy?.includes(authUser.id)){
-              onHandleNeutralizeVoteThread(id);
-              return;
-            }
+    <UI.ThreadFooterContainer>
+      <UI.FooterItem active={isLiked}>
+        <button
+          onClick={() => {
+            if (isLiked) return onHandleNeutralizeVoteThread(id);
             onHandleUpVoteThread(id);
           }}
-          type='button'
         >
-          {
-            upVotesBy?.includes(authUser?.id)
-              ? (<LikedIcon/>)
-              : (<LikeIcon/>)
-          }
-        </ButtonIcon>
-        <span className="span-count">
-          {upVotesBy?.length || '0'}
-        </span>
-      </Icons>
-      <Icons>
-        <ButtonIcon
-          onClick={()=> {
-            if (downVotesBy?.includes(authUser?.id)) {
-              onHandleNeutralizeVoteThread(id);
-              return;
-            }
+          {isLiked ? <AiFillLike size={20} /> : <AiOutlineLike size={20} />}
+        </button>
+        <span>{upVotesBy?.length || 0}</span>
+      </UI.FooterItem>
+
+      <UI.FooterItem active={isDisliked}>
+        <button
+          onClick={() => {
+            if (isDisliked) return onHandleNeutralizeVoteThread(id);
             onHandleDownVoteThread(id);
           }}
-          type='button'
         >
-          {
-            downVotesBy?.includes(authUser?.id)
-              ? (<Disliked/>)
-              : (<Dislike/>)
-          }
-        </ButtonIcon>
-        <span className="span-count">
-          {downVotesBy?.length || '0'}
-        </span>
-      </Icons>
-      <Icons
-        onClick={() => navigate(`/thread/${id}`)}
-        style={{ cursor: 'pointer' }}
-      >
-        <Comment/>
-        <span className="span-count">
-          {
-            isDetails ? (
-              comments?.length || '0'
-            ) : (
-              totalComments || '0'
-            )
-          }
-        </span>
-      </Icons>
-    </Flex>
+          {isDisliked ? <AiFillDislike size={20} /> : <AiOutlineDislike size={20} />}
+        </button>
+        <span>{downVotesBy?.length || 0}</span>
+      </UI.FooterItem>
+
+      <UI.FooterItem onClick={() => navigate(`/thread/${id}`)} style={{ cursor: 'pointer' }}>
+        <BiCommentDetail size={20} />
+        <span>{isDetails ? comments?.length || 0 : totalComments || 0}</span>
+      </UI.FooterItem>
+    </UI.ThreadFooterContainer>
   );
 };
-
-
 
 ThreadFooter.defaultProps = {
   id: '',

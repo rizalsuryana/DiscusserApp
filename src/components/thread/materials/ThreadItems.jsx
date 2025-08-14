@@ -1,130 +1,74 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import PropTypes, { arrayOf } from 'prop-types';
 import ThreadHeader from './ThreadHeader';
 import ThreadTitle from './ThreadTitle';
 import ThreadBody from './ThreadBody';
 import ThreadFooter from './ThreadFooter';
-import { asyncDownVoteThread, asyncUpVoteThread, asyncNeutralizeVoteThread } from '../../../states/threads/action';
-import { asyncDownVoteThreadDetail, asyncUpVoteThreadDetail, asyncNeutralizeVoteThreadDetail } from '../../../states/threadDetail/action';
-import Container from '../../styled/Container';
-import CardThread from '../../styled/CardThread';
-import styled from 'styled-components';
-
-const DetailView = styled.div`
-margin: 1rem;
-`;
-
+import * as UI from '../ThreadStyle';
+import {
+  asyncDownVoteThread,
+  asyncUpVoteThread,
+  asyncNeutralizeVoteThread
+} from '../../../states/threads/action';
+import {
+  asyncDownVoteThreadDetail,
+  asyncUpVoteThreadDetail,
+  asyncNeutralizeVoteThreadDetail
+} from '../../../states/threadDetail/action';
 
 const ThreadItems = ({ threadDetail, threads, isDetails, users }) => {
   const dispatch = useDispatch();
   const handleUserDetails = (id) => users?.find((user) => user?.id === id) || {};
 
-  const onHandleUpVoteThread = (id) => {
-    if (isDetails) {
-      dispatch(asyncUpVoteThreadDetail(id));
-    } else {
-      dispatch(asyncUpVoteThread(id));
-    }
-  };
+  const onHandleUpVoteThread = (id) => isDetails ? dispatch(asyncUpVoteThreadDetail(id)) : dispatch(asyncUpVoteThread(id));
+  const onHandleDownVoteThread = (id) => isDetails ? dispatch(asyncDownVoteThreadDetail(id)) : dispatch(asyncDownVoteThread(id));
+  const onHandleNeutralizeVoteThread = (id) => isDetails ? dispatch(asyncNeutralizeVoteThreadDetail(id)) : dispatch(asyncNeutralizeVoteThread(id));
 
-  const onHandleDownVoteThread = (id) => {
-    if (isDetails) {
-      dispatch(asyncDownVoteThreadDetail(id));
-    } else {
-      dispatch(asyncDownVoteThread(id));
-    }
-  };
+  const data = isDetails ? threadDetail : threads;
+  const owner = isDetails ? threadDetail?.owner : handleUserDetails(threads?.ownerId);
 
-  const onHandleNeutralizeVoteThread = (id) => {
-    if (isDetails) {
-      dispatch(asyncNeutralizeVoteThreadDetail(id));
-    } else {
-      dispatch(asyncNeutralizeVoteThread(id));
-    }
-  };
-
-  const content = (
-    <>
+  return (
+    <UI.ThreadContainer>
       <ThreadHeader
-        avatar={isDetails ? threadDetail?.owner?.avatar : handleUserDetails(threads?.ownerId)?.avatar}
-        name={isDetails ? threadDetail?.owner?.name : handleUserDetails(threads?.ownerId)?.name}
-        id={isDetails ? threadDetail?.id : threads?.id}
+        avatar={owner?.avatar}
+        name={owner?.name}
+        createdAt={data?.createdAt}
         isDetails={isDetails}
-        createdAt={isDetails ? threadDetail?.createdAt : threads?.createdAt}
-
       />
       <ThreadTitle
-        id={isDetails ? threadDetail?.id : threads?.id}
-        title={isDetails ? threadDetail?.title : threads?.title}
-        category={isDetails ? threadDetail?.category : threads?.category}
+        id={data?.id}
+        title={data?.title}
+        category={data?.category}
         isDetails={isDetails}
       />
-      <ThreadBody body={isDetails ? threadDetail?.body : threads?.body} longThread={isDetails} />
+      <ThreadBody body={data?.body} longThread={isDetails} />
       <ThreadFooter
-        id={isDetails ? threadDetail?.id : threads?.id}
-        upVotesBy={isDetails ? threadDetail?.upVotesBy : threads?.upVotesBy}
-        downVotesBy={isDetails ? threadDetail.downVotesBy : threads.downVotesBy}
+        id={data?.id}
+        upVotesBy={data?.upVotesBy}
+        downVotesBy={data?.downVotesBy}
+        totalComments={data?.totalComments}
+        comments={data?.comments}
         isDetails={isDetails}
-        comments={isDetails ? threadDetail?.comments : undefined}
-        totalComments={!isDetails ? threads?.totalComments : undefined}
         onHandleDownVoteThread={onHandleDownVoteThread}
         onHandleUpVoteThread={onHandleUpVoteThread}
         onHandleNeutralizeVoteThread={onHandleNeutralizeVoteThread}
       />
-    </>
+    </UI.ThreadContainer>
   );
-
-  return <Container>{isDetails ? <CardThread><DetailView>{content}</DetailView></CardThread> : content}</Container>;
-};
-
-const userAray = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  avatar: PropTypes.string,
-};
-
-const threadsShape = {
-  title: PropTypes.string,
-  body: PropTypes.string,
-  ownerId: PropTypes.string,
-  upVotesBy: PropTypes.array,
-  downVotesBy: PropTypes.array,
-  totalComments: PropTypes.number,
-};
-
-const threadShape = {
-  title: PropTypes.string,
-  body: PropTypes.string,
-  ownerId: PropTypes.string,
-  upVotesBy: PropTypes.array,
-  downVotesBy: PropTypes.array,
-  comments: PropTypes.array,
 };
 
 ThreadItems.propTypes = {
-  threadDetail: PropTypes.shape(threadShape),
-  threads: PropTypes.shape(threadsShape),
-  users: arrayOf(PropTypes.shape(userAray)).isRequired,
+  threadDetail: PropTypes.object,
+  threads: PropTypes.object,
+  users: PropTypes.array.isRequired,
   isDetails: PropTypes.bool,
 };
 
 ThreadItems.defaultProps = {
   isDetails: false,
-  threadDetail: {
-    title: '',
-    ownerId: '',
-    body: '',
-    upVotesBy: [],
-    downVotesBy: [],
-  },
-  threads: {
-    title: '',
-    ownerId: '',
-    body: '',
-    upVotesBy: [],
-    downVotesBy: [],
-  },
+  threadDetail: {},
+  threads: {},
 };
 
 export default ThreadItems;

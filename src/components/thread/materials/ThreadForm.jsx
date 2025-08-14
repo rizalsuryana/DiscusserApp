@@ -1,7 +1,8 @@
+// src/components/thread/ThreadForm.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../../../hooks/useInput';
-import { ThreadFormContainer, InputField, TextAreaField, SubmitButton } from '../../styled/ThreadFormStyled';
+import * as UI from '../ThreadStyle';
 
 const ThreadForm = ({ onAddThread }) => {
   const [title, onTitleChange] = useInput('');
@@ -11,42 +12,44 @@ const ThreadForm = ({ onAddThread }) => {
 
   const handleAddThread = (event) => {
     event.preventDefault();
-    setIsLoading(true); // Set loading true sebelum submit
-
+    setIsLoading(true);
     onAddThread({ title, category, body });
-
-    setTimeout(() => setIsLoading(false), 1000); // Simulasi loading
+    setTimeout(() => setIsLoading(false), 1000);
   };
 
   return (
-    <ThreadFormContainer>
+    <UI.ThreadFormContainer>
       <h2>Create Discussion</h2>
       <form onSubmit={handleAddThread}>
-        <InputField
+        <input
           type="text"
           value={title}
           onChange={onTitleChange}
           placeholder="Topic"
           required
         />
-        <InputField
+
+        <input
           type="text"
           value={category}
           onChange={onCategoryChange}
           placeholder="Category"
           required
         />
-        <TextAreaField
+
+        <textarea
           value={body}
           onChange={onBodyChange}
-          placeholder="What would you like to discuss ?"
+          placeholder="What would you like to discuss?"
+          rows={5}
           required
         />
-        <SubmitButton type="submit" loading={isLoading}>
+
+        <button type="submit" disabled={isLoading}>
           {isLoading ? 'Posting...' : 'Post'}
-        </SubmitButton>
+        </button>
       </form>
-    </ThreadFormContainer>
+    </UI.ThreadFormContainer>
   );
 };
 

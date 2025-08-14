@@ -1,53 +1,74 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import useInput from '../../hooks/useInput';
-import {
-  AuthContainer,
-  AuthBox,
-  AuthImageWrapper,
-  AuthImage,
-  AuthForm,
-  AuthHeading,
-  AuthInput,
-  AuthButton,
-  AuthLinkWrapper
-} from '../styled/AuthStyled';
+import * as UI from './AuthStyle';
 
 const RegisterForm = ({ register }) => {
   const [name, onNameChange] = useInput('');
   const [email, onEmailChange] = useInput('');
   const [password, onPasswordChange] = useInput('');
 
-  const handleRegister = (event) => {
-    event.preventDefault();
+  const handleRegister = (e) => {
+    e.preventDefault();
     register({ name, email, password });
   };
 
   return (
-    <AuthContainer>
-      <AuthBox>
-        <AuthImageWrapper>
-          <AuthImage src="icon.webp" alt="Discusser" />
-        </AuthImageWrapper>
-        <AuthHeading>Create Account Discusser</AuthHeading>
-        <AuthForm onSubmit={handleRegister}>
-          <AuthInput type="text" value={name} onChange={onNameChange} placeholder="Name" required />
-          <AuthInput type="email" value={email} onChange={onEmailChange} placeholder="Email" required />
-          <AuthInput type="password" value={password} onChange={onPasswordChange} placeholder="Password" minLength="8" required />
-          <AuthButton type="submit">Register</AuthButton>
-        </AuthForm>
-        <AuthLinkWrapper>
+    <UI.AuthContainer>
+      <UI.AuthBox>
+        <UI.AuthImageWrapper>
+          <UI.AuthImage src="icon.webp" alt="Discusser" />
+        </UI.AuthImageWrapper>
+        <UI.AuthHeading>Create Account Discusser</UI.AuthHeading>
+        <UI.AuthForm onSubmit={handleRegister}>
+
+          <UI.InputWrapper>
+            <UI.InputIcon><UI.FiUser /></UI.InputIcon>
+            <UI.AuthInput
+              type="text"
+              value={name}
+              onChange={onNameChange}
+              placeholder="Name"
+              required
+            />
+          </UI.InputWrapper>
+
+          <UI.InputWrapper>
+            <UI.InputIcon><UI.FiMail /></UI.InputIcon>
+            <UI.AuthInput
+              type="email"
+              value={email}
+              onChange={onEmailChange}
+              placeholder="Email"
+              required
+            />
+          </UI.InputWrapper>
+
+          <UI.InputWrapper>
+            <UI.InputIcon><UI.FiLock /></UI.InputIcon>
+            <UI.AuthInput
+              type="password"
+              value={password}
+              onChange={onPasswordChange}
+              placeholder="Password"
+              minLength="8"
+              required
+            />
+          </UI.InputWrapper>
+
+          <UI.AuthButton type="submit">Register</UI.AuthButton>
+        </UI.AuthForm>
+        <UI.AuthLinkWrapper>
           <span>Already have an account? </span>
-          <Link to="/">Log in here</Link>
-        </AuthLinkWrapper>
-      </AuthBox>
-    </AuthContainer>
+          <a href="/">Log in here</a>
+        </UI.AuthLinkWrapper>
+      </UI.AuthBox>
+    </UI.AuthContainer>
   );
 };
 
 RegisterForm.propTypes = {
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
 };
 
 export default RegisterForm;

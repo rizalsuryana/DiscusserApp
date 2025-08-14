@@ -6,7 +6,6 @@ import CommentList from '../components/comment/CommentList';
 import CommentForm from '../components/comment/CommentForm';
 import { asyncCreateComment } from '../states/comments/action';
 import { asyncReceiveThreadDetail } from '../states/threadDetail/action';
-import Container from '../components/styled/Container';
 
 const DetailPage = () => {
   const { id } = useParams();
@@ -19,7 +18,6 @@ const DetailPage = () => {
     authUser,
   } = useSelector((states) => states);
 
-  // Gunakan state lokal untuk menyimpan komentar terbaru
   const [localComments, setLocalComments] = useState(comments);
 
   useEffect(() => {
@@ -32,7 +30,7 @@ const DetailPage = () => {
 
   const onAddComment = async ({ comment }) => {
     const newComment = {
-      id: `temp-${Date.now()}`, // Buat ID sementara
+      id: `temp-${Date.now()}`,
       content: comment,
       owner: authUser,
       createdAt: new Date().toISOString(),
@@ -40,12 +38,10 @@ const DetailPage = () => {
       downVotesBy: [],
     };
 
-    //  Update state lokal langsung, tanpa menunggu Redux
     setLocalComments((prevComments) => [newComment, ...prevComments]);
 
-    //  Dispatch Redux agar data tetap sinkron dengan backend
     await dispatch(asyncCreateComment({ threadId: id, comment }));
-    dispatch(asyncReceiveThreadDetail(id)); // Ambil ulang data thread
+    dispatch(asyncReceiveThreadDetail(id));
   };
 
   if (!detailThread?.id) {
@@ -53,15 +49,17 @@ const DetailPage = () => {
   }
 
   return (
-    <Container>
-      <div className="detail-thread-scroll">
-        <ThreadItems isDetails threadDetail={detailThread} users={users} />
-        <CommentForm authUser={authUser} comments={comments} onAddComment={onAddComment} />
-        {localComments.map((comment) => (
-          <CommentList key={comment?.id} comment={comment} />
-        ))}
-      </div>
-    </Container>
+    <div>
+      <ThreadItems isDetails threadDetail={detailThread} users={users} />
+      <CommentForm
+        authUser={authUser}
+        comments={comments}
+        onAddComment={onAddComment}
+      />
+      {localComments.map((comment) => (
+        <CommentList key={comment?.id} comment={comment} />
+      ))}
+    </div>
   );
 };
 
