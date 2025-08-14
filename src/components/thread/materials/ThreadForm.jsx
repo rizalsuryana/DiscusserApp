@@ -1,4 +1,3 @@
-// src/components/thread/ThreadForm.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import useInput from '../../../hooks/useInput';
@@ -12,6 +11,7 @@ const ThreadForm = ({ onAddThread }) => {
 
   const handleAddThread = (event) => {
     event.preventDefault();
+    if (!title.trim() || !category.trim() || !body.trim()) return;
     setIsLoading(true);
     onAddThread({ title, category, body });
     setTimeout(() => setIsLoading(false), 1000);

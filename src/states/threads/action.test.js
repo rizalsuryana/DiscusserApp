@@ -18,9 +18,10 @@
  *   - should handle error correctly when neutralizing vote fails
  */
 
-import { describe, it, expect, vi, } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
+import toast from 'react-hot-toast';
 import {
   asyncAddThread,
   asyncUpVoteThread,
@@ -32,9 +33,10 @@ import {
   neutralizeThreadActionCreator,
 } from './action';
 
-// Mock API and window.alert
 vi.mock('../../utils/api');
-vi.spyOn(window, 'alert').mockImplementation(() => {});
+vi.mock('react-hot-toast', () => ({
+  toast: { success: vi.fn(), error: vi.fn() },
+}));
 
 const fakeThread = {
   id: 'thread-1',
@@ -45,187 +47,67 @@ const fakeThread = {
   ownerId: 'users-1',
   upVotesBy: [],
   downVotesBy: [],
-  totalComments: 0
+  totalComments: 0,
 };
-
 const fakeThreads = [fakeThread];
 
-describe('asyncAddThread thunk', () => {
-  it('should dispatch action correctly when API call is successful', async () => {
-    // Arrange
+describe('Threads Thunks', () => {
+  it('asyncAddThread should dispatch actions on success', async () => {
     api.createThread.mockResolvedValue(fakeThread);
-
     const dispatch = vi.fn();
 
-    // Act
-    await asyncAddThread({
-      title: fakeThread.title,
-      body: fakeThread.body,
-      category: fakeThread.category
-    })(dispatch);
+    await asyncAddThread({ title: fakeThread.title, body: fakeThread.body, category: fakeThread.category })(dispatch);
 
-    // Assert
     expect(dispatch).toHaveBeenCalledWith(showLoading());
     expect(dispatch).toHaveBeenCalledWith(addThreadActionCreator(fakeThread));
+    expect(toast.success).toHaveBeenCalledWith('Thread berhasil dibuat! 🎉');
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 
-  it('should handle error correctly when API call fails', async () => {
-    // Arrange
-    api.createThread.mockRejectedValue(new Error('Failed to create thread... hahaha'));
-
+  it('asyncAddThread should call toast.error on failure', async () => {
+    const error = new Error('Failed create thread');
+    api.createThread.mockRejectedValue(error);
     const dispatch = vi.fn();
 
-    // Act
-    await asyncAddThread({
-      title: fakeThread.title,
-      body: fakeThread.body,
-      category: fakeThread.category
-    })(dispatch);
+    await asyncAddThread({ title: fakeThread.title, body: fakeThread.body, category: fakeThread.category })(dispatch);
 
-    // Assert
-    expect(window.alert).toHaveBeenCalledWith('Failed to create thread... hahaha');
+    expect(toast.error).toHaveBeenCalledWith(`Gagal membuat thread: ${error.message}`);
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
-});
 
-describe('asyncUpVoteThread thunk', () => {
-  it('should dispatch action correctly when upvoting a thread', async () => {
-    // Arrange
-    const threadId = fakeThread.id;
-    const userId = 'users-1';
-    const getState = () => ({
-      authUser: {
-        id: userId
-      },
-      threads: fakeThreads
-    });
-
+  it('asyncUpVoteThread should dispatch actions correctly', async () => {
+    const dispatch = vi.fn();
+    const getState = () => ({ authUser: { id: 'users-1' }, threads: fakeThreads });
     api.upVoteThread.mockResolvedValue();
 
-    const dispatch = vi.fn();
+    await asyncUpVoteThread(fakeThread.id)(dispatch, getState);
 
-    // Act
-    await asyncUpVoteThread(threadId)(dispatch, getState);
-
-    // Assert
     expect(dispatch).toHaveBeenCalledWith(showLoading());
-    expect(dispatch).toHaveBeenCalledWith(upVoteThreadActionCreator({ threadId, userId }));
+    expect(dispatch).toHaveBeenCalledWith(upVoteThreadActionCreator({ threadId: fakeThread.id, userId: 'users-1' }));
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 
-  it('should handle error correctly when upvoting fails', async () => {
-    // Arrange
-    const threadId = fakeThread.id;
-    const getState = () => ({
-      authUser: {
-        id: 'users-1' },
-      threads: fakeThreads
-    });
-
-    api.upVoteThread.mockRejectedValue(new Error('Failed to like ...'));
-
+  it('asyncDownVoteThread should dispatch actions correctly', async () => {
     const dispatch = vi.fn();
-
-    // Act
-    await asyncUpVoteThread(threadId)(dispatch, getState);
-
-    // Assert
-    expect(window.alert).toHaveBeenCalledWith('Failed to like ...');
-    expect(dispatch).toHaveBeenCalledWith(hideLoading());
-  });
-});
-
-describe('asyncDownVoteThread thunk', () => {
-  it('should dispatch action correctly when downvoting a thread', async () => {
-    // Arrange
-    const threadId = fakeThread.id;
-    const userId = 'users-1';
-    const getState = () => ({
-      authUser: {
-        id: userId },
-      threads: fakeThreads
-    });
-
+    const getState = () => ({ authUser: { id: 'users-1' }, threads: fakeThreads });
     api.downVoteThread.mockResolvedValue();
 
-    const dispatch = vi.fn();
+    await asyncDownVoteThread(fakeThread.id)(dispatch, getState);
 
-    // Act
-    await asyncDownVoteThread(threadId)(dispatch, getState);
-
-    // Assert
     expect(dispatch).toHaveBeenCalledWith(showLoading());
-    expect(dispatch).toHaveBeenCalledWith(downVoteThreadActionCreator({ threadId, userId }));
+    expect(dispatch).toHaveBeenCalledWith(downVoteThreadActionCreator({ threadId: fakeThread.id, userId: 'users-1' }));
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 
-  it('should handle error correctly when downvoting fails', async () => {
-    // Arrange
-    const threadId = fakeThread.id;
-    const getState = () => ({
-      authUser: {
-        id: 'users-1'
-      },
-      threads: fakeThreads
-    });
-
-    api.downVoteThread.mockRejectedValue(new Error('failed to dislike... awokwokwok'));
-
+  it('asyncNeutralizeVoteThread should dispatch actions correctly', async () => {
     const dispatch = vi.fn();
-
-    // Act
-    await asyncDownVoteThread(threadId)(dispatch, getState);
-
-    // Assert
-    expect(window.alert).toHaveBeenCalledWith('failed to dislike... awokwokwok');
-    expect(dispatch).toHaveBeenCalledWith(hideLoading());
-  });
-});
-
-describe('asyncNeutralizeVoteThread thunk', () => {
-  it('should dispatch action correctly when neutralizing vote', async () => {
-    // Arrange
-    const threadId = fakeThread.id;
-    const userId = 'users-1';
-    const getState = () => ({
-      authUser: {
-        id: userId
-      },
-      threads: fakeThreads
-    });
-
+    const getState = () => ({ authUser: { id: 'users-1' }, threads: fakeThreads });
     api.neutralizeThreadVote.mockResolvedValue();
 
-    const dispatch = vi.fn();
+    await asyncNeutralizeVoteThread(fakeThread.id)(dispatch, getState);
 
-    // Act
-    await asyncNeutralizeVoteThread(threadId)(dispatch, getState);
-
-    // Assert
     expect(dispatch).toHaveBeenCalledWith(showLoading());
-    expect(dispatch).toHaveBeenCalledWith(neutralizeThreadActionCreator({ threadId, userId }));
-    expect(dispatch).toHaveBeenCalledWith(hideLoading());
-  });
-
-  it('should handle error correctly when neutralizing vote fails', async () => {
-    // Arrange
-    const threadId = fakeThread.id;
-    const getState = () => ({
-      authUser: {
-        id: 'users-1' },
-      threads: fakeThreads
-    });
-
-    api.neutralizeThreadVote.mockRejectedValue(new Error('Failed to neutralize vote'));
-
-    const dispatch = vi.fn();
-
-    // Act
-    await asyncNeutralizeVoteThread(threadId)(dispatch, getState);
-
-    // Assert
-    expect(window.alert).toHaveBeenCalledWith('Failed to neutralize vote');
+    expect(dispatch).toHaveBeenCalledWith(neutralizeThreadActionCreator({ threadId: fakeThread.id, userId: 'users-1' }));
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 });

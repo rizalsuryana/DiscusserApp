@@ -12,8 +12,8 @@ import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { asyncSetAuthUser, asyncUnsetAuthUser } from './action';
 import { setAuthUserActionCreator, unsetAuthUserActionCreator } from './action';
 import api from '../../utils/api';
+import toast from 'react-hot-toast';
 import { describe, it, vi, expect, beforeEach, afterEach } from 'vitest';
-
 
 const fakeAuthUser = {
   id: 'user-1',
@@ -29,18 +29,25 @@ describe('asyncSetAuthUser Thunk', () => {
   beforeEach(() => {
     api._login = api.login;
     api._getOwnProfile = api.getOwnProfile;
+    toast._success = toast.success;
+    toast._error = toast.error;
   });
 
   afterEach(() => {
     api.login = api._login;
     api.getOwnProfile = api._getOwnProfile;
+    toast.success = toast._success;
+    toast.error = toast._error;
     delete api._login;
     delete api._getOwnProfile;
+    delete toast._success;
+    delete toast._error;
   });
 
-  it('should dispatch action correctly when login is successful', async () => {
+  it('should dispatch actions correctly when login is successful', async () => {
     api.login = () => Promise.resolve(fakeToken);
     api.getOwnProfile = () => Promise.resolve(fakeAuthUser);
+    toast.success = vi.fn();
 
     const dispatch = vi.fn();
 
@@ -49,23 +56,25 @@ describe('asyncSetAuthUser Thunk', () => {
     expect(dispatch).toHaveBeenCalledWith(showLoading());
     expect(dispatch).toHaveBeenCalledWith(setAuthUserActionCreator(fakeAuthUser));
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
+    expect(toast.success).toHaveBeenCalledWith('Login Berhasil');
   });
 
-  it('should call alert when login fails', async () => {
+  it('should call toast.error when login fails', async () => {
     api.login = () => Promise.reject(fakeErrorResponse);
-    window.alert = vi.fn();
+    toast.error = vi.fn();
 
     const dispatch = vi.fn();
 
     await asyncSetAuthUser({ email: 'john@example.com', password: 'wrong-password' })(dispatch);
 
-    expect(window.alert).toHaveBeenCalledWith(fakeErrorResponse.message);
+    expect(toast.error).toHaveBeenCalledWith(`Silahkan coba kembali ${fakeErrorResponse.message}`);
+    expect(dispatch).toHaveBeenCalledWith(showLoading());
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
   });
 });
 
 describe('asyncUnsetAuthUser Thunk', () => {
-  it('should dispatch action correctly when logging out', () => {
+  it('should dispatch actions correctly when logging out', () => {
     const dispatch = vi.fn();
 
     asyncUnsetAuthUser()(dispatch);
