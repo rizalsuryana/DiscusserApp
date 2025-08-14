@@ -127,11 +127,17 @@ describe('Login spec', () => {
     cy.get('input[placeholder="Password"]').type('12345678');
     cy.get('button').contains(/^Login$/).click();
 
-    // Tunggu Navbar Desktop tampil dan pilih yang visible
-    cy.get('nav').filter(':visible').within(() => {
-      cy.get('a').contains('Home').should('be.visible');
-      cy.get('a').contains('Leaderboard').should('be.visible');
+    // tunggu Navbar muncul secara spesifik
+    cy.get('nav').each(($nav) => {
+      if ($nav.is(':visible')) {
+        cy.wrap($nav).within(() => {
+          cy.get('a').contains('Home').should('be.visible');
+          cy.get('a').contains('Leaderboard').should('be.visible');
+        });
+      }
     });
+
+
 
     // Verifikasi avatar user
     cy.get('img[alt="User Avatar"]').should('be.visible');

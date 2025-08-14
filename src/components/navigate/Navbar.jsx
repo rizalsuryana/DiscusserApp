@@ -29,9 +29,12 @@ const Navbar = ({ signOut, authUser }) => {
       {/* Desktop Navbar */}
       <UI.DesktopNav>
         <UI.LogoContainer>
-          <UI.LogoImage src="/icon.webp" alt="Discusser" />
-          <UI.LogoText>Discusser</UI.LogoText>
+          <a href="https://github.com/rizalsuryana" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+            <UI.LogoImage src="/icon.webp" alt="Discusser" />
+            <UI.LogoName>Discusser</UI.LogoName>
+          </a>
         </UI.LogoContainer>
+
 
         <UI.NavLinks>
           {navItems.map((item) => (
