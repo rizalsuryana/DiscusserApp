@@ -1,5 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
+import toast from 'react-hot-toast';
 
 const ActionType ={
   RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -82,8 +83,9 @@ const asyncAddThread = ({ title, body, category }) => {
       dispatch(showLoading());
       const responseThread = await api.createThread({ title, body, category });
       dispatch(addThreadActionCreator(responseThread));
+      toast.success('Thread berhasil dibuat!  🎉');
     } catch (error) {
-      alert(error?.message);
+      toast.error(`Gagal membuat thread: ${error?.message}`);
     } finally {
       dispatch(hideLoading());
     }
@@ -98,7 +100,7 @@ const asyncUpVoteThread = (threadId) => {
       dispatch(upVoteThreadActionCreator({ threadId, userId: authUser.id }));
       await api.upVoteThread(threadId);
     } catch (error) {
-      alert(error?.message);
+      toast.error(`Silahkan coba kembali ${error.message}`);
       dispatch(receiveThreadsActionCreator(threads));
     } finally {
       dispatch(hideLoading());
@@ -114,7 +116,7 @@ const asyncDownVoteThread = (threadId) => {
       dispatch(downVoteThreadActionCreator({ threadId, userId: authUser.id }));
       await api.downVoteThread(threadId);
     } catch (error) {
-      alert(error?.message);
+      toast.error(`Silahkan coba kembali ${error.message}`);
       dispatch(receiveThreadsActionCreator(threads));
     } finally {
       dispatch(hideLoading());
@@ -130,7 +132,7 @@ const asyncNeutralizeVoteThread = (threadId) => {
       dispatch(neutralizeThreadActionCreator({ threadId, userId: authUser.id }));
       await api.neutralizeThreadVote(threadId);
     } catch (error) {
-      alert(error?.message);
+      toast.error(`Silahkan coba kembali ${error.message}`);
       dispatch(receiveThreadsActionCreator(threads));
     } finally {
       dispatch(hideLoading());
