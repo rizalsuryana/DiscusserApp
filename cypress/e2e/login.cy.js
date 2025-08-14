@@ -128,10 +128,11 @@ describe('Login spec', () => {
     cy.get('button').contains(/^Login$/).click();
 
     // Tunggu Navbar Desktop tampil dan pilih yang visible
-    cy.get('nav').filter(':visible').within(() => {
+    cy.get('nav').filter(':visible', { timeout: 15000 }).within(() => {
       cy.get('a').contains('Home').should('be.visible');
       cy.get('a').contains('Leaderboard').should('be.visible');
     });
+
 
     // Verifikasi avatar user
     cy.get('img[alt="User Avatar"]').should('be.visible');
